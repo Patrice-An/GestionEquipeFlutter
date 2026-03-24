@@ -12,8 +12,8 @@ class MainApp extends StatelessWidget {
     return const MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+        ),
 
-        )
         body: Center(
           child: Text('Mini-Projet', style: TextStyle(fontSize: 40),),
         ),
