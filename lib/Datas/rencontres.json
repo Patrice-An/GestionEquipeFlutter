@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "date": "2018-01-01 10:00:00",
+    "equipe": "G2",
+    "adresse": "Mail des Drolets, 31320 Castanet-Tolosan",
+    "lieu": "EXTERIEUR",
+    "resultat": "DEFAITE"
+  },
+  {
+    "id": 2,
+    "date": "2019-05-02 11:00:00",
+    "equipe": "GEN.G",
+    "adresse": "8 Pont de Zuera, 31520 Ramonville-Saint-Agne",
+    "lieu": "DOMICILE",
+    "resultat": "NUL"
+  },
+  {
+    "id": 3,
+    "date": "2020-06-26 12:00:00",
+    "equipe": "FNATICS",
+    "adresse": "8 Pont de Zuera, 31520 Ramonville-Saint-Agne",
+    "lieu": "DOMICILE",
+    "resultat": "VICTOIRE"
+  },
+  {
+    "id": 4,
+    "date": "2026-07-02 14:00:00",
+    "equipe": "BILIBILI GAMING",
+    "adresse": "Imp. Clément Ader, 31670 Labège",
+    "lieu": "EXTERIEUR",
+    "resultat": null
+  },
+  {
+    "id": 5,
+    "date": "1991-02-03 00:00:00",
+    "equipe": "eux",
+    "adresse": "ici la ou",
+    "lieu": "DOMICILE",
+    "resultat": null
+  },
+  {
+    "id": 6,
+    "date": "1991-02-03 00:00:00",
+    "equipe": "eux",
+    "adresse": "ici la ou",
+    "lieu": "DOMICILE",
+    "resultat": null
+  },
+  {
+    "id": 7,
+    "date": "1991-02-03 00:00:00",
+    "equipe": "eux",
+    "adresse": "ici la ou",
+    "lieu": "DOMICILE",
+    "resultat": null
+  },
+  {
+    "id": 8,
+    "date": "1991-02-03 00:00:00",
+    "equipe": "eux",
+    "adresse": "ici la",
+    "lieu": "DOMICILE",
+    "resultat": null
+  },
+  {
+    "id": 9,
+    "date": "1991-02-03 00:00:00",
+    "equipe": "eux",
+    "adresse": "ici la o",
+    "lieu": "DOMICILE",
+    "resultat": "VICTOIRE"
+  }
+]
