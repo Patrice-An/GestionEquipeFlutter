@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "nom": "ZI-HAO",
+    "prenom": "Jian (Uzi)",
+    "numeroDeLicence": "00001",
+    "dateDeNaissance": "1997-04-05",
+    "tailleEnCm": 175,
+    "poidsEnKg": 65,
+    "statut": "ACTIF"
+  },
+  {
+    "id": 2,
+    "nom": "LARSSON",
+    "prenom": "Martin (Rekkles)",
+    "numeroDeLicence": "00002",
+    "dateDeNaissance": "1996-09-20",
+    "tailleEnCm": 180,
+    "poidsEnKg": 75,
+    "statut": "ACTIF"
+  },
+  {
+    "id": 3,
+    "nom": "SUNG-WOONG",
+    "prenom": "Bae (Bengi)",
+    "numeroDeLicence": "00003",
+    "dateDeNaissance": "1993-11-21",
+    "tailleEnCm": 172,
+    "poidsEnKg": 60,
+    "statut": "ACTIF"
+  },
+  {
+    "id": 4,
+    "nom": "BOYER",
+    "prenom": "Paul (Soaz)",
+    "numeroDeLicence": "00004",
+    "dateDeNaissance": "1994-01-09",
+    "tailleEnCm": 170,
+    "poidsEnKg": 63,
+    "statut": "SUSPENDU"
+  },
+  {
+    "id": 5,
+    "nom": "KIM",
+    "prenom": "Bora (Yellowstar)",
+    "numeroDeLicence": "00005",
+    "dateDeNaissance": "1992-02-15",
+    "tailleEnCm": 165,
+    "poidsEnKg": 60,
+    "statut": "BLESSE"
+  },
+  {
+    "id": 6,
+    "nom": "BJERG",
+    "prenom": "Søren (Bjergsen)",
+    "numeroDeLicence": "00006",
+    "dateDeNaissance": "1996-02-21",
+    "tailleEnCm": 170,
+    "poidsEnKg": 60,
+    "statut": "ABSENT"
+  },
+  {
+    "id": 7,
+    "nom": "KYUNG-HO",
+    "prenom": "Song (Smeb)",
+    "numeroDeLicence": "00007",
+    "dateDeNaissance": "1995-06-30",
+    "tailleEnCm": 165,
+    "poidsEnKg": 60,
+    "statut": "ACTIF"
+  },
+  {
+    "id": 8,
+    "nom": "HYEON-JOON",
+    "prenom": "Choi (Doran)",
+    "numeroDeLicence": "00008",
+    "dateDeNaissance": "2000-07-22",
+    "tailleEnCm": 165,
+    "poidsEnKg": 60,
+    "statut": "ACTIF"
+  },
+  {
+    "id": 9,
+    "nom": "HYEON-JUN",
+    "prenom": "Mun (Oner)",
+    "numeroDeLicence": "00009",
+    "dateDeNaissance": "2002-12-24",
+    "tailleEnCm": 165,
+    "poidsEnKg": 60,
+    "statut": "ACTIF"
+  },
+  {
+    "id": 10,
+    "nom": "SANG-HYEOK",
+    "prenom": "Lee (Faker)",
+    "numeroDeLicence": "00010",
+    "dateDeNaissance": "1996-05-07",
+    "tailleEnCm": 165,
+    "poidsEnKg": 60,
+    "statut": "ACTIF"
+  },
+  {
+    "id": 12,
+    "nom": "test",
+    "prenom": "test2",
+    "numeroDeLicence": "12345",
+    "dateDeNaissance": "1990-02-04",
+    "tailleEnCm": 18,
+    "poidsEnKg": 90,
+    "statut": "BLESSE"
+  },
+  {
+    "id": 16,
+    "nom": "test",
+    "prenom": "test2",
+    "numeroDeLicence": "12345",
+    "dateDeNaissance": "1990-02-04",
+    "tailleEnCm": 18,
+    "poidsEnKg": 90,
+    "statut": "BLESSE"
+  },
+  {
+    "id": 17,
+    "nom": "test",
+    "prenom": "test2",
+    "numeroDeLicence": "12345",
+    "dateDeNaissance": "1990-01-01",
+    "tailleEnCm": 180,
+    "poidsEnKg": 90,
+    "statut": "BLESSE"
+  },
+  {
+    "id": 18,
+    "nom": "test",
+    "prenom": "test2",
+    "numeroDeLicence": "12345",
+    "dateDeNaissance": "1990-01-01",
+    "tailleEnCm": 180,
+    "poidsEnKg": 20,
+    "statut": "BLESSE"
+  },
+  {
+    "id": 19,
+    "nom": "test",
+    "prenom": "test2",
+    "numeroDeLicence": "12345",
+    "dateDeNaissance": "1990-01-01",
+    "tailleEnCm": 180,
+    "poidsEnKg": 20,
+    "statut": "BLESSE"
+  }
+]
