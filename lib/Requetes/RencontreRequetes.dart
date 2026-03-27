@@ -6,13 +6,13 @@ class RencontreRequetes {
   // L'URI vers l'endpoint spécifique
   static const String _uri = 'RencontreEndpoint.php';
 
-  /// Récupère une rencontre par son ID ou toutes les rencontres si l'ID est nul
+  /// Récupère le  json rencontre et le stock
   /// @param id (Optionnel) l'identifiant de la ressource
-  /*
-  static Future<HTTPContainer> get({int? id}) async {
-    return await Requete.get(_uri, id: id);
+
+  static Future<HTTPContainer> get() async {
+    return await Requete.get(_uri);
   }
-  */
+
 
   /// Crée une nouvelle rencontre
   /// @param data Les données de la rencontre sous forme de Map (clé: valeur)
