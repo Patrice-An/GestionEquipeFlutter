@@ -1,5 +1,5 @@
-name: mini_projet_equipen
-description: "A new Flutter project."
+name: mini_projet_equipe20
+description: "Gestion d'une equipe"
 publish_to: 'none'
 version: 0.1.0+1
 
@@ -18,5 +18,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/joueurs.json
 
 

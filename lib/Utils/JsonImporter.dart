@@ -1,42 +1,46 @@
 import 'dart:convert';
-import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+
+import '../Modele/Joueur/Joueur.dart';
+
 void main() async {
-  final String filePath = "../Datas/joueurs.json";
+  WidgetsFlutterBinding.ensureInitialized();
+  final String path = 'assets/joueurs.json';
 
-  // Appel de la fonction
-  Map<String, dynamic>? maMap = await JsonImporter.import(filePath);
+  // On attend maintenant une Liste
+  List<dynamic>? mesJoueurs = await JsonImporter.import(path);
 
-  if (maMap != null) {
-    print('Succès ! Valeur de "nom" : ${maMap['nom']}');
+  if (mesJoueurs != null) {
+    print('Succès ! Nombre de joueurs récupérés : ${mesJoueurs.length}');
+
+    // Exemple : afficher le nom du premier joueur
+    if (mesJoueurs.isNotEmpty) {
+      for(Map<String,dynamic> joueur in mesJoueurs){
+        print('Joueur : ${joueur['prenom']},${joueur['nom']}');
+      }
+    }
   } else {
     print('Échec de la récupération des données.');
   }
 }
+
 class JsonImporter {
-  static Future<Map<String, dynamic>?> import(String filePath) async {
-    final file = File(filePath);
-
+  // Le type de retour est maintenant List<dynamic>
+  static Future<List<dynamic>?> import(String assetPath) async {
     try {
-      // Vérifier si le fichier existe avant de tenter la lecture
-      if (!await file.exists()) {
-        print('Erreur : Le fichier n\'existe pas.');
-        return null;
-      }
-
-      // Lire et décoder
-      final String content = await file.readAsString();
+      final String content = await rootBundle.loadString(assetPath);
       final dynamic decoded = jsonDecode(content);
 
-      // Vérifier si le résultat est bien une Map (et non une Liste ou autre)
-      if (decoded is Map<String, dynamic>) {
+      // On vérifie si c'est une Liste
+      if (decoded is List) {
         return decoded;
       } else {
-        print('Erreur : Le contenu JSON n\'est pas un objet (Map).');
+        print('Erreur : Le JSON n\'est pas une Liste.');
         return null;
       }
     } catch (e) {
-      // Capture les erreurs de syntaxe JSON ou de permission de fichier
-      print('Erreur lors de la conversion : $e');
+      print('Erreur lors de l\'import : $e');
       return null;
     }
   }
