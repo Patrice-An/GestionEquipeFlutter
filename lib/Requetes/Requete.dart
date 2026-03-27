@@ -81,11 +81,10 @@ class Requete {
   }
 
   // --- Méthodes Publiques ---
-  /*
-  static Future<HTTPContainer> get(String uri, {int? id}) async {
-    return _requete(TypeRequete.GET, uri, id: id);
+  static Future<HTTPContainer> get(String uri) async {
+    return _requete(TypeRequete.GET, uri);
   }
-  */
+
   static Future<HTTPContainer> post(String uri, Map<String, dynamic> body) async {
     return _requete(TypeRequete.POST, uri, body: body);
   }

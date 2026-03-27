@@ -8,11 +8,10 @@ class JoueurRequetes {
 
   /// Récupère un joueur par son ID ou tous les joueurs si l'ID est nul
   /// Utilisation : JoueurRequetes.get() ou JoueurRequetes.get(id: 42)
-  /*
-  static Future<HTTPContainer> get({int? id}) async {
-    return await Requete.get(_uri, id: id);
+
+  static Future<HTTPContainer> get() async {
+    return await Requete.get(_uri);
   }
-  */
 
   /// Crée un nouveau joueur
   /// @param data Map contenant les infos du joueur (ex: {'nom': 'Zidane', 'poste': 'Milieu'})
