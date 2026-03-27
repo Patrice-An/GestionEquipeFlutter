@@ -89,15 +89,15 @@ class Joueur {
   }
 
   Map<String,String> toArray() {
-    Map<String,String> array_joueur = <String,String>{};
-    array_joueur.addEntries({"id":this._joueurId.toString()}.entries);
-    array_joueur.addEntries({"nom":this._nom}.entries);
-    array_joueur.addEntries({"prenom":this._prenom}.entries);
-    array_joueur.addEntries({"numeroDeLicence":this._dateDeNaissance.toString()}.entries);
-    array_joueur.addEntries({"tailleEnCm":this._tailleEnCm.toString()}.entries);
-    array_joueur.addEntries({"poidsEnKg":this._poidsEnKg.toString()}.entries);
-    array_joueur.addEntries({"statut":this._statut.toString()}.entries);
-    return array_joueur;
+    Map<String,String> arrayJoueur = <String,String>{};
+    arrayJoueur.addEntries({"id":this._joueurId.toString()}.entries);
+    arrayJoueur.addEntries({"nom":this._nom}.entries);
+    arrayJoueur.addEntries({"prenom":this._prenom}.entries);
+    arrayJoueur.addEntries({"numeroDeLicence":this._dateDeNaissance.toString()}.entries);
+    arrayJoueur.addEntries({"tailleEnCm":this._tailleEnCm.toString()}.entries);
+    arrayJoueur.addEntries({"poidsEnKg":this._poidsEnKg.toString()}.entries);
+    arrayJoueur.addEntries({"statut":this._statut.toString()}.entries);
+    return arrayJoueur;
   }
 }
 

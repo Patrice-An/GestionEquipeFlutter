@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
-class JoueurListView extends Stateless{
+import '../../Modele/Joueur/Joueur.dart';
+import '../../Utils/JsonImporter.dart';
 
-  private List<Joueur> _items;
+
+class JoueurListView extends StatefulWidget{
+
+  List<Joueur> _items = ;
 
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -36,9 +40,24 @@ class JoueurListView extends Stateless{
                   ),
                 ),
           ),
-    )
+    );
   }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
+  }
+
+  void setState(Joueur Function() param0) {}
 
 
 }
 
+void supprimer(Joueur Function() param0){
+
+}
+
+void modifier(Joueur Function() param0){
+
+}

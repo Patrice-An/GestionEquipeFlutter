@@ -9,20 +9,21 @@
 
 | Donnée              | Valeur                     |
 |:--------------------|:---------------------------|
-| **Application**     | [Nom de l'application ici] |
-| **Numéro d'équipe** | [Num équipe]               |
-| **Identifiant 1**   | [abc1234a]                 |
-| **Identifiant 2**   | [def5678b]                 |
+| **Application**     | 			   |
+| **Numéro d'équipe** | 20      	           |
+| **Identifiant 1**   | NTP5569A                   |
+| **Identifiant 2**   | JMN5336A                   |
 
 
 ---
 
 ## 📝 Description du Projet
-[Insérez ici une courte description de votre application (3-5 lignes). Expliquez son but, ses fonctionnalités principales et son public cible.]
+Reprise du projet de R401 pour gérer une équipe de sport depuis son téléphone
 
 ---
 
 ## 🚀 Guide de démarrage / Informations utiles
 
-Ecrivez ici tout ce qui peut être utile à la compilation ou au lancement de l'application.
-Commandes spécifiques, comptes de test (login/mdp), etc.
+login : mr.coach
+mdp : mot2passe
+

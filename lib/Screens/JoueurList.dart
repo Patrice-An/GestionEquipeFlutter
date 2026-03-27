@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
 
-class JoueurList extends StatelessWidget {
 
+void main() {
+  runApp(const MainApp());
+}
 
-  const JoueurList({super.key});
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text("Liste Joueurs"),),
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Historique'),
+        body: const Center(
+          child: Text('Mini-Projet', style: TextStyle(fontSize: 40),),
         ),
-        body:
-        Text("List View Joueurs")
+      ),
     );
   }
 }
+
+
+
 
