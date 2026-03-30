@@ -33,7 +33,6 @@ class AuthRequest {
         body: body,
       );
       final dynamic resultat = jsonDecode(response.body);
-      print(resultat.toString());
       if (resultat == null || response.statusCode != 200) {
         return HTTPContainer.getInstance(response.statusCode);
       }
@@ -73,11 +72,12 @@ class AuthRequest {
 
 //Test de la fonction d'authentification
 void main() async {
-  HTTPContainer resultat = await AuthRequest.askJwt("xxx", "xxx");
+  HTTPContainer resultat = await AuthRequest.askJwt("", "");
   if (resultat.getCode() == 200) {
-    Map<String,dynamic> jwt = resultat.getData();
-    print("JWT : ${jwt["jwt"]}");
-    bool jwtValid = await AuthRequest.isJwtValid(jwt["jwt"]);
+    Map<String,dynamic> tabJwt = resultat.getData();
+    String jwt = tabJwt["jwt"];
+    print("JWT : ${jwt}");
+    bool jwtValid = await AuthRequest.isJwtValid(jwt);
     print("jwt valid : ${jwtValid.toString()}");
   } else {
     print("Erreur gen jwt : ${resultat.getCode()} ${resultat.getMessage()}");

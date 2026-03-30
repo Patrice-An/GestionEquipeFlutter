@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../Modele/Joueur/Joueur.dart';
-import '../../Utils/JsonImporter.dart';
-
+import '../../../Modele/Joueur/Joueur.dart';
 
 class JoueurListView extends StatefulWidget{
 

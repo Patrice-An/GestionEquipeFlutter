@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mini_projet_equipe20/Screens/AddJoueurs.dart';
 
 void main() {
     runApp(const MainApp());
