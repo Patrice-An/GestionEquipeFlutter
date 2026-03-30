@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../Utils/HTTPContainer.dart';
-import '../Utils/TypeRequete.dart';
+import '../../Utils/HTTPContainer.dart';
+import '../../Utils/TypeRequete.dart';
 
 class Requete {
   // Remplace par ton URL de serveur réelle
   static const String servUrl = "http://r401-serv.alwaysdata.net";
 
   // Simulation du stockage JWT (à remplacer par ton gestionnaire d'état ou SecureStorage)
-  static String? userJwt;
+  static String? userJwt="ss";
 
   /// Méthode privée principale pour centraliser les appels cURL
   static Future<HTTPContainer> _requete(
@@ -64,12 +64,10 @@ class Requete {
         return HTTPContainer.getInstance(response.statusCode);
       }
 
-      // Double décodage fidèle à ton PHP : json_decode($datas['data'])
+      // Décodage 2 fois : $datas['data']
       dynamic finalData;
       if (rawDatas['data'] != null) {
-        finalData = (rawDatas['data'] is String)
-            ? jsonDecode(rawDatas['data'])
-            : rawDatas['data'];
+        finalData = (rawDatas['data'] is String) ? jsonDecode(rawDatas['data']) : rawDatas['data'];
       }
 
       return HTTPContainer.getInstance(response.statusCode, finalData);
@@ -100,4 +98,6 @@ class Requete {
   static Future<HTTPContainer> patch(String uri, int id, Map<String, dynamic> body) async {
     return _requete(TypeRequete.PATCH, uri, id: id, body: body);
   }
+
+
 }

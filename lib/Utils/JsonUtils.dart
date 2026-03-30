@@ -5,10 +5,9 @@ import 'package:flutter/widgets.dart';
 
 import 'Files.dart';
 
-// Supposons que l'import de votre modèle est correct
-// import '../Modele/Joueur/Joueur.dart';
+//Test de JSON Utils (!!! REMPLACE L'ANCIEN FICHIER JOUEUR)
 void main() async {
-  // Indispensable pour utiliser path_provider avant runApp()
+  // Initialisation du path provider
   WidgetsFlutterBinding.ensureInitialized();
 
   // Exemple : On simule une sauvegarde (ce qui viendrait de votre serveur)

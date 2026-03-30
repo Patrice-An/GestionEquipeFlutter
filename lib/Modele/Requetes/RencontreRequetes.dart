@@ -1,4 +1,4 @@
-import '../Utils/HTTPContainer.dart';
+import '../../Utils/HTTPContainer.dart';
 import 'Requete.dart';
 
 /// Classe de service pour gérer les requêtes liées aux "Rencontres"
