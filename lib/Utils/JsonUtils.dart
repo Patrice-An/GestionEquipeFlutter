@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/widgets.dart';
 
-import 'Files.dart';
+import 'Paths.dart';
 
 //Test de JSON Utils (!!! REMPLACE L'ANCIEN FICHIER JOUEUR)
 void main() async {
@@ -12,10 +12,10 @@ void main() async {
 
   // Exemple : On simule une sauvegarde (ce qui viendrait de votre serveur)
   String jsonSimule = '[{"nom": "ZI-HAO", "prenom": "Jian"}]';
-  await JsonUtils.save(Files.JOUEURS, jsonSimule);
+  await JsonUtils.save(Paths.JOUEURS, jsonSimule);
 
   // Appel de la fonction d'importation sur le fichier stocké
-  List<dynamic>? mesJoueurs = await JsonUtils.import(Files.JOUEURS);
+  List<dynamic>? mesJoueurs = await JsonUtils.import(Paths.JOUEURS);
 
   if (mesJoueurs != null) {
     print('Succès ! Nombre de joueurs récupérés : ${mesJoueurs.length}');
@@ -32,7 +32,7 @@ void main() async {
 class JsonUtils {
 
   /// Importe une liste depuis le stockage local du mobile
-  static Future<List<dynamic>?> import(Files fileName) async {
+  static Future<List<dynamic>?> import(Paths fileName) async {
     try {
       // 1. Récupérer le dossier de stockage (Documents)
       final Directory directory = await getApplicationDocumentsDirectory();
@@ -60,7 +60,7 @@ class JsonUtils {
   }
 
   /// Sauvegarde une String JSON dans le stockage local du mobile
-  static Future<bool> save(Files fileName, String jsonRaw) async {
+  static Future<bool> save(Paths fileName, String jsonRaw) async {
     try {
       // 1. Trouve le dossier sécurisé sur le téléphone
       final Directory directory = await getApplicationDocumentsDirectory();

@@ -1,16 +1,37 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+
 import '../../Utils/HTTPContainer.dart';
+import '../../Utils/JsonUtils.dart';
+import '../../Utils/Logs.dart';
+import '../../Utils/Paths.dart';
 import 'Requete.dart';
+
+void main() async {
+  // Initialisation du path provider
+  WidgetsFlutterBinding.ensureInitialized();
+  Logs.init();
+  print(await RencontreRequetes.get());
+}
 
 /// Classe de service pour gérer les requêtes liées aux "Rencontres"
 class RencontreRequetes {
   // L'URI vers l'endpoint spécifique
   static const String _uri = 'RencontreEndpoint.php';
 
-  /// Récupère le  json rencontre et le stock
-  /// @param id (Optionnel) l'identifiant de la ressource
-
-  static Future<HTTPContainer> get() async {
-    return await Requete.get(_uri);
+  /// Récupère le json rencontre et le stock
+  static Future<bool> get() async {
+    HTTPContainer recuperation = await Requete.get(_uri);
+    if(recuperation.getCode()!=200){
+      Logs.addInfo(recuperation.getCode().toString());
+      return false;
+    }
+    Map<String,dynamic> data  = recuperation.getData();
+    List<dynamic> liste = data["received"];
+    String json = jsonEncode(liste);
+    JsonUtils.save(Paths.RENCONTRES, json);
+    return true;
   }
 
 

@@ -1,7 +1,7 @@
 import 'package:mini_projet_equipe20/Modele/Requetes/JoueurRequetes.dart';
 
 import '../Modele/Joueur/Joueur.dart';
-import '../Utils/Files.dart';
+import '../Utils/Paths.dart';
 import '../Utils/HTTPContainer.dart';
 import '../Utils/JsonUtils.dart';
 
@@ -19,7 +19,7 @@ class JoueurControleur {
   Future<void> RafraichirListe() async {
     HTTPContainer listeJoueurs = await JoueurRequetes.get();
     if(listeJoueurs.getCode()==200){
-      JsonUtils.save(Files.JOUEURS,listeJoueurs.getData());
+      JsonUtils.save(Files.JOUEURS);
     }else{
 
     }

@@ -2,18 +2,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../../Utils/HTTPContainer.dart';
-
-// Simulation de tes variables globales PHP
-class Config {
-  static const String authUrl = "http://r401-auth.alwaysdata.net/clientapi.php";
-  static const String authKey =
-      "AZeXA/pVPzt#6+U2FZXdtg#c!/S*+w7fAgbT2uBUU-pk6qfmdkJS7F#KVW?N!45z";
-}
+import '../../Utils/Logs.dart';
+import 'Configs.dart';
 
 class AuthRequest {
+
   /// Helper pour générer le header Authorization
   static Map<String, String> _getHeaders() {
-    String base64Key = base64Encode(utf8.encode(Config.authKey));
+    String base64Key = base64Encode(utf8.encode(Configs.getAuthKey()));
     return {'Authorization': base64Key, 'Content-Type': 'application/json'};
   }
 
@@ -28,7 +24,7 @@ class AuthRequest {
       };
       final body = jsonEncode(logins);
       final response = await http.post(
-        Uri.parse(Config.authUrl),
+        Uri.parse(Configs.getAuthUrl()),
         headers: _getHeaders(),
         body: body,
       );
@@ -37,7 +33,9 @@ class AuthRequest {
         return HTTPContainer.getInstance(response.statusCode);
       }
       final decodedData = jsonDecode(resultat['data']);
-      return HTTPContainer.getInstance(200, decodedData);
+      Configs.setJwt(decodedData["jwt"]);
+      Logs.addInfo(Configs.getJwt());
+      return HTTPContainer.getInstance(200);
     } catch (e) {
       return HTTPContainer.getInstance(500);
     }
@@ -45,13 +43,13 @@ class AuthRequest {
 
   /// @param jwt : le client jwt à décoder
   /// @return Future<bool> : le payload décodé (Map) ou false
-  static Future<bool> isJwtValid(String jwt) async {
+  static Future<bool> isJwtValid() async {
     try {
-      final body = jsonEncode({'jwt': 'Bearer $jwt'});
+      final body = jsonEncode({'jwt': 'Bearer ${Configs.getJwt()}'});
 
       //Envoie de la requete avec le body
       //Necessite une requete custom car get par defaut ne prends pas de body
-      var request = http.Request('GET', Uri.parse(Config.authUrl));
+      var request = http.Request('GET', Uri.parse(Configs.getAuthUrl()));
       request.headers.addAll(_getHeaders());
       request.body = body;
 
@@ -63,6 +61,7 @@ class AuthRequest {
       if (code != 200 || datas['data'] == null) {
         return false;
       }
+      Logs.addInfo("JWT OK");
       return true;
     } catch (e) {
       return false;
@@ -72,12 +71,9 @@ class AuthRequest {
 
 //Test de la fonction d'authentification
 void main() async {
-  HTTPContainer resultat = await AuthRequest.askJwt("", "");
+  HTTPContainer resultat = await AuthRequest.askJwt("mr.coach", "mot2passe");
   if (resultat.getCode() == 200) {
-    Map<String,dynamic> tabJwt = resultat.getData();
-    String jwt = tabJwt["jwt"];
-    print("JWT : ${jwt}");
-    bool jwtValid = await AuthRequest.isJwtValid(jwt);
+    bool jwtValid = await AuthRequest.isJwtValid();
     print("jwt valid : ${jwtValid.toString()}");
   } else {
     print("Erreur gen jwt : ${resultat.getCode()} ${resultat.getMessage()}");

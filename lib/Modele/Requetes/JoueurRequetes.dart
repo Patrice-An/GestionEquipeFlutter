@@ -1,5 +1,20 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+
 import '../../Utils/HTTPContainer.dart';
+import '../../Utils/JsonUtils.dart';
+import '../../Utils/Logs.dart';
+import '../../Utils/Paths.dart';
+import 'RencontreRequetes.dart';
 import 'Requete.dart';
+
+void main() async {
+  // Initialisation du path provider
+  WidgetsFlutterBinding.ensureInitialized();
+  Logs.init();
+  print(await JoueurRequetes.get());
+}
 
 /// Classe de service pour gérer les requêtes liées aux "Joueurs"
 class JoueurRequetes {
@@ -9,8 +24,17 @@ class JoueurRequetes {
   /// Récupère un joueur par son ID ou tous les joueurs si l'ID est nul
   /// Utilisation : JoueurRequetes.get() ou JoueurRequetes.get(id: 42)
 
-  static Future<HTTPContainer> get() async {
-    return await Requete.get(_uri);
+  static Future<bool> get() async {
+    HTTPContainer recuperation = await Requete.get(_uri);
+    if(recuperation.getCode()!=200){
+      Logs.addInfo(recuperation.getCode().toString());
+      return false;
+    }
+    Map<String,dynamic> data  = recuperation.getData();
+    List<dynamic> liste = data["received"];
+    String json = jsonEncode(liste);
+    JsonUtils.save(Paths.JOUEURS, json);
+    return true;
   }
 
   /// Crée un nouveau joueur

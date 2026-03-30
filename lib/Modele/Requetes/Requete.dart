@@ -2,14 +2,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../../Utils/HTTPContainer.dart';
+import '../../Utils/Logs.dart';
 import '../../Utils/TypeRequete.dart';
+import './Authentification.dart';
+import 'Configs.dart';
 
 class Requete {
-  // Remplace par ton URL de serveur réelle
-  static const String servUrl = "http://r401-serv.alwaysdata.net";
-
-  // Simulation du stockage JWT (à remplacer par ton gestionnaire d'état ou SecureStorage)
-  static String? userJwt="ss";
 
   /// Méthode privée principale pour centraliser les appels cURL
   static Future<HTTPContainer> _requete(
@@ -18,9 +16,16 @@ class Requete {
         int? id,
         Map<String, dynamic>? body,
       }) async {
+    await AuthRequest.askJwt("mr.coach", "mot2passe");
+    if(!(await AuthRequest.isJwtValid())){
+      Logs.addInfo("Erreur");
+      return HTTPContainer.getInstance(401);
+    }
+    Logs.addInfo("OK");
+
     try {
       // Construction de l'URL avec Query Parameters pour l'ID
-      String urlString = "$servUrl$uri";
+      String urlString = "${Configs.getServUrl()}$uri";
       if (id != null) {
         urlString += "?id=$id";
       }
@@ -28,7 +33,7 @@ class Requete {
 
       // Préparation des headers (Auth en Base64 comme ton script PHP)
       Map<String, String> headers = {
-        'Authorization': base64Encode(utf8.encode(userJwt ?? '')),
+        'Authorization':'Bearer ${Configs.getJwt()}',
         'Content-Type': 'application/json',
       };
 
@@ -58,7 +63,6 @@ class Requete {
       if (response.body.isEmpty) return HTTPContainer.getInstance(500);
 
       final Map<String, dynamic> rawDatas = jsonDecode(response.body);
-
       // Vérification du code HTTP (200-299)
       if (response.statusCode < 200 || response.statusCode >= 300) {
         return HTTPContainer.getInstance(response.statusCode);
@@ -69,7 +73,12 @@ class Requete {
       if (rawDatas['data'] != null) {
         finalData = (rawDatas['data'] is String) ? jsonDecode(rawDatas['data']) : rawDatas['data'];
       }
-
+      if(type == TypeRequete.GET){
+        Map<String, dynamic> map = {
+          "received": finalData
+        };
+        return HTTPContainer.getInstance(response.statusCode, map);
+      }
       return HTTPContainer.getInstance(response.statusCode, finalData);
 
     } catch (e) {
