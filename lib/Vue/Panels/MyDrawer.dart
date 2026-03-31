@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mini_projet_equipe20/Vue/Screens/AddJoueurs.dart';
-import 'package:mini_projet_equipe20/Vue/Screens/Joueur/JoueurListScreen.dart';
 
 import '../Screens/AddMatchs.dart';
 import '../Screens/JoueurList.dart';
 import '../Screens/MatchsList.dart';
+import '../Screens/AddJoueurs.dart';
+import '../Screens/PagePrincipale.dart';
 
 class MyDrawer extends Drawer {
   const MyDrawer({super.key});
@@ -18,6 +18,15 @@ class MyDrawer extends Drawer {
           const DrawerHeader(
             decoration: BoxDecoration(color: Colors.blue),
             child: Text("Menu"),
+          ),
+          ListTile(
+            title: const Text("Menu"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const PagePrincipale()),
+              );
+            },
           ),
           ListTile(
             title: const Text("Liste des Joueurs"),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../Modele/Joueur/Joueur.dart';
+
+
 
 class JoueurListView extends StatefulWidget{
 
-  List<Joueur> _items = ;
 
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, dynamic _items) {
     return ListView.builder(
       // ListView.builder pour afficher une liste dynamique
       itemCount: _items.length,
@@ -18,13 +18,10 @@ class JoueurListView extends StatefulWidget{
               horizontal: 16.0,
             ),
             title: Text(
-              _items[index],
+              "coucou",
               style: const TextStyle(fontSize: 30),
             ),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete),
-              onPressed: () => setState(() => _items.removeAt(index)),
-            ),
+
             // Affichage d'un SnackBar lors du tap sur un item.
             // Le SnackBar est un widget qui affiche un message temporaire en bas de l'écran
             onTap:
@@ -32,7 +29,7 @@ class JoueurListView extends StatefulWidget{
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      'Item sélectionné: ${_items[index]} n°${index + 1}',
+                      'Item sélectionné: ',
                     ),
                     duration: const Duration(seconds: 1),
                   ),

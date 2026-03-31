@@ -9,10 +9,10 @@ class JoueurList extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         drawer: MyDrawer(),
-        appBar: AppBar(title: Text("Ajouter un Joueur"),),
+        appBar: AppBar(title: Text("Liste des Joueurs"),),
 
         body: const Center(
-          child: Text('AddJoueurs', style: TextStyle(fontSize: 40),),
+          child: Text('Liste Joueurs', style: TextStyle(fontSize: 40),),
         ),
       ),
     );
