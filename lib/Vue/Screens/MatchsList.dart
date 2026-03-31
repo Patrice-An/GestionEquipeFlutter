@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:mini_projet_equipe20/Vue/Panels/MyDrawer.dart';
 
-class AfficherMatchs extends StatelessWidget {
+class MatchsList extends StatelessWidget {
 
 
-  const AfficherMatchs({super.key});
+  const MatchsList({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: MyDrawer(),
         appBar: AppBar(
           title: Text('Listes des Matchs'),
         ),

@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:mini_projet_equipe20/Vue/Panels/MyDrawer.dart';
 
 
-void main() {
-  runApp(const MainApp());
-}
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class AddMatchs extends StatelessWidget {
+  const AddMatchs({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        drawer: MyDrawer(),
         appBar: AppBar(title: Text("Ajouter un Match"),),
-
         body: const Center(
-          child: Text('Mini-Projet', style: TextStyle(fontSize: 40),),
+          child: Text('AddMatchs', style: TextStyle(fontSize: 40),),
         ),
       ),
     );
