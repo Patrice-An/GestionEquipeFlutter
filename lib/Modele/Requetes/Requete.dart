@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../../Utils/HTTPContainer.dart';
+import '../../Utils/JsonUtils.dart';
 import '../../Utils/Logs.dart';
+import '../../Utils/Type.dart';
 import '../../Utils/TypeRequete.dart';
 import './Authentification.dart';
 import 'Configs.dart';
@@ -11,21 +13,21 @@ class Requete {
 
   /// Méthode privée principale pour centraliser les appels cURL
   static Future<HTTPContainer> _requete(
-      TypeRequete type,
-      String uri, {
+      TypeRequete typeRequete,
+      TypeObjet typeObjet, {
         int? id,
         Map<String, dynamic>? body,
       }) async {
     await AuthRequest.askJwt("mr.coach", "mot2passe");
     if(!(await AuthRequest.isJwtValid())){
-      Logs.addInfo("Erreur");
+      Logs.addShout("JWT Invalide!");
       return HTTPContainer.getInstance(401);
     }
-    Logs.addInfo("OK");
+    Logs.addInfo("JWT Valide");
 
     try {
       // Construction de l'URL avec Query Parameters pour l'ID
-      String urlString = "${Configs.getServUrl()}$uri";
+      String urlString = "${Configs.getServUrl()}${typeObjet.getUri()}";
       if (id != null) {
         urlString += "?id=$id";
       }
@@ -41,7 +43,7 @@ class Requete {
       String? jsonBody = body != null ? jsonEncode(body) : null;
 
       // Exécution selon le type (Mapping de l'enum)
-      switch (type) {
+      switch (typeRequete) {
         case TypeRequete.GET:
           response = await http.get(url, headers: headers);
           break;
@@ -62,24 +64,22 @@ class Requete {
       // Traitement du retour
       if (response.body.isEmpty) return HTTPContainer.getInstance(500);
 
-      final Map<String, dynamic> rawDatas = jsonDecode(response.body);
+      final Map<String, dynamic> result = jsonDecode(response.body);
       // Vérification du code HTTP (200-299)
       if (response.statusCode < 200 || response.statusCode >= 300) {
         return HTTPContainer.getInstance(response.statusCode);
       }
+      //TO-DO AJOUTER TYPE CONTENANT URL+TYPE
+      if(typeRequete == TypeRequete.GET){
+        JsonUtils.save(typeObjet.getPath(), result['data']);
+        return HTTPContainer.getInstance(response.statusCode);
+      }
 
-      // Décodage 2 fois : $datas['data']
-      dynamic finalData;
-      if (rawDatas['data'] != null) {
-        finalData = (rawDatas['data'] is String) ? jsonDecode(rawDatas['data']) : rawDatas['data'];
+      dynamic data;
+      if (result['data'] != null) {
+        data = (result['data'] is String) ? jsonDecode(result['data']) : result['data'];
       }
-      if(type == TypeRequete.GET){
-        Map<String, dynamic> map = {
-          "received": finalData
-        };
-        return HTTPContainer.getInstance(response.statusCode, map);
-      }
-      return HTTPContainer.getInstance(response.statusCode, finalData);
+      return HTTPContainer.getInstance(response.statusCode, data);
 
     } catch (e) {
       print("Erreur réseau: $e");
@@ -88,24 +88,24 @@ class Requete {
   }
 
   // --- Méthodes Publiques ---
-  static Future<HTTPContainer> get(String uri) async {
-    return _requete(TypeRequete.GET, uri);
+  static Future<HTTPContainer> get(TypeObjet type) async {
+    return _requete(TypeRequete.GET, type);
   }
 
-  static Future<HTTPContainer> post(String uri, Map<String, dynamic> body) async {
-    return _requete(TypeRequete.POST, uri, body: body);
+  static Future<HTTPContainer> post(TypeObjet type, Map<String, dynamic> body) async {
+    return _requete(TypeRequete.POST, type, body: body);
   }
 
-  static Future<HTTPContainer> delete(String uri, int id) async {
-    return _requete(TypeRequete.DELETE, uri, id: id);
+  static Future<HTTPContainer> delete(TypeObjet type, int id) async {
+    return _requete(TypeRequete.DELETE, type, id: id);
   }
 
-  static Future<HTTPContainer> put(String uri, int id, Map<String, dynamic> body) async {
-    return _requete(TypeRequete.PUT, uri, id: id, body: body);
+  static Future<HTTPContainer> put(TypeObjet type, int id, Map<String, dynamic> body) async {
+    return _requete(TypeRequete.PUT, type, id: id, body: body);
   }
 
-  static Future<HTTPContainer> patch(String uri, int id, Map<String, dynamic> body) async {
-    return _requete(TypeRequete.PATCH, uri, id: id, body: body);
+  static Future<HTTPContainer> patch(TypeObjet type, int id, Map<String, dynamic> body) async {
+    return _requete(TypeRequete.PATCH, type, id: id, body: body);
   }
 
 

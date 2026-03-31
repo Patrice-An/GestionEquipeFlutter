@@ -7,12 +7,12 @@
 
 ## 📋 Fiche d'identification
 
-| Donnée              | Valeur                     |
-|:--------------------|:---------------------------|
-| **Application**     | 			   |
-| **Numéro d'équipe** | 20      	           |
-| **Identifiant 1**   | NTP5569A                   |
-| **Identifiant 2**   | JMN5336A                   |
+| Donnée              | Valeur         |
+|:--------------------|:---------------|
+| **Application**     | Gest'Equipe			 |
+| **Numéro d'équipe** | 20      	      |
+| **Identifiant 1**   | NTP5569A       |
+| **Identifiant 2**   | JMN5336A       |
 
 
 ---
