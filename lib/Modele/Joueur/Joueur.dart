@@ -88,7 +88,7 @@ class Joueur {
     this._statut = statut;
   }
 
-  Map<String,String> toArray() {
+  Map<String,dynamic> toArray() {
     Map<String,String> arrayJoueur = <String,String>{};
     arrayJoueur.addEntries({"id":this._joueurId.toString()}.entries);
     arrayJoueur.addEntries({"nom":this._nom}.entries);
@@ -98,6 +98,21 @@ class Joueur {
     arrayJoueur.addEntries({"poidsEnKg":this._poidsEnKg.toString()}.entries);
     arrayJoueur.addEntries({"statut":this._statut.toString()}.entries);
     return arrayJoueur;
+  }
+
+  static Joueur fromArray(Map<String,dynamic> joueurArray) {
+    DateTime dateDeNaissance = DateTime.parse(joueurArray["dateDeNaissance"]);
+    JoueurStatut joueurStatut = JoueurStatutGetter.fromName(joueurArray["statut"])!;
+    return Joueur(
+        joueurArray["joueurId"],
+        joueurArray["nom"],
+        joueurArray["prenom"],
+        joueurArray["numeroDeLicence"],
+        dateDeNaissance,
+        joueurArray["tailleEnCm"],
+        joueurArray["poidsEnKg"],
+        joueurStatut
+    );
   }
 }
 

@@ -70,7 +70,7 @@ class Rencontre {
     this._resultat = resultat;
   }
   
-  Map<String,String> toArray() {
+  Map<String,dynamic> toArray() {
     Map<String,String> array_rencontre = <String,String>{};
     array_rencontre.addEntries({"id":this._rencontreId.toString()}.entries);
     array_rencontre.addEntries({"nom":this._equipeAdverse}.entries);
@@ -81,6 +81,20 @@ class Rencontre {
       array_rencontre.addEntries({"resultat": this._resultat.toString()}.entries);
     }
     return array_rencontre;
+  }
+
+  static Rencontre fromArray(Map<String,dynamic> rencontreArray) {
+    DateTime dateEtHeure = DateTime.parse(rencontreArray["dateEtHeure"]);
+    RencontreLieu lieu = RencontreLieuGetter.fromName(rencontreArray["lieu"])!;
+    RencontreResultat? resultat = RencontreResultatGetter.fromName(rencontreArray["resultat"]);
+    return Rencontre(
+        rencontreArray["rencontreId"],
+        dateEtHeure,
+        rencontreArray["equipeAdverse"],
+        rencontreArray["adresse"],
+        lieu,
+        resultat
+    );
   }
 }
 
