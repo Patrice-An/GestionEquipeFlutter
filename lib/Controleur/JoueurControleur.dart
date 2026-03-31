@@ -1,6 +1,7 @@
-import 'package:mini_projet_equipe20/Modele/Requetes/JoueurRequetes.dart';
+import 'package:GestEquipe/Modele/Requetes/JoueurRequetes.dart';
 
 import '../Modele/Joueur/Joueur.dart';
+import '../Modele/Requetes/JoueurRequetes.dart';
 import '../Utils/Type.dart';
 import '../Utils/HTTPContainer.dart';
 import '../Utils/JsonUtils.dart';

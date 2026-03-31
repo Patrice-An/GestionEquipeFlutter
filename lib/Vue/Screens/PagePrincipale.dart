@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mini_projet_equipe20/Vue/Panels/MyDrawer.dart';
+import '../Panels/MyDrawer.dart';
 import 'AddMatchs.dart';
+import 'MainLayout.dart';
 
 
 class PagePrincipale extends StatelessWidget {
@@ -8,15 +9,12 @@ class PagePrincipale extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: Text("Accueil")),
-        drawer: const MyDrawer(),
-        body: const Center(
+      return MainLayout(
+        title: "Accueil",
+        child: const Center(
           //TODO Le Body doit pouvoir afficher le prochain match et le dernier match Jouer
           child: Text('Mini-Projet', style: TextStyle(fontSize: 40)),
         ),
-      ),
-    );
+      );
   }
 }

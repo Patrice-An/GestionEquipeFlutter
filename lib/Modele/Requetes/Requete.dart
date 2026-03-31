@@ -69,7 +69,7 @@ class Requete {
       if (response.statusCode < 200 || response.statusCode >= 300) {
         return HTTPContainer.getInstance(response.statusCode);
       }
-      //TO-DO AJOUTER TYPE CONTENANT URL+TYPE
+
       if(typeRequete == TypeRequete.GET){
         JsonUtils.save(typeObjet.getPath(), result['data']);
         return HTTPContainer.getInstance(response.statusCode);

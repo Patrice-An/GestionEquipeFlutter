@@ -19,48 +19,57 @@ class MyDrawer extends Drawer {
             decoration: BoxDecoration(color: Colors.blue),
             child: Text("Menu"),
           ),
+
           ListTile(
-            title: const Text("Menu"),
+            title: const Text('Menu Principal'),
             onTap: () {
-              Navigator.push(
+              Navigator.pop(context);
+              Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (_) => const PagePrincipale()),
+                MaterialPageRoute(builder: (context) => const PagePrincipale()),
               );
             },
           ),
+
           ListTile(
             title: const Text("Liste des Joueurs"),
             onTap: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const JoueurList()),
+                MaterialPageRoute(builder: (context) => const JoueurList()),
               );
             },
           ),
+
           ListTile(
             title: const Text("Liste des Matchs"),
             onTap: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const MatchsList()),
+                MaterialPageRoute(builder: (context) => const MatchsList()),
               );
             },
           ),
+
           ListTile(
             title: const Text("Ajouter un Joueur"),
             onTap: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const AddJoueurs()),
+                MaterialPageRoute(builder: (context) => const AddJoueurs()),
               );
             },
           ),
           ListTile(
             title: const Text("Ajouter un Match"),
             onTap: () {
+              Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const AddMatchs()),
+                MaterialPageRoute(builder: (context) => const AddMatchs()),
               );
             },
           ),

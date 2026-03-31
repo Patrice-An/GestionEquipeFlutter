@@ -1,7 +1,8 @@
-import 'package:mini_projet_equipe20/Modele/Requetes/JoueurRequetes.dart';
-import 'package:mini_projet_equipe20/Modele/Requetes/RencontreRequetes.dart';
+import 'package:GestEquipe/Modele/Requetes/RencontreRequetes.dart';
 
 import '../Modele/Rencontre/Rencontre.dart';
+import '../Modele/Rencontre/RencontreResultat.dart';
+import '../Modele/Requetes/RencontreRequetes.dart';
 import '../Utils/Type.dart';
 import '../Utils/HTTPContainer.dart';
 import '../Utils/JsonUtils.dart';
@@ -18,7 +19,7 @@ class RencontreControleur {
   }
 
   static Future<bool> RafraichirListe() async{
-    bool reussiteImport = await JoueurRequetes.get();
+    bool reussiteImport = await RencontreRequetes.get();
     return reussiteImport;
   }
 
@@ -75,6 +76,15 @@ class RencontreControleur {
       return false;
     }
     RencontreControleur.RafraichirListe();
+    return true;
+  }
+
+  Future<bool> enregistrerResultat(int id, Rencontre rencontre,RencontreResultat resultat) async{
+    rencontre.setResultat(resultat);
+    HTTPContainer result = await RencontreRequetes.patch(id,rencontre.toArray());
+    if(result.getCode()!=204){
+      return false;
+    }
     return true;
   }
 
