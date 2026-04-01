@@ -23,7 +23,7 @@ class RencontreControleur {
     return reussiteImport;
   }
 
-  Future<Set<Rencontre>> getAllRencontre() async{
+  Future<Set<Rencontre>> getAllRencontres() async{
     List<dynamic>? json = await JsonUtils.import(_type.getPath());
     Set<Rencontre> listeJoueur = <Rencontre>{};
     if(json!=null){

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../Panels/MyDrawer.dart';
 import 'MainLayout.dart';
 
-class AddMatchs extends StatelessWidget {
-  const AddMatchs({super.key});
+class RencontreAdd extends StatelessWidget {
+  const RencontreAdd({super.key});
 
   @override
   Widget build(BuildContext context) {

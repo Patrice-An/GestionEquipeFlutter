@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../Screens/AddMatchs.dart';
+import '../Screens/RencontreAdd.dart';
 import '../Screens/JoueurList.dart';
-import '../Screens/MatchsList.dart';
-import '../Screens/AddJoueurs.dart';
+import '../Screens/RencontreList.dart';
+import '../Screens/JoueursAdd.dart';
 import '../Screens/PagePrincipale.dart';
 
 class MyDrawer extends Drawer {
@@ -48,7 +48,7 @@ class MyDrawer extends Drawer {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const MatchsList()),
+                MaterialPageRoute(builder: (context) => RencontreList()),
               );
             },
           ),
@@ -59,7 +59,7 @@ class MyDrawer extends Drawer {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AddJoueurs()),
+                MaterialPageRoute(builder: (context) => const JoueurAdd()),
               );
             },
           ),
@@ -69,7 +69,7 @@ class MyDrawer extends Drawer {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const AddMatchs()),
+                MaterialPageRoute(builder: (context) => const RencontreAdd()),
               );
             },
           ),

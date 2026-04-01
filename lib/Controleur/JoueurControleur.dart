@@ -22,7 +22,7 @@ class JoueurControleur {
     return reussiteImport;
   }
 
-  Future<Set<Joueur>> getAllJoueur() async{
+  Future<Set<Joueur>> getAllJoueurs() async{
     List<dynamic>? json = await JsonUtils.import(_type.getPath());
     Set<Joueur> listeJoueur = <Joueur>{};
     if(json!=null){

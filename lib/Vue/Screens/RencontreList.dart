@@ -1,14 +1,48 @@
+import 'package:GestEquipe/Controleur/RencontreControleur.dart';
 import 'package:flutter/material.dart';
+import '../../Modele/Rencontre/Rencontre.dart';
 import '../Panels/MyDrawer.dart';
 import 'MainLayout.dart';
 
-class MatchsList extends StatelessWidget {
-  const MatchsList({super.key});
+class RencontreList extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _RencontreListState();
+}
+
+class _RencontreListState extends State<RencontreList> {
+  final RencontreControleur _c = RencontreControleur.getInstance();
+
+  Set<Rencontre> _rencontres;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _chargerDonnees(); // On lance le chargement au démarrage
+  }
+
+  // Appelé lors de la création de l'écran
+  Future<void> _chargerDonnees() async {
+    setState(() => _isLoading = true);
+    try {
+      final data = await _c.getAllRencontres();
+      setState(() {
+        _rencontres = data;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() => _isLoading = false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return MainLayout(
       title: "Liste des Matchs",
+      reloadButton: ElevatedButton(
+        onPressed: reload,
+        child: Icon(Icons.replay),
+      ),
       child: Container(
         width: double.infinity,
         //Permet de prendre toute la largeur de l'écran
@@ -39,5 +73,10 @@ class MatchsList extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void reload() {
+    RencontreControleur.RafraichirListe();
+    setState(() {});
   }
 }

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../Panels/MyDrawer.dart';
 import 'MainLayout.dart';
 
-class AddJoueurs extends StatelessWidget {
-  const AddJoueurs({super.key});
+class JoueurAdd extends StatelessWidget {
+  const JoueurAdd({super.key});
 
   @override
   Widget build(BuildContext context) {

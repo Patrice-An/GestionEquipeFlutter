@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../../../Modele/Joueur/Joueur.dart';
+
 
 class JoueurListView extends StatefulWidget{
-
+  final JoueurControleur _c;
+  const JoueurListView(this._c);
 
   Widget build(BuildContext context, dynamic _items) {
-    return ListView.builder(
+    return FutureBuilder<Set<Joueur>>(
+      future: c.,
+      builder: (BuildContext context, AsyncSnapshot<Set<Joueur>> snapshot) {  },
+
+    );
+      ListView.builder(
       // ListView.builder pour afficher une liste dynamique
       itemCount: _items.length,
       itemBuilder:
@@ -44,13 +52,12 @@ class JoueurListView extends StatefulWidget{
 
   void setState(Joueur Function() param0) {}
 
+  }
 
-}
+  void supprimer(Joueur Function() param0){
 
-void supprimer(Joueur Function() param0){
+  }
 
-}
+  void modifier(Joueur Function() param0){
 
-void modifier(Joueur Function() param0){
-
-}
+  }
