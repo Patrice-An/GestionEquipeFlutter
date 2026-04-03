@@ -6,9 +6,12 @@ enum RencontreResultat {
 
 //Recuperer le Resultat
 extension RencontreResultatGetter on RencontreResultat{
-  static RencontreResultat? fromName(String name){
+  static RencontreResultat? fromName(String? name){
+    if(name==null){
+      return null;
+    }
     for (var value in RencontreResultat.values) {
-      if(name==value){
+      if(name==value.name){
         return value;
       }
     }

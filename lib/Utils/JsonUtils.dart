@@ -40,7 +40,7 @@ class JsonUtils {
       // 1. Récupérer le dossier de stockage (Documents)
       final Directory directory = await getApplicationDocumentsDirectory();
       final File file = File('${directory.path}/${fileName}');
-
+      
       // 2. Vérifier si le fichier existe avant de lire
       if (await file.exists()) {
         final String content = await file.readAsString();

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../Screens/RencontreAdd.dart';
+import '../Screens/Rencontre/RencontreAdd.dart';
 import '../Screens/JoueurList.dart';
-import '../Screens/RencontreList.dart';
+import '../Screens/Rencontre/RencontreList.dart';
 import '../Screens/JoueursAdd.dart';
 import '../Screens/PagePrincipale.dart';
 

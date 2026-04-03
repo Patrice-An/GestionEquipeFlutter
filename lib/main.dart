@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'Vue/Panels/MyDrawer.dart';
 import 'Vue/Screens/PagePrincipale.dart';
+import 'Vue/Screens/Rencontre/RencontreProvider.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {

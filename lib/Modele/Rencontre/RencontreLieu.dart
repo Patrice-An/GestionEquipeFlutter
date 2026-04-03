@@ -7,7 +7,7 @@ enum RencontreLieu {
 extension RencontreLieuGetter on RencontreLieu{
   static RencontreLieu? fromName(String name){
     for (var value in RencontreLieu.values) {
-      if(name==value){
+      if(name==value.name){
         return value;
       }
     }
