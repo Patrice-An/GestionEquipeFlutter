@@ -1,4 +1,6 @@
+import 'package:GestEquipe/l10n/app_localizations_en.dart';
 import 'package:flutter/material.dart';
+import '../../l10n/app_localizations.dart';
 import '../Panels/MyDrawer.dart';
 import 'Rencontre/RencontreAdd.dart';
 import 'MainLayout.dart';
@@ -10,7 +12,7 @@ class PagePrincipale extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
       return MainLayout(
-        title: "Accueil",
+        title: AppLocalizations.of(context)!.accueil,
         child: const Center(
           //TODO Le Body doit pouvoir afficher le prochain match et le dernier match Jouer
           child: Text('Mini-Projet', style: TextStyle(fontSize: 40)),

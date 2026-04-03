@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import '../../../Controleur/RencontreControleur.dart';
 import '../../../Modele/Rencontre/Rencontre.dart';
+import '../../../l10n/app_localizations.dart';
 import 'RencontreProvider.dart';
 
 class RencontreListView extends StatefulWidget {
@@ -22,11 +24,12 @@ class RencontreListViewState extends State<RencontreListView> {
       return const Center(child: CircularProgressIndicator());
     }
     if (provider.getRencontres().isEmpty) {
-      return const Center(child: Text("Aucun rencontres trouvé."));
+      return Center(child: Text(AppLocalizations.of(context)!.norencontrefound));
     }
-    print("Fichier rencontres chargés.");
-    return Column(
-      children: generer(provider.getRencontres())
+    return Scrollable(
+      viewportBuilder: (BuildContext context, ViewportOffset position) {
+        return Column(children: generer(provider.getRencontres()));
+      },
     );
   }
 
@@ -35,29 +38,26 @@ class RencontreListViewState extends State<RencontreListView> {
   void afficherEcranModifierRencontre(Rencontre rencontre) {}
 
   List<Widget> generer(Set<Rencontre> rencontres) {
-    List<Widget> lignes= [];
-    for(Rencontre rencontre in rencontres){
+    List<Widget> lignes = [];
+    for (Rencontre rencontre in rencontres) {
       lignes.add(creerLigne(rencontre));
     }
     return lignes;
   }
 
-  Widget creerLigne(Rencontre rencontre){
+  Widget creerLigne(Rencontre rencontre) {
     return SizedBox(
-      width:double.infinity,
-      height:24,
-        child : Scrollable(
-          viewportBuilder: (){
-            return Column(
-              children: [
-                Text(rencontre.getEquipeAdverse()),
-                Text(rencontre.getDateEtHeure().toString()),
-                Text(rencontre.getLieu().name),
-                Text(rencontre.getAdresse())
-              ],
-            ),}
-        )
-
+      width: double.infinity,
+      child: Column(
+        children: [
+          Text(rencontre.getEquipeAdverse()),
+          Text(rencontre.getDateEtHeure().toString()),
+          Text(rencontre.getLieu().name),
+          Text(rencontre.getAdresse()),
+          //TODO Rajouter bouton suppr
+          //TODO Rajouter bouton modifier
+        ],
+      ),
     );
   }
 }

@@ -1,0 +1,10 @@
+{
+  "accueil": "Home",
+  "nojoueurfound": "No player found!",
+  "norencontrefound": "No match found!",
+  "listjoueur": "Players list",
+  "listrencontre": "Matches List",
+  "addrencontre": "Add a match",
+  "addjoueur": "Add a player",
+  "mainmenu": "Main Menu"
+}

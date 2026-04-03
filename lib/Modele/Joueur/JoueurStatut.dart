@@ -9,7 +9,7 @@ enum JoueurStatut {
 extension JoueurStatutGetter on JoueurStatut{
   static JoueurStatut? fromName(String name){
     for (var value in JoueurStatut.values) {
-      if(name==value){
+      if(name==value.name){
         return value;
       }
     }

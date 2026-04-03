@@ -1,9 +1,10 @@
+import 'package:GestEquipe/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
+import '../Screens/Joueur/JoueurAdd.dart';
+import '../Screens/Joueur/JoueurList.dart';
 import '../Screens/Rencontre/RencontreAdd.dart';
-import '../Screens/JoueurList.dart';
 import '../Screens/Rencontre/RencontreList.dart';
-import '../Screens/JoueursAdd.dart';
 import '../Screens/PagePrincipale.dart';
 
 class MyDrawer extends Drawer {
@@ -21,7 +22,7 @@ class MyDrawer extends Drawer {
           ),
 
           ListTile(
-            title: const Text('Menu Principal'),
+            title: Text(AppLocalizations.of(context)!.mainmenu),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushReplacement(
@@ -32,18 +33,18 @@ class MyDrawer extends Drawer {
           ),
 
           ListTile(
-            title: const Text("Liste des Joueurs"),
+            title: Text(AppLocalizations.of(context)!.listjoueur),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const JoueurList()),
+                MaterialPageRoute(builder: (context) => JoueurList()),
               );
             },
           ),
 
           ListTile(
-            title: const Text("Liste des Matchs"),
+            title: Text(AppLocalizations.of(context)!.listrencontre),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
@@ -54,22 +55,22 @@ class MyDrawer extends Drawer {
           ),
 
           ListTile(
-            title: const Text("Ajouter un Joueur"),
+            title: Text(AppLocalizations.of(context)!.addjoueur),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const JoueurAdd()),
+                MaterialPageRoute(builder: (context) => JoueurAdd()),
               );
             },
           ),
           ListTile(
-            title: const Text("Ajouter un Match"),
+            title: Text(AppLocalizations.of(context)!.addrencontre),
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const RencontreAdd()),
+                MaterialPageRoute(builder: (context) => RencontreAdd()),
               );
             },
           ),

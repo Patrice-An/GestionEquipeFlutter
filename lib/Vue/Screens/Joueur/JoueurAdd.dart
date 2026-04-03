@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../Panels/MyDrawer.dart';
-import 'MainLayout.dart';
+import '../../../l10n/app_localizations.dart';
+import '../MainLayout.dart';
+import '../../Panels/MyDrawer.dart';
+import '../MainLayout.dart';
 
 class JoueurAdd extends StatelessWidget {
   const JoueurAdd({super.key});
@@ -17,7 +19,7 @@ class JoueurAdd extends StatelessWidget {
             TextField(
               keyboardType: TextInputType.number,//Permet de définir le type de clavier à afficher
               decoration: const InputDecoration(
-                labelText: 'N° Licence',
+                labelText: "N° Licence",
                 hintText: '1059969',
                 border: OutlineInputBorder(),
               ),

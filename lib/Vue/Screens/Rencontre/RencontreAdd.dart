@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../Panels/MyDrawer.dart';
 import '../MainLayout.dart';
 
@@ -8,7 +9,7 @@ class RencontreAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainLayout(
-      title: 'Ajouter une Match',
+      title: AppLocalizations.of(context)!.addrencontre,
       child:Padding(
         padding: const EdgeInsets.all(10.0),
         child:  Column(
