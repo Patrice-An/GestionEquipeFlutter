@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../Panels/MyDrawer.dart';
-import 'MainLayout.dart';
+import '../../Panels/MyDrawer.dart';
+import '../MainLayout.dart';
 
 class RencontreAdd extends StatelessWidget {
   const RencontreAdd({super.key});

@@ -1,64 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../Controleur/RencontreControleur.dart';
 import '../../../Modele/Rencontre/Rencontre.dart';
+import 'RencontreProvider.dart';
 
+class RencontreListView extends StatefulWidget {
+  const RencontreListView({super.key});
 
-class RencontreListView extends StatefulWidget{
-  final RencontreControleur _c;
-  const RencontreListView(this._c);
+  @override
+  State<StatefulWidget> createState() => RencontreListViewState();
+}
 
-  Widget build(BuildContext context, dynamic _items) {
-    return FutureBuilder<Set<Rencontre>>(
-      future: this._c.getAllRencontres(),
-      builder: (BuildContext context, AsyncSnapshot<Set<Rencontre>> snapshot) {
-        ListView.builder(
-          // ListView.builder pour afficher une liste dynamique
-          itemCount: _items.length,
-          itemBuilder:
-              (context, index) =>
-              ListTile(
-                // ListTile est un gabarit généralement utilisé pour afficher un item de ListView
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                ),
-                title: Text(
-                  "coucou",
-                  style: const TextStyle(fontSize: 30),
-                ),
+class RencontreListViewState extends State<RencontreListView> {
+  final RencontreControleur _c = RencontreControleur.getInstance();
 
-                // Affichage d'un SnackBar lors du tap sur un item.
-                // Le SnackBar est un widget qui affiche un message temporaire en bas de l'écran
-                onTap:
-                    () =>
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'Item sélectionné: ',
-                        ),
-                        duration: const Duration(seconds: 1),
-                      ),
-                    ),
-              ),
-        );
-      },
+  @override
+  Widget build(BuildContext context) {
+    final provider = context.watch<RencontreProvider>();
+    if (provider.isLoading()) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    if (provider.getRencontres().isEmpty) {
+      return const Center(child: Text("Aucun rencontres trouvé."));
+    }
+    print("Fichier rencontres chargés.");
+    return Column(
+      children: generer(provider.getRencontres())
     );
   }
 
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
+  void supprimerRencontre(Rencontre rencontre) {}
+
+  void afficherEcranModifierRencontre(Rencontre rencontre) {}
+
+  List<Widget> generer(Set<Rencontre> rencontres) {
+    List<Widget> lignes= [];
+    for(Rencontre rencontre in rencontres){
+      lignes.add(creerLigne(rencontre));
+    }
+    return lignes;
   }
 
-  void setState(Joueur Function() param0) {
+  Widget creerLigne(Rencontre rencontre){
+    return SizedBox(
+      width:double.infinity,
+      height:24,
+        child : Scrollable(
+          viewportBuilder: (){
+            return Column(
+              children: [
+                Text(rencontre.getEquipeAdverse()),
+                Text(rencontre.getDateEtHeure().toString()),
+                Text(rencontre.getLieu().name),
+                Text(rencontre.getAdresse())
+              ],
+            ),}
+        )
 
+    );
   }
-
-  void supprimer(Joueur Function() param0){
-
-  }
-
-  void modifier(Joueur Function() param0){
-
-  }
+}

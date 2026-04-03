@@ -85,10 +85,10 @@ class Rencontre {
 
   static Rencontre fromArray(Map<String,dynamic> rencontreArray) {
     DateTime dateEtHeure = DateTime.parse(rencontreArray["dateEtHeure"]);
-    RencontreLieu lieu = RencontreLieuGetter.fromName(rencontreArray["lieu"])!;
+    RencontreLieu lieu = (RencontreLieuGetter.fromName(rencontreArray["lieu"]))!;
     RencontreResultat? resultat = RencontreResultatGetter.fromName(rencontreArray["resultat"]);
     return Rencontre(
-        rencontreArray["rencontreId"],
+        rencontreArray["id"],
         dateEtHeure,
         rencontreArray["equipeAdverse"],
         rencontreArray["adresse"],

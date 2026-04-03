@@ -104,7 +104,7 @@ class Joueur {
     DateTime dateDeNaissance = DateTime.parse(joueurArray["dateDeNaissance"]);
     JoueurStatut joueurStatut = JoueurStatutGetter.fromName(joueurArray["statut"])!;
     return Joueur(
-        joueurArray["joueurId"],
+        joueurArray["id"],
         joueurArray["nom"],
         joueurArray["prenom"],
         joueurArray["numeroDeLicence"],

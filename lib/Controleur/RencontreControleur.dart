@@ -10,7 +10,7 @@ import '../Utils/JsonUtils.dart';
 class RencontreControleur {
 
   static RencontreControleur? _instance;
-  static TypeObjet _type = TypeObjet.JOUEURS;
+  static TypeObjet _type = TypeObjet.RENCONTRES;
   RencontreControleur._internal();
 
   static RencontreControleur getInstance() {
@@ -25,13 +25,14 @@ class RencontreControleur {
 
   Future<Set<Rencontre>> getAllRencontres() async{
     List<dynamic>? json = await JsonUtils.import(_type.getPath());
-    Set<Rencontre> listeJoueur = <Rencontre>{};
+    Set<Rencontre> listeRencontre = <Rencontre>{};
     if(json!=null){
-      for(Map<String,dynamic> joueurArray in json){
-        listeJoueur.add(Rencontre.fromArray(joueurArray));
+      for(Map<String,dynamic> rencontreArray in json){
+        print(rencontreArray);
+        listeRencontre.add(Rencontre.fromArray(rencontreArray));
       }
     }
-    return listeJoueur;
+    return listeRencontre;
   }
 
   Future<Rencontre?> getRencontre(int idRecherche) async {
