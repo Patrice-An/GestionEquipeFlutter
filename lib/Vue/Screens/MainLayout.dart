@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../Panels/MyDrawer.dart';
+import '../Utils/Couleurs.dart';
 
 class MainLayout extends StatelessWidget {
   final String title;
@@ -15,7 +16,7 @@ class MainLayout extends StatelessWidget {
       floatingActionButton: reloadButton,
       appBar: AppBar(
         title: Text(title),
-        backgroundColor: Colors.blueGrey, // Exemple de style centralisé
+        backgroundColor: Couleurs.secondaire,
       ),
       drawer: const MyDrawer(),
       body: child,

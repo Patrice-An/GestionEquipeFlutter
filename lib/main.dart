@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'Utils/Logs.dart';
 import 'Vue/Screens/PagePrincipale.dart';
 import 'Vue/Screens/Rencontre/RencontreProvider.dart';
 import 'l10n/app_localizations.dart';
@@ -14,6 +15,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Logs.init();
     return ChangeNotifierProvider(
         create: (_) =>
         RencontreProvider()..chargerDonnees(),
@@ -29,7 +31,8 @@ class MainApp extends StatelessWidget {
                 Locale('en'),
                 Locale('fr')
               ],
-              title: "GestEquipe", home: PagePrincipale());
+              title: "GestEquipe", home: PagePrincipale()
+          );
         }
     );
   }

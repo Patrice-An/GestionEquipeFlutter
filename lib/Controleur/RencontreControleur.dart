@@ -28,7 +28,6 @@ class RencontreControleur {
     Set<Rencontre> listeRencontre = <Rencontre>{};
     if(json!=null){
       for(Map<String,dynamic> rencontreArray in json){
-        print(rencontreArray);
         listeRencontre.add(Rencontre.fromArray(rencontreArray));
       }
     }
@@ -98,4 +97,51 @@ class RencontreControleur {
     RencontreControleur.RafraichirListe();
     return true;
   }
+
+  Future<Set<Rencontre>> getRencontresPassees() async {
+    Set<Rencontre> rencontres = await getAllRencontres();
+
+    //Filtrage avant
+    List<Rencontre> listeFiltree = rencontres
+        .where((rencontre) => rencontre.getDateEtHeure().isBefore(DateTime.now()))
+        .toList();
+
+    //Tri par date
+    listeFiltree.sort((a, b) => a.getDateEtHeure().compareTo(b.getDateEtHeure()));
+
+    //Reconversion en set
+    return listeFiltree.toSet();
+  }
+
+  Future<Rencontre?> getDerniereRencontre() async {
+    Set<Rencontre> rencontrePasses = await getRencontresPassees();
+    if(rencontrePasses.isNotEmpty){
+      return rencontrePasses.last;
+    }
+    return null;
+  }
+
+  Future<Set<Rencontre>> getRencontresAVenir() async {
+    Set<Rencontre> rencontres = await getAllRencontres();
+
+    //Filtrage apres
+    List<Rencontre> listeFiltree = rencontres
+        .where((rencontre) => rencontre.getDateEtHeure().isAfter(DateTime.now()))
+        .toList();
+
+    //Tri par date
+    listeFiltree.sort((a, b) => a.getDateEtHeure().compareTo(b.getDateEtHeure()));
+
+    //Reconversion en set
+    return listeFiltree.toSet();
+  }
+
+  Future<Rencontre?> getProchaineRencontre() async {
+    Set<Rencontre> rencontreAVenir = await getRencontresAVenir();
+    if(rencontreAVenir.isNotEmpty){
+      return rencontreAVenir.first;
+    }
+    return null;
+  }
+
 }

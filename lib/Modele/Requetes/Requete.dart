@@ -23,7 +23,6 @@ class Requete {
       Logs.addShout("JWT Invalide!");
       return HTTPContainer.getInstance(401);
     }
-    Logs.addInfo("JWT Valide");
 
     try {
       // Construction de l'URL avec Query Parameters pour l'ID

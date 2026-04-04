@@ -6,6 +6,7 @@ import '../Screens/Joueur/JoueurList.dart';
 import '../Screens/Rencontre/RencontreAdd.dart';
 import '../Screens/Rencontre/RencontreList.dart';
 import '../Screens/PagePrincipale.dart';
+import '../Utils/Couleurs.dart';
 
 class MyDrawer extends Drawer {
   const MyDrawer({super.key});
@@ -16,9 +17,9 @@ class MyDrawer extends Drawer {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(color: Colors.blue),
-            child: Text("Menu"),
+          DrawerHeader(
+            decoration: BoxDecoration(color: Couleurs.principale),
+            child: const Text("Menu"),
           ),
 
           ListTile(

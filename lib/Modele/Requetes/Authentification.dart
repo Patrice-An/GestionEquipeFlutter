@@ -34,7 +34,7 @@ class AuthRequest {
       }
       final decodedData = jsonDecode(resultat['data']);
       Configs.setJwt(decodedData["jwt"]);
-      Logs.addInfo(Configs.getJwt());
+      Logs.addInfo("JWT récupéré.");
       return HTTPContainer.getInstance(200);
     } catch (e) {
       return HTTPContainer.getInstance(500);
@@ -61,7 +61,7 @@ class AuthRequest {
       if (code != 200 || datas['data'] == null) {
         return false;
       }
-      Logs.addInfo("JWT OK");
+      Logs.addInfo("JWT validé.");
       return true;
     } catch (e) {
       return false;
@@ -74,7 +74,6 @@ void main() async {
   HTTPContainer resultat = await AuthRequest.askJwt("mr.coach", "mot2passe");
   if (resultat.getCode() == 200) {
     bool jwtValid = await AuthRequest.isJwtValid();
-    print("jwt valid : ${jwtValid.toString()}");
   } else {
     print("Erreur gen jwt : ${resultat.getCode()} ${resultat.getMessage()}");
   }
