@@ -7,6 +7,8 @@ import 'RencontreListView.dart';
 import 'RencontreProvider.dart';
 
 class RencontreList extends StatelessWidget {
+  const RencontreList({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,8 @@ class RencontreList extends StatelessWidget {
             onPressed: () => context.read<RencontreProvider>().rafraichir(),
             child: const Icon(Icons.replay)
           ),
-          child: RencontreListView()
+          child:
+            RencontreListView()
         );
       }
     );
