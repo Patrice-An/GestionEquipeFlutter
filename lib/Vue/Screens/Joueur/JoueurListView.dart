@@ -37,19 +37,19 @@ class JoueurListViewState extends State<JoueurListView> {
 
   Future<void> _supprimerJoueur(Joueur joueur) async {
     if(!await _c.suppprimerJoueur(joueur.getJoueurId().toInt())){
-      _showSnackBar(AppLocalizations.of(context)!.faildeleteplayer)
+      _showSnackBar(AppLocalizations.of(context)!.faildeletejoueur);
     };
     context.read<JoueurProvider>().rafraichir();
-    _showSnackBar(AppLocalizations.of(context)!.successdeleteplayer);
+    _showSnackBar(AppLocalizations.of(context)!.successdeletejoueur);
   }
 
   void _afficherEcranModifierRencontre(Joueur joueur) {
     // PASSAGE DE PARAMETRE VERS l'ECRAN MODIF
-    if(false/*TODO OUVRIR ECRAN MODIF*/){
-      _showSnackBar(AppLocalizations.of(context)!.failmodifplayer)
-    };
+    /*if(false/*TODO OUVRIR ECRAN MODIF*/){
+      _showSnackBar(AppLocalizations.of(context)!.failmodifjoueur)
+    };*/
     context.read<JoueurProvider>().rafraichir();
-    _showSnackBar(AppLocalizations.of(context)!.successmodifplayer);
+    _showSnackBar(AppLocalizations.of(context)!.successmodifjoueur);
   }
 
   void _showSnackBar(String message) {
@@ -77,13 +77,13 @@ class JoueurListViewState extends State<JoueurListView> {
           Text(joueur.getStatut().name),
           TextButton(
             style: ButtonStyle(
-              backgroundColor: Colors.red,
+              //backgroundColor: Colors.red,
             ),
               onPressed: (){_supprimerJoueur;},
               child: Text(AppLocalizations.of(context)!.addjoueur)
           ),
           TextButton(
-              onPressed: _afficherEcranModifierRencontre,
+              onPressed: (){_afficherEcranModifierRencontre;},
               child: Text(AppLocalizations.of(context)!.addjoueur)
           )
         ],

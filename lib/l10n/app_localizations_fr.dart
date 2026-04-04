@@ -33,31 +33,31 @@ class AppLocalizationsFr extends AppLocalizations {
   String get mainmenu => 'Menu Principal';
 
   @override
-  String get failaddplayerlicence => 'La licence doit etre un nombre';
+  String get failaddjoueurlicence => 'La licence doit être un nombre';
 
   @override
-  String get failaddplayernom => 'Le nom ne peut pas etre vide';
+  String get failaddjoueurnom => 'Le nom ne peut pas être vide';
 
   @override
-  String get failaddplayerprenom => 'Le prenom ne peut pas etre vide';
+  String get failaddjoueurprenom => 'Le prénom ne peut pas être vide';
 
   @override
-  String get failaddplayerpoids => 'Le poids doit etre un nombre';
+  String get failaddjoueurpoids => 'Le poids doit être un nombre';
 
   @override
-  String get failaddplayertaille => 'La taille doit etre un nombre';
+  String get failaddjoueurtaille => 'La taille doit être un nombre';
 
   @override
-  String get failaddplayerdate => 'La date de naissance ne doit pas etre vide';
+  String get failaddjoueurdate => 'La date de naissance ne peut pas être vide';
 
   @override
-  String get failaddplayerstatut => 'Le statut du joueur est incorrect';
+  String get failaddjoueurstatut => 'Le statut ne peut pas être vide';
 
   @override
-  String get failaddplayer => 'Echec de l\'ajout du joueur';
+  String get failaddjoueur => 'L\'ajout du joueur a échoué';
 
   @override
-  String get successaddplayer => 'Ajout du joueur réussi!';
+  String get successaddjoueur => 'Le joueur a été ajouté avec succès';
 
   @override
   String get failaddrencontre => 'L\'ajout de la rencontre a échoué';
@@ -97,4 +97,29 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get labeldate => 'Date de naissance';
+
+  @override
+  String get failmodifjoueur => 'La modification du joueur a échoué';
+
+  @override
+  String get successmodifjoueur => 'Le joueur a été modifié avec succès';
+
+  @override
+  String get faildeletejoueur => 'La suppression du joueur a échoué';
+
+  @override
+  String get successdeletejoueur => 'Le joueur a été supprimé avec succès';
+
+  @override
+  String get faildeleterencontre => 'La suppression de la rencontre a échoué';
+
+  @override
+  String get successdeleterencontre =>
+      'La rencontre a été supprimée avec succès';
+
+  @override
+  String get failmodifrencontre => 'La modification de la rencontre a échoué';
+
+  @override
+  String get successmodifrencontre => 'La rencontre a été modifiée avec succès';
 }

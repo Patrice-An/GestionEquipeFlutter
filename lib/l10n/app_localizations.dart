@@ -146,59 +146,59 @@ abstract class AppLocalizations {
   /// **'Main Menu'**
   String get mainmenu;
 
-  /// No description provided for @failaddplayerlicence.
+  /// No description provided for @failaddjoueurlicence.
   ///
   /// In en, this message translates to:
   /// **'The licence must be a number'**
-  String get failaddplayerlicence;
+  String get failaddjoueurlicence;
 
-  /// No description provided for @failaddplayernom.
+  /// No description provided for @failaddjoueurnom.
   ///
   /// In en, this message translates to:
   /// **'The name can\'t be empty'**
-  String get failaddplayernom;
+  String get failaddjoueurnom;
 
-  /// No description provided for @failaddplayerprenom.
+  /// No description provided for @failaddjoueurprenom.
   ///
   /// In en, this message translates to:
   /// **'The first name can\'t be empty'**
-  String get failaddplayerprenom;
+  String get failaddjoueurprenom;
 
-  /// No description provided for @failaddplayerpoids.
+  /// No description provided for @failaddjoueurpoids.
   ///
   /// In en, this message translates to:
   /// **'The weight must be a number'**
-  String get failaddplayerpoids;
+  String get failaddjoueurpoids;
 
-  /// No description provided for @failaddplayertaille.
+  /// No description provided for @failaddjoueurtaille.
   ///
   /// In en, this message translates to:
   /// **'The height must be a number'**
-  String get failaddplayertaille;
+  String get failaddjoueurtaille;
 
-  /// No description provided for @failaddplayerdate.
+  /// No description provided for @failaddjoueurdate.
   ///
   /// In en, this message translates to:
   /// **'The birth date can\'t be empty'**
-  String get failaddplayerdate;
+  String get failaddjoueurdate;
 
-  /// No description provided for @failaddplayerstatut.
+  /// No description provided for @failaddjoueurstatut.
   ///
   /// In en, this message translates to:
   /// **'The status can\'t be empty'**
-  String get failaddplayerstatut;
+  String get failaddjoueurstatut;
 
-  /// No description provided for @failaddplayer.
+  /// No description provided for @failaddjoueur.
   ///
   /// In en, this message translates to:
   /// **'The player adding operation failed'**
-  String get failaddplayer;
+  String get failaddjoueur;
 
-  /// No description provided for @successaddplayer.
+  /// No description provided for @successaddjoueur.
   ///
   /// In en, this message translates to:
   /// **'The player has been successfully added'**
-  String get successaddplayer;
+  String get successaddjoueur;
 
   /// No description provided for @failaddrencontre.
   ///
@@ -277,6 +277,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Birth date'**
   String get labeldate;
+
+  /// No description provided for @failmodifjoueur.
+  ///
+  /// In en, this message translates to:
+  /// **'The player modification operation failed'**
+  String get failmodifjoueur;
+
+  /// No description provided for @successmodifjoueur.
+  ///
+  /// In en, this message translates to:
+  /// **'The player has been successfully modified'**
+  String get successmodifjoueur;
+
+  /// No description provided for @faildeletejoueur.
+  ///
+  /// In en, this message translates to:
+  /// **'The player deletion operation failed'**
+  String get faildeletejoueur;
+
+  /// No description provided for @successdeletejoueur.
+  ///
+  /// In en, this message translates to:
+  /// **'The player has been successfully deleted'**
+  String get successdeletejoueur;
+
+  /// No description provided for @faildeleterencontre.
+  ///
+  /// In en, this message translates to:
+  /// **'The match deletion operation failed'**
+  String get faildeleterencontre;
+
+  /// No description provided for @successdeleterencontre.
+  ///
+  /// In en, this message translates to:
+  /// **'The match has been successfully deleted'**
+  String get successdeleterencontre;
+
+  /// No description provided for @failmodifrencontre.
+  ///
+  /// In en, this message translates to:
+  /// **'The match modification operation failed'**
+  String get failmodifrencontre;
+
+  /// No description provided for @successmodifrencontre.
+  ///
+  /// In en, this message translates to:
+  /// **'The match has been successfully modified'**
+  String get successmodifrencontre;
 }
 
 class _AppLocalizationsDelegate

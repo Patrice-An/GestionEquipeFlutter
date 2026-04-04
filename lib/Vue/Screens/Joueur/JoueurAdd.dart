@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:GestEquipe/Controleur/JoueurControleur.dart';
 import 'package:flutter/material.dart';
@@ -7,17 +6,15 @@ import '../../../Modele/Joueur/Joueur.dart';
 import '../../../Modele/Joueur/JoueurStatut.dart';
 import '../../../l10n/app_localizations.dart';
 import '../MainLayout.dart';
-import '../../Panels/MyDrawer.dart';
-import '../MainLayout.dart';
 
 class JoueurAdd extends StatelessWidget {
 
-  JoueurControleur _controleur = JoueurControleur.getInstance();
-  TextEditingController _licenceControleur = TextEditingController();
-  TextEditingController _nomControleur = TextEditingController();
-  TextEditingController _prenomControleur = TextEditingController();
-  TextEditingController _tailleControleur = TextEditingController();
-  TextEditingController _poidsControleur = TextEditingController();
+  final JoueurControleur _controleur = JoueurControleur.getInstance();
+  final TextEditingController _licenceControleur = TextEditingController();
+  final TextEditingController _nomControleur = TextEditingController();
+  final TextEditingController _prenomControleur = TextEditingController();
+  final TextEditingController _tailleControleur = TextEditingController();
+  final TextEditingController _poidsControleur = TextEditingController();
   JoueurStatut? _statutSelectionne;
   DateTime? _dateNaissance;
 

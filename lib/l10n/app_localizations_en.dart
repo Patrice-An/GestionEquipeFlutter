@@ -33,31 +33,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mainmenu => 'Main Menu';
 
   @override
-  String get failaddplayerlicence => 'The licence must be a number';
+  String get failaddjoueurlicence => 'The licence must be a number';
 
   @override
-  String get failaddplayernom => 'The name can\'t be empty';
+  String get failaddjoueurnom => 'The name can\'t be empty';
 
   @override
-  String get failaddplayerprenom => 'The first name can\'t be empty';
+  String get failaddjoueurprenom => 'The first name can\'t be empty';
 
   @override
-  String get failaddplayerpoids => 'The weight must be a number';
+  String get failaddjoueurpoids => 'The weight must be a number';
 
   @override
-  String get failaddplayertaille => 'The height must be a number';
+  String get failaddjoueurtaille => 'The height must be a number';
 
   @override
-  String get failaddplayerdate => 'The birth date can\'t be empty';
+  String get failaddjoueurdate => 'The birth date can\'t be empty';
 
   @override
-  String get failaddplayerstatut => 'The status can\'t be empty';
+  String get failaddjoueurstatut => 'The status can\'t be empty';
 
   @override
-  String get failaddplayer => 'The player adding operation failed';
+  String get failaddjoueur => 'The player adding operation failed';
 
   @override
-  String get successaddplayer => 'The player has been successfully added';
+  String get successaddjoueur => 'The player has been successfully added';
 
   @override
   String get failaddrencontre => 'The match adding operation failed';
@@ -97,4 +97,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get labeldate => 'Birth date';
+
+  @override
+  String get failmodifjoueur => 'The player modification operation failed';
+
+  @override
+  String get successmodifjoueur => 'The player has been successfully modified';
+
+  @override
+  String get faildeletejoueur => 'The player deletion operation failed';
+
+  @override
+  String get successdeletejoueur => 'The player has been successfully deleted';
+
+  @override
+  String get faildeleterencontre => 'The match deletion operation failed';
+
+  @override
+  String get successdeleterencontre =>
+      'The match has been successfully deleted';
+
+  @override
+  String get failmodifrencontre => 'The match modification operation failed';
+
+  @override
+  String get successmodifrencontre =>
+      'The match has been successfully modified';
 }
