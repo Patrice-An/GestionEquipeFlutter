@@ -37,7 +37,7 @@ class JoueurListViewState extends State<JoueurListView> {
 
   Future<void> _supprimerJoueur(Joueur joueur) async {
     if(!await _c.suppprimerJoueur(joueur.getJoueurId().toInt())){
-      _showSnackBar(AppLocalizations.of(context)!.faildeleteplayer);
+      _showSnackBar(AppLocalizations.of(context)!.faildeleteplayer)
     };
     context.read<JoueurProvider>().rafraichir();
     _showSnackBar(AppLocalizations.of(context)!.successdeleteplayer);
@@ -77,13 +77,13 @@ class JoueurListViewState extends State<JoueurListView> {
           Text(joueur.getStatut().name),
           TextButton(
             style: ButtonStyle(
-              //backgroundColor: Color.fromRGBO(0, 14, 100, 0),
+              backgroundColor: Colors.red,
             ),
               onPressed: (){_supprimerJoueur;},
               child: Text(AppLocalizations.of(context)!.addjoueur)
           ),
           TextButton(
-              onPressed: () {_afficherEcranModifierRencontre;},
+              onPressed: _afficherEcranModifierRencontre,
               child: Text(AppLocalizations.of(context)!.addjoueur)
           )
         ],
