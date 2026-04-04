@@ -9,23 +9,15 @@ import 'RencontreProvider.dart';
 class RencontreList extends StatelessWidget {
   const RencontreList({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) =>
-      RencontreProvider()..chargerDonnees(),
-      builder: (context, child) {
-        return MainLayout(
-          title: AppLocalizations.of(context)!.listrencontre,
-          reloadButton: ElevatedButton(
-            onPressed: () => context.read<RencontreProvider>().rafraichir(),
-            child: const Icon(Icons.replay)
-          ),
-          child:
-            RencontreListView()
-        );
-      }
+    return MainLayout(
+      title: AppLocalizations.of(context)!.listrencontre,
+      reloadButton: ElevatedButton(
+        onPressed: () => context.read<RencontreProvider>().rafraichir(),
+        child: const Icon(Icons.replay),
+      ),
+      child: RencontreListView(),
     );
   }
 }

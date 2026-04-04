@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'Vue/Screens/PagePrincipale.dart';
+import 'Vue/Screens/Rencontre/RencontreProvider.dart';
 import 'l10n/app_localizations.dart';
 
 void main() {
@@ -12,17 +14,23 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: [
-          Locale('en'),
-          Locale('fr')
-        ],
-        title: "GestEquipe", home: PagePrincipale());
+    return ChangeNotifierProvider(
+        create: (_) =>
+        RencontreProvider()..chargerDonnees(),
+        builder: (context, child) {
+          return MaterialApp(
+              localizationsDelegates: [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: [
+                Locale('en'),
+                Locale('fr')
+              ],
+              title: "GestEquipe", home: PagePrincipale());
+        }
+    );
   }
 }
