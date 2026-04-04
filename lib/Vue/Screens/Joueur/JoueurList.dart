@@ -17,11 +17,11 @@ class JoueurList extends StatelessWidget {
       builder: (context, child) {
         return MainLayout(
           title: AppLocalizations.of(context)!.listjoueur,
-          child: JoueurListView(),
           reloadButton: ElevatedButton(
             onPressed: () => context.read<JoueurProvider>().rafraichir(),
             child: const Icon(Icons.replay)
           ),
+          child: JoueurListView()
         );
       }
     );

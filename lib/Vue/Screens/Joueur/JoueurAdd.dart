@@ -1,71 +1,171 @@
+import 'dart:io';
+
+import 'package:GestEquipe/Controleur/JoueurControleur.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import '../../../Modele/Joueur/Joueur.dart';
+import '../../../Modele/Joueur/JoueurStatut.dart';
 import '../../../l10n/app_localizations.dart';
 import '../MainLayout.dart';
 import '../../Panels/MyDrawer.dart';
 import '../MainLayout.dart';
 
 class JoueurAdd extends StatelessWidget {
-  const JoueurAdd({super.key});
+
+  JoueurControleur _controleur = JoueurControleur.getInstance();
+  TextEditingController _licenceControleur = TextEditingController();
+  TextEditingController _nomControleur = TextEditingController();
+  TextEditingController _prenomControleur = TextEditingController();
+  TextEditingController _tailleControleur = TextEditingController();
+  TextEditingController _poidsControleur = TextEditingController();
+  JoueurStatut? _statutSelectionne;
+  DateTime? _dateNaissance;
+
+  JoueurAdd({super.key});
+  BuildContext? _context;
+
+
+
+  void vider() {
+    _licenceControleur.dispose();
+    _nomControleur.dispose();
+    _prenomControleur.dispose();
+    _tailleControleur.dispose();
+    _poidsControleur.dispose();
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(_context!).showSnackBar(
+      SnackBar(content: Text(message), duration: const Duration(seconds: 3)),
+    );
+  }
+
+  Future<void> _ajouterJoueur() async {
+    final localizations = AppLocalizations.of(this._context!)!;
+
+    if (_licenceControleur.text.isEmpty) return _showSnackBar(localizations.failaddplayerlicence);
+    if (_nomControleur.text.isEmpty) return _showSnackBar(localizations.failaddplayernom);
+    if (_prenomControleur.text.isEmpty) return _showSnackBar(localizations.failaddplayerprenom);
+    if (_poidsControleur.text.isEmpty) return _showSnackBar(localizations.failaddplayerpoids);
+    if (_tailleControleur.text.isEmpty) return _showSnackBar(localizations.failaddplayertaille);
+    if (_dateNaissance == null) return _showSnackBar(localizations.failaddplayerdate);
+    if (_statutSelectionne == null) return _showSnackBar(localizations.failaddplayerstatut);
+
+    Joueur nouveauJoueur = Joueur(
+      0,
+      _nomControleur.text,
+      _prenomControleur.text,
+      _licenceControleur.text,
+      _dateNaissance!,
+      num.parse(_tailleControleur.text),
+      num.parse(_poidsControleur.text),
+      _statutSelectionne!,
+    );
+
+    if (await _controleur.creerJoueur(nouveauJoueur)) {
+        _showSnackBar(localizations.successaddplayer);
+        Navigator.pop(this._context!);
+    } else {
+      _showSnackBar(localizations.failaddplayer);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    this._context = context;
     return MainLayout(
-      title: "Ajout d'un Joueur",
-      child:Padding(
+      title: AppLocalizations.of(context)!.addjoueur,
+      child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child:  Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            TextField(
-              keyboardType: TextInputType.number,//Permet de définir le type de clavier à afficher
-              decoration: const InputDecoration(
-                labelText: "N° Licence",
-                hintText: '1059969',
-                border: OutlineInputBorder(),
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+                controller: _licenceControleur,
+                keyboardType: TextInputType.number,
+                //Permet de définir le type de clavier à afficher
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.labellicence,//"N° Licence",
+                  hintText: AppLocalizations.of(context)!.hintlicence,//'1059969',
+                  border: const OutlineInputBorder(),
+                ),
               ),
-            ),
-            TextField(
-              keyboardType: TextInputType.name,//Permet de définir le type de clavier à afficher
-              decoration: const InputDecoration(
-                labelText: 'Nom',
-                hintText: 'Ex: LABRIQUE',
-                border: OutlineInputBorder(),
+
+              TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow("a-zA-Z")
+                ],
+                controller: _nomControleur,
+                keyboardType: TextInputType.name,
+                //Permet de définir le type de clavier à afficher
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.labelnom,//'Nom',
+                  hintText: AppLocalizations.of(context)!.labelnom,//'Ex: LABRIQUE',
+                  border: const OutlineInputBorder(),
+                ),
               ),
-            ),
-            TextField(
-              keyboardType: TextInputType.name,//Permet de définir le type de clavier à afficher
-              decoration: const InputDecoration(
-                labelText: 'Prénom',
-                hintText: 'Ex: Bob',
-                border: OutlineInputBorder(),
+
+              TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow("a-zA-Z")
+                ],
+                controller: _prenomControleur,
+                keyboardType: TextInputType.name,
+                //Permet de définir le type de clavier à afficher
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.labelprenom,//'Prénom',
+                  hintText: AppLocalizations.of(context)!.hintprenom,//'Ex: Bob',
+                  border: const OutlineInputBorder(),
+                ),
               ),
-            ),
-            InputDatePickerFormField(
-              firstDate: DateTime(1900),
-              lastDate: DateTime.now(),
-              fieldLabelText: 'Date de naissance',
-            ),
-            TextField(
-              keyboardType: TextInputType.number,//Permet de définir le type de clavier à afficher
-              decoration: const InputDecoration(
-                labelText: 'Poids (kg)',
-                hintText: 'Entre 30 et 300 kg',
-                border: OutlineInputBorder(),
+              InputDatePickerFormField(
+                firstDate: DateTime(1900),
+                lastDate: DateTime.now(),
+                fieldLabelText: AppLocalizations.of(context)!.labeldate,
               ),
-            ),
-            TextField(
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Taille (cm)',
-                hintText: 'Entre 50 et 250 cm',
-                border: OutlineInputBorder(),
+
+              TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+                controller: _poidsControleur,
+                keyboardType: TextInputType.number,
+                //Permet de définir le type de clavier à afficher
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.labelpoids,//'Poids (kg)',
+                  hintText: AppLocalizations.of(context)!.hintpoids,//'Entre 30 et 300 kg',
+                  border: const OutlineInputBorder(),
+                ),
               ),
-            ),
-            TextButton(onPressed: (){}, child: Text("Ajouter le joueur"),)
-          ]
+
+              TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+                controller: _tailleControleur,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.labeltaille,//'Taille (cm)'
+                  hintText: AppLocalizations.of(context)!.hinttaille,//'Entre 50 et 250 cm',
+                  border: const OutlineInputBorder(),
+                ),
+              ),
+
+              DropdownButton(
+                  items: JoueurStatut.values.cast(),
+                  onChanged: (value){_statutSelectionne=value as JoueurStatut;}
+              ),
+
+              TextButton(
+                  onPressed: _ajouterJoueur,
+                  child: Text(AppLocalizations.of(context)!.addjoueur)
+              )
+            ]
         ),
       ),
-
     );
   }
 }

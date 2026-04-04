@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
+import '../../../Controleur/JoueurControleur.dart';
 import '../../../Controleur/RencontreControleur.dart';
 import '../../../Modele/Joueur/Joueur.dart';
 import '../../../Modele/Rencontre/Rencontre.dart';
@@ -16,7 +17,7 @@ class JoueurListView extends StatefulWidget {
 }
 
 class JoueurListViewState extends State<JoueurListView> {
-  final RencontreControleur _c = RencontreControleur.getInstance();
+  final JoueurControleur _c = JoueurControleur.getInstance();
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +35,28 @@ class JoueurListViewState extends State<JoueurListView> {
     );
   }
 
-  void supprimerJoueur(Joueur joueur) {}
+  Future<void> _supprimerJoueur(Joueur joueur) async {
+    if(!await _c.suppprimerJoueur(joueur.getJoueurId().toInt())){
+      _showSnackBar(AppLocalizations.of(context)!.faildeleteplayer)
+    };
+    context.read<JoueurProvider>().rafraichir();
+    _showSnackBar(AppLocalizations.of(context)!.successdeleteplayer);
+  }
 
-  void afficherEcranModifierRencontre(Joueur joueur) {}
+  void _afficherEcranModifierRencontre(Joueur joueur) {
+    // PASSAGE DE PARAMETRE VERS l'ECRAN MODIF
+    if(false/*TODO OUVRIR ECRAN MODIF*/){
+      _showSnackBar(AppLocalizations.of(context)!.failmodifplayer)
+    };
+    context.read<JoueurProvider>().rafraichir();
+    _showSnackBar(AppLocalizations.of(context)!.successmodifplayer);
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), duration: const Duration(seconds: 3)),
+    );
+  }
 
   List<Widget> generer(Set<Joueur> joueurs) {
     List<Widget> lignes = [];
@@ -55,8 +75,17 @@ class JoueurListViewState extends State<JoueurListView> {
           Text(joueur.getPrenom()),
           Text(joueur.getNumeroDeLicence()),
           Text(joueur.getStatut().name),
-          //TODO Rajouter bouton suppr
-          //TODO Rajouter bouton modifier
+          TextButton(
+            style: ButtonStyle(
+              backgroundColor: Colors.red,
+            ),
+              onPressed: (){_supprimerJoueur;},
+              child: Text(AppLocalizations.of(context)!.addjoueur)
+          ),
+          TextButton(
+              onPressed: _afficherEcranModifierRencontre,
+              child: Text(AppLocalizations.of(context)!.addjoueur)
+          )
         ],
       ),
     );

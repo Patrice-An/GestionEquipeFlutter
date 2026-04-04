@@ -54,7 +54,7 @@ class RencontreListViewState extends State<RencontreListView> {
           Text(rencontre.getDateEtHeure().toString()),
           Text(rencontre.getLieu().name),
           Text(rencontre.getAdresse()),
-          //TODO Rajouter bouton suppr
+          ElevatedButton()
           //TODO Rajouter bouton modifier
         ],
       ),

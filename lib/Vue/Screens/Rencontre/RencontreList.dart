@@ -16,11 +16,11 @@ class RencontreList extends StatelessWidget {
       builder: (context, child) {
         return MainLayout(
           title: AppLocalizations.of(context)!.listrencontre,
-          child: RencontreListView(),
           reloadButton: ElevatedButton(
             onPressed: () => context.read<RencontreProvider>().rafraichir(),
             child: const Icon(Icons.replay)
           ),
+          child: RencontreListView()
         );
       }
     );

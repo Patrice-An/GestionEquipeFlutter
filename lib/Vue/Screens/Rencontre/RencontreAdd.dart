@@ -55,7 +55,7 @@ class RencontreAdd extends StatelessWidget {
                 border: OutlineInputBorder(),
               ),
             ),
-            TextButton(onPressed: (){}, child: Text("Ajouter le Match"),)
+            TextButton(onPressed: (){}, child: Text(AppLocalizations.of(context)!.addrencontre),)
           ]
         ),
       ),
