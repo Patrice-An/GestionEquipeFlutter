@@ -36,5 +36,8 @@
   "successmodifjoueur": "Le joueur a été modifié avec succès",
   "failaddjoueurstatut": "Le statut ne peut pas être vide",
   "failaddjoueurpoids": "Le poids doit être un nombre",
-  "failaddjoueurtaille": "La taille doit être un nombre"
+  "failaddjoueurtaille": "La taille doit être un nombre",
+  "failaddrencontredate": "La date de la rencontre ne peut pas être dans le passé",
+  "failaddrencontreadresse": "La date de la rencontre ne peut pas être dans le passé",
+  "failaddrencontreadv": "La licence de l'adversaire ne peut pas être vide"
 }

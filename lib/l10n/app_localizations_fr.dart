@@ -111,6 +111,18 @@ class AppLocalizationsFr extends AppLocalizations {
   String get successdeletejoueur => 'Le joueur a été supprimé avec succès';
 
   @override
+  String get failaddrencontredate =>
+      'La date de la rencontre ne peut pas être dans le passé';
+
+  @override
+  String get failaddrencontreadresse =>
+      'La date de la rencontre ne peut pas être dans le passé';
+
+  @override
+  String get failaddrencontreadv =>
+      'La licence de l\'adversaire ne peut pas être vide';
+
+  @override
   String get faildeleterencontre => 'La suppression de la rencontre a échoué';
 
   @override

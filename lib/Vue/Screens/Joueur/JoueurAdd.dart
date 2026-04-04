@@ -83,6 +83,75 @@ class _JoueurAddState extends State<JoueurAdd> {
       title: AppLocalizations.of(context)!.addjoueur,
       child: Column(
         children: [
+          TextField(
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly
+            ],
+            controller: _licenceControleur,
+            keyboardType: TextInputType.number,
+            //Permet de définir le type de clavier à afficher
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context)!.labellicence,//"N° Licence",
+              hintText: AppLocalizations.of(context)!.hintlicence,//'1059969',
+              border: const OutlineInputBorder(),
+            ),
+          ),
+
+          TextField(
+            inputFormatters: [
+              FilteringTextInputFormatter.allow("a-zA-Z")
+            ],
+            controller: _nomControleur,
+            keyboardType: TextInputType.name,
+            //Permet de définir le type de clavier à afficher
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context)!.labelnom,//'Nom',
+              hintText: AppLocalizations.of(context)!.labelnom,//'Ex: LABRIQUE',
+              border: const OutlineInputBorder(),
+            ),
+          ),
+
+          TextField(
+            inputFormatters: [
+              FilteringTextInputFormatter.allow("a-zA-Z")
+            ],
+            controller: _prenomControleur,
+            keyboardType: TextInputType.name,
+            //Permet de définir le type de clavier à afficher
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context)!.labelprenom,//'Prénom',
+              hintText: AppLocalizations.of(context)!.hintprenom,//'Ex: Bob',
+              border: const OutlineInputBorder(),
+            ),
+          ),
+
+          TextField(
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly
+            ],
+            controller: _poidsControleur,
+            keyboardType: TextInputType.number,
+            //Permet de définir le type de clavier à afficher
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context)!.labelpoids,//'Poids (kg)',
+              hintText: AppLocalizations.of(context)!.hintpoids,//'Entre 30 et 300 kg',
+              border: const OutlineInputBorder(),
+            ),
+          ),
+
+          TextField(
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly
+            ],
+            controller: _tailleControleur,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              labelText: AppLocalizations.of(context)!.labeltaille,//'Taille (cm)'
+              hintText: AppLocalizations.of(context)!.hinttaille,//'Entre 50 et 250 cm',
+              border: const OutlineInputBorder(),
+            ),
+          ),
+
           InputDatePickerFormField(
             firstDate: DateTime(1900),
             lastDate: DateTime.now(),

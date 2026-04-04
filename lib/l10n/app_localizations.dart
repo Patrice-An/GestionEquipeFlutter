@@ -302,6 +302,24 @@ abstract class AppLocalizations {
   /// **'The player has been successfully deleted'**
   String get successdeletejoueur;
 
+  /// No description provided for @failaddrencontredate.
+  ///
+  /// In en, this message translates to:
+  /// **'The match date can\'t be in the past'**
+  String get failaddrencontredate;
+
+  /// No description provided for @failaddrencontreadresse.
+  ///
+  /// In en, this message translates to:
+  /// **'The match date can\'t be in the past'**
+  String get failaddrencontreadresse;
+
+  /// No description provided for @failaddrencontreadv.
+  ///
+  /// In en, this message translates to:
+  /// **'The opponent licence can\'t be empty'**
+  String get failaddrencontreadv;
+
   /// No description provided for @faildeleterencontre.
   ///
   /// In en, this message translates to:
