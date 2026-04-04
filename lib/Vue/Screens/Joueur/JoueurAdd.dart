@@ -43,13 +43,13 @@ class JoueurAdd extends StatelessWidget {
   Future<void> _ajouterJoueur() async {
     final localizations = AppLocalizations.of(this._context!)!;
 
-    if (_licenceControleur.text.isEmpty) return _showSnackBar(localizations.failaddplayerlicence);
-    if (_nomControleur.text.isEmpty) return _showSnackBar(localizations.failaddplayernom);
-    if (_prenomControleur.text.isEmpty) return _showSnackBar(localizations.failaddplayerprenom);
-    if (_poidsControleur.text.isEmpty) return _showSnackBar(localizations.failaddplayerpoids);
-    if (_tailleControleur.text.isEmpty) return _showSnackBar(localizations.failaddplayertaille);
-    if (_dateNaissance == null) return _showSnackBar(localizations.failaddplayerdate);
-    if (_statutSelectionne == null) return _showSnackBar(localizations.failaddplayerstatut);
+    if (_licenceControleur.text.isEmpty) return _showSnackBar(localizations.failaddjoueurlicence);
+    if (_nomControleur.text.isEmpty) return _showSnackBar(localizations.failaddjoueurnom);
+    if (_prenomControleur.text.isEmpty) return _showSnackBar(localizations.failaddjoueurprenom);
+    if (_poidsControleur.text.isEmpty) return _showSnackBar(localizations.failaddjoueurpoids);
+    if (_tailleControleur.text.isEmpty) return _showSnackBar(localizations.failaddjoueurtaille);
+    if (_dateNaissance == null) return _showSnackBar(localizations.failaddjoueurdate);
+    if (_statutSelectionne == null) return _showSnackBar(localizations.failaddjoueurstatut);
 
     Joueur nouveauJoueur = Joueur(
       0,
@@ -63,10 +63,10 @@ class JoueurAdd extends StatelessWidget {
     );
 
     if (await _controleur.creerJoueur(nouveauJoueur)) {
-        _showSnackBar(localizations.successaddplayer);
+        _showSnackBar(localizations.successaddjoueur);
         Navigator.pop(this._context!);
     } else {
-      _showSnackBar(localizations.failaddplayer);
+      _showSnackBar(localizations.failaddjoueur);
     }
   }
 

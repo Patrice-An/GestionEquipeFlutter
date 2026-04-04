@@ -37,19 +37,19 @@ class JoueurListViewState extends State<JoueurListView> {
 
   Future<void> _supprimerJoueur(Joueur joueur) async {
     if(!await _c.suppprimerJoueur(joueur.getJoueurId().toInt())){
-      _showSnackBar(AppLocalizations.of(context)!.faildeleteplayer)
+      _showSnackBar(AppLocalizations.of(context)!.faildeletejoueur)
     };
     context.read<JoueurProvider>().rafraichir();
-    _showSnackBar(AppLocalizations.of(context)!.successdeleteplayer);
+    _showSnackBar(AppLocalizations.of(context)!.successdeletejoueur);
   }
 
   void _afficherEcranModifierRencontre(Joueur joueur) {
     // PASSAGE DE PARAMETRE VERS l'ECRAN MODIF
     if(false/*TODO OUVRIR ECRAN MODIF*/){
-      _showSnackBar(AppLocalizations.of(context)!.failmodifplayer)
+      _showSnackBar(AppLocalizations.of(context)!.failmodifjoueur);
     };
     context.read<JoueurProvider>().rafraichir();
-    _showSnackBar(AppLocalizations.of(context)!.successmodifplayer);
+    _showSnackBar(AppLocalizations.of(context)!.successmodifjoueur);
   }
 
   void _showSnackBar(String message) {
