@@ -7,38 +7,44 @@ import '../../../Modele/Joueur/JoueurStatut.dart';
 import '../../../l10n/app_localizations.dart';
 import '../MainLayout.dart';
 
-class JoueurAdd extends StatelessWidget {
+class JoueurAdd extends StatefulWidget {
+  const JoueurAdd({super.key});
+
+  @override
+  State<JoueurAdd> createState() => _JoueurAddState();
+}
+
+class _JoueurAddState extends State<JoueurAdd> {
 
   final JoueurControleur _controleur = JoueurControleur.getInstance();
+
   final TextEditingController _licenceControleur = TextEditingController();
   final TextEditingController _nomControleur = TextEditingController();
   final TextEditingController _prenomControleur = TextEditingController();
   final TextEditingController _tailleControleur = TextEditingController();
   final TextEditingController _poidsControleur = TextEditingController();
+
   JoueurStatut? _statutSelectionne;
   DateTime? _dateNaissance;
 
-  JoueurAdd({super.key});
-  BuildContext? _context;
-
-
-
-  void vider() {
+  @override
+  void dispose() {
     _licenceControleur.dispose();
     _nomControleur.dispose();
     _prenomControleur.dispose();
     _tailleControleur.dispose();
     _poidsControleur.dispose();
+    super.dispose();
   }
 
   void _showSnackBar(String message) {
-    ScaffoldMessenger.of(_context!).showSnackBar(
-      SnackBar(content: Text(message), duration: const Duration(seconds: 3)),
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
     );
   }
 
   Future<void> _ajouterJoueur() async {
-    final localizations = AppLocalizations.of(this._context!)!;
+    final localizations = AppLocalizations.of(context)!;
 
     if (_licenceControleur.text.isEmpty) return _showSnackBar(localizations.failaddjoueurlicence);
     if (_nomControleur.text.isEmpty) return _showSnackBar(localizations.failaddjoueurnom);
@@ -59,9 +65,13 @@ class JoueurAdd extends StatelessWidget {
       _statutSelectionne!,
     );
 
-    if (await _controleur.creerJoueur(nouveauJoueur)) {
-        _showSnackBar(localizations.successaddjoueur);
-        Navigator.pop(this._context!);
+    bool success = await _controleur.creerJoueur(nouveauJoueur);
+
+    if (!mounted) return;
+
+    if (success) {
+      _showSnackBar(localizations.successaddjoueur);
+      Navigator.pop(context);
     } else {
       _showSnackBar(localizations.failaddjoueur);
     }
@@ -69,99 +79,40 @@ class JoueurAdd extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    this._context = context;
     return MainLayout(
       title: AppLocalizations.of(context)!.addjoueur,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly
-                ],
-                controller: _licenceControleur,
-                keyboardType: TextInputType.number,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labellicence,//"N° Licence",
-                  hintText: AppLocalizations.of(context)!.hintlicence,//'1059969',
-                  border: const OutlineInputBorder(),
-                ),
-              ),
+      child: Column(
+        children: [
+          InputDatePickerFormField(
+            firstDate: DateTime(1900),
+            lastDate: DateTime.now(),
+            onDateSubmitted: (date) {
+              setState(() {
+                _dateNaissance = date;
+              });
+            },
+          ),
 
-              TextField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow("a-zA-Z")
-                ],
-                controller: _nomControleur,
-                keyboardType: TextInputType.name,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labelnom,//'Nom',
-                  hintText: AppLocalizations.of(context)!.labelnom,//'Ex: LABRIQUE',
-                  border: const OutlineInputBorder(),
-                ),
-              ),
+          DropdownButton<JoueurStatut>(
+            value: _statutSelectionne,
+            items: JoueurStatut.values.map((statut) {
+              return DropdownMenuItem(
+                value: statut,
+                child: Text(statut.toString()),
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                _statutSelectionne = value;
+              });
+            },
+          ),
 
-              TextField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow("a-zA-Z")
-                ],
-                controller: _prenomControleur,
-                keyboardType: TextInputType.name,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labelprenom,//'Prénom',
-                  hintText: AppLocalizations.of(context)!.hintprenom,//'Ex: Bob',
-                  border: const OutlineInputBorder(),
-                ),
-              ),
-              InputDatePickerFormField(
-                firstDate: DateTime(1900),
-                lastDate: DateTime.now(),
-                fieldLabelText: AppLocalizations.of(context)!.labeldate,
-              ),
-
-              TextField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly
-                ],
-                controller: _poidsControleur,
-                keyboardType: TextInputType.number,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labelpoids,//'Poids (kg)',
-                  hintText: AppLocalizations.of(context)!.hintpoids,//'Entre 30 et 300 kg',
-                  border: const OutlineInputBorder(),
-                ),
-              ),
-
-              TextField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly
-                ],
-                controller: _tailleControleur,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labeltaille,//'Taille (cm)'
-                  hintText: AppLocalizations.of(context)!.hinttaille,//'Entre 50 et 250 cm',
-                  border: const OutlineInputBorder(),
-                ),
-              ),
-
-              DropdownButton(
-                  items: JoueurStatut.values.cast(),
-                  onChanged: (value){_statutSelectionne=value as JoueurStatut;}
-              ),
-
-              TextButton(
-                  onPressed: _ajouterJoueur,
-                  child: Text(AppLocalizations.of(context)!.addjoueur)
-              )
-            ]
-        ),
+          TextButton(
+            onPressed: _ajouterJoueur,
+            child: Text(AppLocalizations.of(context)!.addjoueur),
+          )
+        ],
       ),
     );
   }
