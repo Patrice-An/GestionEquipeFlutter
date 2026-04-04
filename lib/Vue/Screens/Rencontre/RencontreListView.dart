@@ -25,12 +25,9 @@ class RencontreListViewState extends State<RencontreListView> {
     }
     if (provider.getRencontres().isEmpty) {
       return Center(child: Text(AppLocalizations.of(context)!.norencontrefound));
+    } else {
+        return ListView(children: generer(provider.getRencontres()));
     }
-    return Scrollable(
-      viewportBuilder: (BuildContext context, ViewportOffset position) {
-        return Column(children: generer(provider.getRencontres()));
-      },
-    );
   }
 
   void supprimerRencontre(Rencontre rencontre) {}
