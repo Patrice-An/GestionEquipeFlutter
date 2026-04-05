@@ -42,5 +42,9 @@
   "successmodifrencontre": "The match has been successfully modified",
   "modifiedplayer" : "Edit",
   "deleteplayer" : "Delete",
-  "labelstatut" : "player statut"
+  "labelstatut" : "player statut",
+  "lastmatch" : "Previous match",
+  "nextmatch" : "Next Match",
+  "welcome" : "Welcome to GestEquipe !"
+
 }

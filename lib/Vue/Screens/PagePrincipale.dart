@@ -74,7 +74,7 @@ class PagePrincipale extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
-                          'Bienvenue dans GestEquipe!',
+                        AppLocalizations.of(context)!.welcome,
                           style: const TextStyle(fontSize: 40),
                           textAlign: TextAlign.center,
                       ),
@@ -83,13 +83,13 @@ class PagePrincipale extends StatelessWidget {
 
                   //Prochaine rencontre
                   if(prochaineRencontre!=null)...[
-                    Text('Prochaine Rencontre', style: const TextStyle(fontSize: 20)),
+                    Text(AppLocalizations.of(context)!.nextmatch, style: const TextStyle(fontSize: 20)),
                     _creerLigne(prochaineRencontre)
                   ],
 
                   //Derniere rencontre
                   if(derniereRencontre!=null)...[
-                    Text('Derniere Rencontre', style: const TextStyle(fontSize: 20)),
+                    Text(AppLocalizations.of(context)!.lastmatch, style: const TextStyle(fontSize: 20)),
                     _creerLigne(derniereRencontre)
                   ]
                 ],

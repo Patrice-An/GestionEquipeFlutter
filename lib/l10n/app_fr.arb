@@ -42,5 +42,8 @@
   "failaddrencontreadv": "La licence de l'adversaire ne peut pas être vide",
   "modifiedplayer" : "Modifier",
   "deleteplayer" : "Supprimer",
-  "labelstatut" : "Statut du Joueur"
+  "labelstatut" : "Statut du Joueur",
+  "nextmatch": "Prochaine rencontre",
+  "lastmatch": "Rencontre précédente",
+  "welcome": "Bienvenue sur GestEquipe !"
 }

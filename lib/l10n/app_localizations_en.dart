@@ -141,4 +141,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get labelstatut => 'player statut';
+
+  @override
+  String get lastmatch => 'Previous match';
+
+  @override
+  String get nextmatch => 'Next Match';
+
+  @override
+  String get welcome => 'Welcome to GestEquipe !';
 }

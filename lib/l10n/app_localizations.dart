@@ -361,6 +361,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'player statut'**
   String get labelstatut;
+
+  /// No description provided for @lastmatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous match'**
+  String get lastmatch;
+
+  /// No description provided for @nextmatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Match'**
+  String get nextmatch;
+
+  /// No description provided for @welcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to GestEquipe !'**
+  String get welcome;
 }
 
 class _AppLocalizationsDelegate

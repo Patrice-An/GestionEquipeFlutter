@@ -123,14 +123,14 @@ class RencontreListViewState extends State<RencontreListView> {
                   onPressed: () {
                     afficherEcranModifierRencontre(rencontre);
                   },
-                  child: const Text("Modifier"),
+                  child: Text(AppLocalizations.of(context)!.modifiedplayer),
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton(
                   onPressed: () {
                     supprimerRencontre(rencontre);
                   },
-                  child: const Text("Supprimer"),
+                  child: Text(AppLocalizations.of(context)!.deleteplayer),
                 ),
               ],
             ),
