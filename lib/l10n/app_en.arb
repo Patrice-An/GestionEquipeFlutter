@@ -40,21 +40,20 @@
   "successdeleterencontre": "The match has been successfully deleted",
   "failmodifrencontre": "The match modification operation failed",
   "successmodifrencontre": "The match has been successfully modified",
-  "modifiedplayer" : "Edit",
-  "deleteplayer" : "Delete",
-  "labelstatut" : "player statut",
-<<<<<<< Updated upstream
-  "lastmatch" : "Previous match",
-  "nextmatch" : "Next Match",
-  "welcome" : "Welcome to GestEquipe !"
-
-=======
-  "labellieu" : "Place",
-  "hintadversaire" : "Opponent licence",
-  "hintadresse" : "Address",
-  "labeladversaire" : "Opponent",
-  "labeladresse" : "Address",
+  "modifiedplayer": "Edit",
+  "deleteplayer": "Delete",
+  "labelstatut": "player statut",
+  "lastmatch": "Previous match",
+  "nextmatch": "Next Match",
+  "welcome": "Welcome to GestEquipe !",
+  "hintadversaire": "Opponent licence",
+  "hintadresse": "Address",
+  "labeladversaire": "Opponent",
+  "labeladresse": "Address",
   "labelresultat": "Resultat",
-  "modifierjoueur": "Edit player"
->>>>>>> Stashed changes
+  "modifierjoueur": "Edit player",
+  "labellieu": "Location",
+  "failresultatrencontre": "The result can't be empty",
+  "modifierrencontre": "Edit match",
+  "modifierresultat": "Edit result"
 }

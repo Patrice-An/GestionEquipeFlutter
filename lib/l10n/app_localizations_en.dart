@@ -150,4 +150,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get welcome => 'Welcome to GestEquipe !';
+
+  @override
+  String get hintadversaire => 'Opponent licence';
+
+  @override
+  String get hintadresse => 'Address';
+
+  @override
+  String get labeladversaire => 'Opponent';
+
+  @override
+  String get labeladresse => 'Address';
+
+  @override
+  String get labelresultat => 'Resultat';
+
+  @override
+  String get modifierjoueur => 'Edit player';
+
+  @override
+  String get labellieu => 'Location';
+
+  @override
+  String get failresultatrencontre => 'The result can\'t be empty';
+
+  @override
+  String get modifierrencontre => 'Edit match';
+
+  @override
+  String get modifierresultat => 'Edit result';
 }

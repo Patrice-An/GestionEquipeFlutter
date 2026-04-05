@@ -379,6 +379,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Welcome to GestEquipe !'**
   String get welcome;
+
+  /// No description provided for @hintadversaire.
+  ///
+  /// In en, this message translates to:
+  /// **'Opponent licence'**
+  String get hintadversaire;
+
+  /// No description provided for @hintadresse.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get hintadresse;
+
+  /// No description provided for @labeladversaire.
+  ///
+  /// In en, this message translates to:
+  /// **'Opponent'**
+  String get labeladversaire;
+
+  /// No description provided for @labeladresse.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get labeladresse;
+
+  /// No description provided for @labelresultat.
+  ///
+  /// In en, this message translates to:
+  /// **'Resultat'**
+  String get labelresultat;
+
+  /// No description provided for @modifierjoueur.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit player'**
+  String get modifierjoueur;
+
+  /// No description provided for @labellieu.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get labellieu;
+
+  /// No description provided for @failresultatrencontre.
+  ///
+  /// In en, this message translates to:
+  /// **'The result can\'t be empty'**
+  String get failresultatrencontre;
+
+  /// No description provided for @modifierrencontre.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit match'**
+  String get modifierrencontre;
+
+  /// No description provided for @modifierresultat.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit result'**
+  String get modifierresultat;
 }
 
 class _AppLocalizationsDelegate

@@ -1,12 +1,14 @@
 import 'package:GestEquipe/Modele/Rencontre/RencontreLieu.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../../../Controleur/RencontreControleur.dart';
 import '../../../Modele/Rencontre/Rencontre.dart';
 import '../../../Modele/Rencontre/RencontreResultat.dart';
 import '../../../l10n/app_localizations.dart';
 import '../MainLayout.dart';
 import 'RencontreList.dart';
+import 'RencontreProvider.dart';
 
 class RencontreAdd extends StatefulWidget {
   final Rencontre? rencontre;
@@ -28,6 +30,24 @@ class StateRencontreAdd extends State<RencontreAdd> {
 
   StateRencontreAdd(this._rencontre);
 
+  @override
+  void initState(){
+    super.initState();
+    final bool estAjout = this._rencontre == null;
+    if (!estAjout) {
+      this._dateEtHeure = this._rencontre!.getDateEtHeure();
+      bool estPassee = this._dateEtHeure!.isBefore(DateTime.now());
+      if (!estPassee) {
+        this._dateEtHeure;
+        this._adversaireControleur.text = this._rencontre!.getEquipeAdverse();
+        this._adresseControleur.text = this._rencontre!.getAdresse();
+        this._lieuSelectionne = this._rencontre!.getLieu();
+      } else {
+        this._resultatSelectionne = this._rencontre!.getResultat();
+      }
+    }
+  }
+
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(
       context,
@@ -35,6 +55,37 @@ class StateRencontreAdd extends State<RencontreAdd> {
   }
 
   Future<void> _ajouterRencontre() async {
+    if (!mounted) return;
+    final localizations = AppLocalizations.of(context)!;
+
+    if (_adversaireControleur.text.isEmpty)
+      return _showSnackBar(localizations.failaddrencontreadv);
+    if (_adresseControleur.text.isEmpty)
+      return _showSnackBar(localizations.failaddrencontreadresse);
+
+    Rencontre nouvelleRencontre = Rencontre(
+      0,
+      _dateEtHeure!,
+      _adversaireControleur.text,
+      _adresseControleur.text,
+      _lieuSelectionne!,
+      null,
+    );
+
+    bool success = await _controleur.creerRencontre(nouvelleRencontre);
+    context.read<RencontreProvider>().rafraichir();
+    if (success) {
+      _showSnackBar(localizations.successaddrencontre);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => RencontreList()),
+      );
+    } else {
+      _showSnackBar(localizations.failaddrencontre);
+    }
+  }
+
+  Future<void> _modifierRencontre() async {
     if (!mounted) return;
     final localizations = AppLocalizations.of(context)!;
 
@@ -62,6 +113,27 @@ class StateRencontreAdd extends State<RencontreAdd> {
       );
     } else {
       _showSnackBar(localizations.failaddrencontre);
+    }
+  }
+
+  Future<void> _modifierResultat() async {
+    if (!mounted) return;
+    final localizations = AppLocalizations.of(context)!;
+
+    if (_resultatSelectionne == null)
+      return _showSnackBar(localizations.failresultatrencontre);
+
+    bool success = await _controleur.enregistrerResultat(
+      this._rencontre!.getRencontreId().toInt(),
+      this._rencontre!,
+      _resultatSelectionne!,
+    );
+
+    if (success) {
+      _showSnackBar(localizations.successmodifrencontre);
+      Navigator.pop(context, true);
+    } else {
+      _showSnackBar(localizations.failmodifrencontre);
     }
   }
 
@@ -110,27 +182,19 @@ class StateRencontreAdd extends State<RencontreAdd> {
   @override
   Widget build(BuildContext context) {
     final bool estAjout = this._rencontre == null;
+    print(_dateEtHeure.toString());
+    print(DateTime.now());
+    print(_dateEtHeure!.isBefore(DateTime.now()));
     final bool estPassee = !estAjout && _dateEtHeure!.isBefore(DateTime.now());
-    if(!estAjout){
-      if(!estPassee){
-        this._dateEtHeure = this._rencontre!.getDateEtHeure();
-        this._adversaireControleur.text = this._rencontre!.getEquipeAdverse();
-        this._adresseControleur.text = this._rencontre!.getAdresse();
-        this._lieuSelectionne = this._rencontre!.getLieu();
-      }else{
-        this._resultatSelectionne = this._rencontre!.getResultat();
-      }
-    }
     return MainLayout(
       title: AppLocalizations.of(context)!.addrencontre,
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        // Optionnel : ajoute un peu d'air
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             // Ajout d'une rencontre
-            if (estAjout) ...[
+            if (!estPassee) ...[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -196,99 +260,41 @@ class StateRencontreAdd extends State<RencontreAdd> {
                   ),
                 ],
               ),
-              TextButton(
-                onPressed: _ajouterRencontre,
-                child: Text(AppLocalizations.of(context)!.addrencontre),
-              ),
-            ] else ...[
-              if (!estPassee) ...[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(AppLocalizations.of(context)!.labeldate),
-                    const SizedBox(width: 5),
-                    TextButton(
-                      onPressed: _selectDate,
-                      child: Text(
-                        _dateEtHeure != null
-                            ? DateFormat('dd/MM/yyyy').format(_dateEtHeure!)
-                            : "dd/MM/yyyy",
-                      ),
-                    ),
-                    const SizedBox(width: 5),
-                    TextButton(
-                      onPressed: _selectTime,
-                      child: Text(
-                        _dateEtHeure != null
-                            ? DateFormat('hh:mm').format(_dateEtHeure!)
-                            : "hh:mm",
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                TextField(
-                  controller: _adversaireControleur,
-                  keyboardType: TextInputType.number,
-                  //Permet de définir le type de clavier à afficher
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.labeladversaire,
-                    hintText: AppLocalizations.of(context)!.hintadversaire,
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 6),
-                TextField(
-                  controller: _adresseControleur,
-                  keyboardType: TextInputType.name,
-                  //Permet de définir le type de clavier à afficher
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context)!.labeladresse,
-                    hintText: AppLocalizations.of(context)!.hintadresse,
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Row(
-                  children: [
-                    Text(AppLocalizations.of(context)!.labellieu),
-                    DropdownButton<RencontreLieu>(
-                      value: _lieuSelectionne,
-                      items: RencontreLieu.values.map((lieu) {
-                        return DropdownMenuItem(
-                          value: lieu,
-                          child: Text(lieu.name),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          _lieuSelectionne = value;
-                        });
-                      },
-                    ),
-                  ],
+              if (estAjout) ...[
+                TextButton(
+                  onPressed: _ajouterRencontre,
+                  child: Text(AppLocalizations.of(context)!.addrencontre),
                 ),
               ] else ...[
-                Row(
-                  children: [
-                    Text(AppLocalizations.of(context)!.labelresultat),
-                    DropdownButton<RencontreResultat>(
-                      value: _resultatSelectionne,
-                      items: RencontreResultat.values.map((resultat) {
-                        return DropdownMenuItem(
-                          value: resultat,
-                          child: Text(resultat.name),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        setState(() {
-                          _resultatSelectionne = value;
-                        });
-                      },
-                    ),
-                  ],
+                TextButton(
+                  onPressed: _modifierRencontre,
+                  child: Text(AppLocalizations.of(context)!.modifierrencontre),
                 ),
               ],
+            ] else ...[
+              Row(
+                children: [
+                  Text(AppLocalizations.of(context)!.labelresultat),
+                  DropdownButton<RencontreResultat>(
+                    value: _resultatSelectionne,
+                    items: RencontreResultat.values.map((resultat) {
+                      return DropdownMenuItem(
+                        value: resultat,
+                        child: Text(resultat.name),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _resultatSelectionne = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              TextButton(
+                onPressed: _modifierResultat,
+                child: Text(AppLocalizations.of(context)!.modifierresultat),
+              ),
             ],
           ],
         ),

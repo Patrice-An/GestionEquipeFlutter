@@ -34,6 +34,21 @@ class _JoueurAddState extends State<JoueurAdd> {
 
   _JoueurAddState(this._joueur);
 
+  @override
+  void initState() {
+    super.initState();
+    bool estAjout = this._joueur == null;
+    if(!estAjout){
+      this._dateNaissance = this._joueur.getDateDeNaissance();
+      this._statutSelectionne = this._joueur.getStatut();
+      this._licenceControleur.text = this._joueur.getNumeroDeLicence();
+      this._nomControleur.text = this._joueur.getNom();
+      this._prenomControleur.text = this._joueur.getPrenom();
+      this._tailleControleur.text = this._joueur.getTailleEnCm().toString();
+      this._poidsControleur.text = this._joueur.getPoidsEnKg().toString();
+    }
+  }
+
   Future<void> _selectDate() async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -146,22 +161,12 @@ class _JoueurAddState extends State<JoueurAdd> {
   @override
   Widget build(BuildContext context) {
     bool estAjout = this._joueur == null;
-    if(!estAjout){
-      this._dateNaissance = this._joueur.getDateDeNaissance();
-      this._statutSelectionne = this._joueur.getStatut();
-      this._licenceControleur.text = this._joueur.getNumeroDeLicence();
-      this._nomControleur.text = this._joueur.getNom();
-      this._prenomControleur.text = this._joueur.getPrenom();
-      this._tailleControleur.text = this._joueur.getTailleEnCm().toString();
-      this._poidsControleur.text = this._joueur.getPoidsEnKg().toString();
-    }
     return MainLayout(
       title: AppLocalizations.of(context)!.addjoueur,
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0), // Optionnel : ajoute un peu d'air
         child: Column(
           children: [
-            if (estAjout) ...[
               TextField(
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 controller: _licenceControleur,
@@ -181,7 +186,7 @@ class _JoueurAddState extends State<JoueurAdd> {
               TextField(
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
-                    RegExp(r'[a-zA-ZàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ ]'),
+                    RegExp(r'[a-zA-ZàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ()-_ ]'),
                   ),
                 ],
                 controller: _nomControleur,
@@ -201,7 +206,7 @@ class _JoueurAddState extends State<JoueurAdd> {
               TextField(
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
-                    RegExp(r'[a-zA-ZàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ ]'),
+                    RegExp(r'[a-zA-ZàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ()-_ ]'),
                   ),
                 ],
                 controller: _prenomControleur,
@@ -275,7 +280,7 @@ class _JoueurAddState extends State<JoueurAdd> {
                     items: JoueurStatut.values.map((statut) {
                       return DropdownMenuItem(
                         value: statut,
-                        child: Text(statut.toString()),
+                        child: Text(statut.name),
                       );
                     }).toList(),
                     onChanged: (value) {
@@ -288,129 +293,12 @@ class _JoueurAddState extends State<JoueurAdd> {
               ),
 
               const SizedBox(height: 6),
-
+            if (estAjout) ...[
               TextButton(
                 onPressed: _ajouterJoueur,
                 child: Text(AppLocalizations.of(context)!.addjoueur),
               ),
             ] else ...[
-
-              const SizedBox(height: 6),
-
-              TextField(
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: _licenceControleur,
-                keyboardType: TextInputType.number,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labellicence,
-                  //"N° Licence",
-                  hintText: AppLocalizations.of(context)!.hintlicence,
-                  //'1059969',
-                  border: const OutlineInputBorder(),
-                ),
-              ),
-
-              const SizedBox(height: 6),
-
-              TextField(
-                inputFormatters: [FilteringTextInputFormatter.allow("a-zA-Z")],
-                controller: _nomControleur,
-                keyboardType: TextInputType.name,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labelnom,
-                  //'Nom',
-                  hintText: AppLocalizations.of(context)!.labelnom,
-                  //'Ex: LABRIQUE',
-                  border: const OutlineInputBorder(),
-                ),
-              ),
-
-              const SizedBox(height: 6),
-
-              TextField(
-                inputFormatters: [FilteringTextInputFormatter.allow("a-zA-Z")],
-                controller: _prenomControleur,
-                keyboardType: TextInputType.name,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labelprenom,
-                  //'Prénom',
-                  hintText: AppLocalizations.of(context)!.hintprenom,
-                  //'Ex: Bob',
-                  border: const OutlineInputBorder(),
-                ),
-              ),
-
-              const SizedBox(height: 6),
-
-              TextField(
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: _poidsControleur,
-                keyboardType: TextInputType.number,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labelpoids,
-                  //'Poids (kg)',
-                  hintText: AppLocalizations.of(context)!.hintpoids,
-                  //'Entre 30 et 300 kg',
-                  border: const OutlineInputBorder(),
-                ),
-              ),
-
-              const SizedBox(height: 6),
-
-              TextField(
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: _tailleControleur,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labeltaille,
-                  //'Taille (cm)'
-                  hintText: AppLocalizations.of(context)!.hinttaille,
-                  //'Entre 50 et 250 cm',
-                  border: const OutlineInputBorder(),
-                ),
-              ),
-
-              const SizedBox(height: 6),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(AppLocalizations.of(context)!.labeldate),
-                  const SizedBox(width: 5),
-                  TextButton(
-                    onPressed: _selectDate,
-                    child: Text(
-                      _dateNaissance != null
-                          ? DateFormat('dd/MM/yyyy').format(_dateNaissance!)
-                          : "dd/MM/yyyy",
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 6),
-
-              DropdownButton<JoueurStatut>(
-                value: _statutSelectionne,
-                items: JoueurStatut.values.map((statut) {
-                  return DropdownMenuItem(
-                    value: statut,
-                    child: Text(statut.name),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  setState(() {
-                    _statutSelectionne = value;
-                  });
-                },
-              ),
-
-              const SizedBox(height: 6),
-
               TextButton(
                 onPressed: _modifierJoueur,
                 child: Text(AppLocalizations.of(context)!.modifierjoueur),

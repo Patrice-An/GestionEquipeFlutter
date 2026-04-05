@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../Controleur/RencontreControleur.dart';
 import '../../../Modele/Rencontre/Rencontre.dart';
 import '../../../l10n/app_localizations.dart';
+import 'RencontreAdd.dart';
 import 'RencontreProvider.dart';
 
 class RencontreListView extends StatefulWidget {
@@ -45,8 +46,14 @@ class RencontreListViewState extends State<RencontreListView> {
     _showSnackBar(AppLocalizations.of(context)!.successdeleterencontre);
   }
 
-  void afficherEcranModifierRencontre(Rencontre rencontre) {
-    print("modifier ${rencontre.toString()}");
+  void afficherEcranModifierRencontre(Rencontre rencontre) async{
+    // PASSAGE DE PARAMETRE VERS l'ECRAN MODIF
+    if(!(await Navigator.push(context, MaterialPageRoute(builder: (context) => RencontreAdd(rencontre : rencontre))))){
+    _showSnackBar(AppLocalizations.of(context)!.failmodifjoueur);
+    return;
+    };
+    context.read<RencontreProvider>().rafraichir();
+    _showSnackBar(AppLocalizations.of(context)!.successmodifjoueur);
   }
 
   List<Widget> generer(Set<Rencontre> rencontres) {

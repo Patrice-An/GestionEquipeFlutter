@@ -152,4 +152,34 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get welcome => 'Bienvenue sur GestEquipe !';
+
+  @override
+  String get hintadversaire => 'Licence de l\'adversaire';
+
+  @override
+  String get hintadresse => 'Adresse';
+
+  @override
+  String get labeladversaire => 'Adversaire';
+
+  @override
+  String get labeladresse => 'Adresse';
+
+  @override
+  String get labelresultat => 'Résultat';
+
+  @override
+  String get modifierjoueur => 'Modifier le joueur';
+
+  @override
+  String get labellieu => 'Lieu';
+
+  @override
+  String get failresultatrencontre => 'Le résultat ne peut pas être vide';
+
+  @override
+  String get modifierrencontre => 'Modifier la rencontre';
+
+  @override
+  String get modifierresultat => 'Modifier le résultat';
 }
