@@ -43,17 +43,84 @@ class RencontreListViewState extends State<RencontreListView> {
   }
 
   Widget creerLigne(Rencontre rencontre) {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        children: [
-          Text(rencontre.getEquipeAdverse()),
-          Text(rencontre.getDateEtHeure().toString()),
-          Text(rencontre.getLieu().name),
-          Text(rencontre.getAdresse()),
-          ElevatedButton(onPressed: () {  }, child: null,)
-          //TODO Rajouter bouton modifier
-        ],
+    return Card(
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            Text(
+              rencontre.getEquipeAdverse(),
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            Row(
+              children: [
+                const Icon(Icons.calendar_today, size: 16),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(rencontre.getDateEtHeure().toString()),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 6),
+
+            Row(
+              children: [
+                const Icon(Icons.location_city, size: 16),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(rencontre.getLieu().name),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 6),
+
+            Row(
+              children: [
+                const Icon(Icons.place, size: 16),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(rencontre.getAdresse()),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 12),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    afficherEcranModifierRencontre(rencontre);
+                  },
+                  child: const Text("Modifier"),
+                ),
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () {
+                    supprimerRencontre(rencontre);
+                  },
+                  child: const Text("Supprimer"),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

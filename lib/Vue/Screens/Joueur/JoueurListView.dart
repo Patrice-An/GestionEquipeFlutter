@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import '../../../Controleur/JoueurControleur.dart';
-import '../../../Controleur/RencontreControleur.dart';
 import '../../../Modele/Joueur/Joueur.dart';
-import '../../../Modele/Rencontre/Rencontre.dart';
 import '../../../l10n/app_localizations.dart';
 import 'JoueurProvider.dart';
 
@@ -28,11 +25,7 @@ class JoueurListViewState extends State<JoueurListView> {
     if (provider.getJoueurs().isEmpty) {
       return Center(child: Text(AppLocalizations.of(context)!.nojoueurfound));
     }
-    return Scrollable(
-      viewportBuilder: (BuildContext context, ViewportOffset position) {
-        return Column(children: generer(provider.getJoueurs()));
-      },
-    );
+    return ListView(children: generer(provider.getJoueurs()));
   }
 
   Future<void> _supprimerJoueur(Joueur joueur) async {
@@ -67,26 +60,71 @@ class JoueurListViewState extends State<JoueurListView> {
   }
 
   Widget creerLigne(Joueur joueur) {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        children: [
-          Text(joueur.getNom()),
-          Text(joueur.getPrenom()),
-          Text(joueur.getNumeroDeLicence()),
-          Text(joueur.getStatut().name),
-          TextButton(
-            style: ButtonStyle(
-              //backgroundColor: Colors.red,
+    return Card(
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            Text(
+              "${joueur.getPrenom()} ${joueur.getNom()}",
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-              onPressed: (){_supprimerJoueur;},
-              child: Text(AppLocalizations.of(context)!.addjoueur)
-          ),
-          TextButton(
-              onPressed: (){_afficherEcranModifierRencontre;},
-              child: Text(AppLocalizations.of(context)!.addjoueur)
-          )
-        ],
+
+            const SizedBox(height: 10),
+
+            Row(
+              children: [
+                const Icon(Icons.badge, size: 16),
+                const SizedBox(width: 8),
+                Text(joueur.getNumeroDeLicence()),
+              ],
+            ),
+
+            const SizedBox(height: 6),
+
+            Row(
+              children: [
+                const Icon(Icons.person, size: 16),
+                const SizedBox(width: 8),
+                Text(joueur.getStatut().name),
+              ],
+            ),
+
+            const SizedBox(height: 12),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    _afficherEcranModifierRencontre(joueur);
+                  },
+                  child: Text(AppLocalizations.of(context)!.modifiedPlayer),
+                ),
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                  ),
+                  onPressed: () {
+                    _supprimerJoueur(joueur);
+                  },
+                  child: Text(AppLocalizations.of(context)!.deletePlayer),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -83,6 +83,8 @@ class _JoueurAddState extends State<JoueurAdd> {
       title: AppLocalizations.of(context)!.addjoueur,
       child: Column(
         children: [
+          const SizedBox(height: 6),
+
           TextField(
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly
@@ -96,6 +98,8 @@ class _JoueurAddState extends State<JoueurAdd> {
               border: const OutlineInputBorder(),
             ),
           ),
+
+          const SizedBox(height: 6),
 
           TextField(
             inputFormatters: [
@@ -111,6 +115,9 @@ class _JoueurAddState extends State<JoueurAdd> {
             ),
           ),
 
+          const SizedBox(height: 6),
+
+
           TextField(
             inputFormatters: [
               FilteringTextInputFormatter.allow("a-zA-Z")
@@ -124,6 +131,8 @@ class _JoueurAddState extends State<JoueurAdd> {
               border: const OutlineInputBorder(),
             ),
           ),
+
+          const SizedBox(height: 6),
 
           TextField(
             inputFormatters: [
@@ -139,6 +148,8 @@ class _JoueurAddState extends State<JoueurAdd> {
             ),
           ),
 
+          const SizedBox(height: 6),
+
           TextField(
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly
@@ -152,6 +163,8 @@ class _JoueurAddState extends State<JoueurAdd> {
             ),
           ),
 
+          const SizedBox(height: 6),
+
           InputDatePickerFormField(
             firstDate: DateTime(1900),
             lastDate: DateTime.now(),
@@ -161,6 +174,8 @@ class _JoueurAddState extends State<JoueurAdd> {
               });
             },
           ),
+
+          const SizedBox(height: 6),
 
           DropdownButton<JoueurStatut>(
             value: _statutSelectionne,
@@ -176,6 +191,8 @@ class _JoueurAddState extends State<JoueurAdd> {
               });
             },
           ),
+
+          const SizedBox(height: 6),
 
           TextButton(
             onPressed: _ajouterJoueur,

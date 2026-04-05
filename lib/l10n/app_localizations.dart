@@ -343,6 +343,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The match has been successfully modified'**
   String get successmodifrencontre;
+
+  /// No description provided for @modifiedPlayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get modifiedPlayer;
+
+  /// No description provided for @deletePlayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deletePlayer;
 }
 
 class _AppLocalizationsDelegate

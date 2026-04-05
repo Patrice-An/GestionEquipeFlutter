@@ -134,4 +134,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get successmodifrencontre => 'La rencontre a été modifiée avec succès';
+
+  @override
+  String get modifiedPlayer => 'Modifier';
+
+  @override
+  String get deletePlayer => 'Supprimer';
 }
