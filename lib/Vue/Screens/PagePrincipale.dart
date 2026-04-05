@@ -30,76 +30,139 @@ class PagePrincipale extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    RencontreControleur c = RencontreControleur.getInstance();
+    final orientation = MediaQuery.of(context).orientation;
+
     return FutureBuilder(
       future: _chargerDonnees(),
-      builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-        //Attente chargement
+      builder: (context, snapshot) {
+
         if (snapshot.connectionState == ConnectionState.waiting) {
-          Logs.addInfo("Attente chargement");
           return MainLayout(
             title: AppLocalizations.of(context)!.accueil,
-            child: const Center(child:CircularProgressIndicator(),
-            ),
+            child: const Center(child: CircularProgressIndicator()),
           );
         }
 
-        //Echec chargement
         if (snapshot.hasError) {
-          Logs.addShout("Echec chargement rencontre sur PagePrincipale");
-          return Scaffold(
-            body: Center(child: Text("Echec chargement.")),
+          return const Center(child: Text("Erreur"));
+        }
+
+        if (snapshot.hasData) {
+          final Rencontre? derniere = snapshot.data!["derniere"];
+          final Rencontre? prochaine = snapshot.data!["prochaine"];
+
+          return MainLayout(
+            title: AppLocalizations.of(context)!.accueil,
+            child: orientation == Orientation.landscape
+                ? _buildLandscape(context, prochaine, derniere)
+                : _buildPortrait(context, prochaine, derniere),
           );
         }
 
-        //Reussite chargement
-        if (snapshot.hasData) {
-          Logs.addFinest("Reussite du chargement des rencontres sur PagePrincipale!");
-          print(snapshot.data!.toString());
-          final Set<Rencontre> rencontres = snapshot.data!["toutes"];
-          final Rencontre? derniereRencontre = snapshot.data!["derniere"];
-          final Rencontre? prochaineRencontre = snapshot.data!["prochaine"];
-          return MainLayout(
-            title: AppLocalizations.of(context)!.accueil,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  //Text de bienvenue
-                  Card(
-                    elevation: 3,
-                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        AppLocalizations.of(context)!.welcome,
-                          style: const TextStyle(fontSize: 40),
-                          textAlign: TextAlign.center,
-                      ),
-                    )
-                  ),
+        return const Center(child: Text("Erreur inconnue"));
+      },
+    );
+  }
 
-                  //Prochaine rencontre
-                  if(prochaineRencontre!=null)...[
-                    Text(AppLocalizations.of(context)!.nextmatch, style: const TextStyle(fontSize: 20)),
-                    _creerLigne(prochaineRencontre,context)
-                  ],
+  Widget _buildPortrait(
+      BuildContext context,
+      Rencontre? prochaine,
+      Rencontre? derniere,
+      ) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
 
-                  //Derniere rencontre
-                  if(derniereRencontre!=null)...[
-                    Text(AppLocalizations.of(context)!.lastmatch, style: const TextStyle(fontSize: 20)),
-                    _creerLigne(derniereRencontre,context)
-                  ]
-                ],
+          // Welcome
+          Card(
+            elevation: 3,
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                AppLocalizations.of(context)!.welcome,
+                style: const TextStyle(fontSize: 40),
+                textAlign: TextAlign.center,
               ),
             ),
-          );
-        }
-        return Center(child: Text("Erreur chargement non prévue."));
-      },
+          ),
+
+          if (prochaine != null) ...[
+            Text(AppLocalizations.of(context)!.nextmatch,
+                style: const TextStyle(fontSize: 20)),
+            _creerLigne(prochaine, context),
+          ],
+
+          if (derniere != null) ...[
+            Text(AppLocalizations.of(context)!.lastmatch,
+                style: const TextStyle(fontSize: 20)),
+            _creerLigne(derniere, context),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLandscape(
+      BuildContext context,
+      Rencontre? prochaine,
+      Rencontre? derniere,
+      ) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+          // Gauche
+          Expanded(
+            flex: 1,
+            child: Card(
+              elevation: 3,
+              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  AppLocalizations.of(context)!.welcome,
+                  style: const TextStyle(fontSize: 32),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 16),
+
+          // Droite
+          Expanded(
+            flex: 2,
+            child: ListView(
+
+              children: [
+
+                if (prochaine != null) ...[
+                  Text(AppLocalizations.of(context)!.nextmatch,
+                      style: const TextStyle(fontSize: 20)),
+                  _creerLigne(prochaine, context),
+                ],
+
+                if (derniere != null) ...[
+                  Text(AppLocalizations.of(context)!.lastmatch,
+                      style: const TextStyle(fontSize: 20)),
+                  _creerLigne(derniere, context),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 

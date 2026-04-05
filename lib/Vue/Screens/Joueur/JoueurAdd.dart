@@ -122,20 +122,27 @@ class _JoueurAddState extends State<JoueurAdd> {
   Future<void> _modifierJoueur() async {
     final localizations = AppLocalizations.of(context)!;
 
-    if (_licenceControleur.text.isEmpty)
+    if (_licenceControleur.text.isEmpty) {
       return _showSnackBar(localizations.failaddjoueurlicence);
-    if (_nomControleur.text.isEmpty)
+    }
+    if (_nomControleur.text.isEmpty) {
       return _showSnackBar(localizations.failaddjoueurnom);
-    if (_prenomControleur.text.isEmpty)
+    }
+    if (_prenomControleur.text.isEmpty) {
       return _showSnackBar(localizations.failaddjoueurprenom);
-    if (_poidsControleur.text.isEmpty)
+    }
+    if (_poidsControleur.text.isEmpty) {
       return _showSnackBar(localizations.failaddjoueurpoids);
-    if (_tailleControleur.text.isEmpty)
+    }
+    if (_tailleControleur.text.isEmpty) {
       return _showSnackBar(localizations.failaddjoueurtaille);
-    if (_dateNaissance == null)
+    }
+    if (_dateNaissance == null) {
       return _showSnackBar(localizations.failaddjoueurdate);
-    if (_statutSelectionne == null)
+    }
+    if (_statutSelectionne == null) {
       return _showSnackBar(localizations.failaddjoueurstatut);
+    }
 
     Joueur modifJoueur = Joueur(
       0,
