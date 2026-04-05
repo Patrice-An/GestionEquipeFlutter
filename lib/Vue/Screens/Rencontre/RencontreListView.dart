@@ -1,3 +1,4 @@
+import 'package:GestEquipe/Modele/Rencontre/RencontreResultat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -126,6 +127,14 @@ class RencontreListViewState extends State<RencontreListView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                if(rencontre.getResultat() != null)...[
+                  Text(AppLocalizations.of(context)!.labelresultat),
+                  switch(rencontre.getResultat()!) {
+                    RencontreResultat.VICTOIRE => Icon(Icons.check_box, color: Colors.green),
+                      RencontreResultat.PERDU => Icon(Icons.close, color: Colors.red),
+                    RencontreResultat.NUL => Icon(Icons.indeterminate_check_box, color: Colors.grey),
+                  },
+                ],
                 TextButton(
                   onPressed: () {
                     afficherEcranModifierRencontre(rencontre);

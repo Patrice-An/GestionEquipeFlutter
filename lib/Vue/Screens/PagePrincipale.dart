@@ -2,6 +2,7 @@ import 'package:GestEquipe/l10n/app_localizations_en.dart';
 import 'package:flutter/material.dart';
 import '../../Controleur/RencontreControleur.dart';
 import '../../Modele/Rencontre/Rencontre.dart';
+import '../../Modele/Rencontre/RencontreResultat.dart';
 import '../../Utils/Logs.dart';
 import '../../l10n/app_localizations.dart';
 import 'MainLayout.dart';
@@ -84,13 +85,13 @@ class PagePrincipale extends StatelessWidget {
                   //Prochaine rencontre
                   if(prochaineRencontre!=null)...[
                     Text(AppLocalizations.of(context)!.nextmatch, style: const TextStyle(fontSize: 20)),
-                    _creerLigne(prochaineRencontre)
+                    _creerLigne(prochaineRencontre,context)
                   ],
 
                   //Derniere rencontre
                   if(derniereRencontre!=null)...[
                     Text(AppLocalizations.of(context)!.lastmatch, style: const TextStyle(fontSize: 20)),
-                    _creerLigne(derniereRencontre)
+                    _creerLigne(derniereRencontre,context)
                   ]
                 ],
               ),
@@ -102,7 +103,7 @@ class PagePrincipale extends StatelessWidget {
     );
   }
 
-  _creerLigne(Rencontre rencontre) {
+  _creerLigne(Rencontre rencontre,BuildContext context) {
     return Card(
       elevation: 3,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
@@ -158,6 +159,17 @@ class PagePrincipale extends StatelessWidget {
                 ),
               ],
             ),
+
+            if(rencontre.getResultat() != null)...[
+              Row(
+                children: [Text(AppLocalizations.of(context)!.labelresultat),
+                  switch(rencontre.getResultat()!) {
+                    RencontreResultat.VICTOIRE => Icon(Icons.check_box, color: Colors.green),
+                    RencontreResultat.PERDU => Icon(Icons.close, color: Colors.red),
+                    RencontreResultat.NUL => Icon(Icons.indeterminate_check_box, color: Colors.grey),
+                  },],
+              )
+            ],
 
             const SizedBox(height: 12),
           ],
