@@ -64,13 +64,33 @@ class PagePrincipale extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Mini-Projet', style: TextStyle(fontSize: 40)),
-                  Text('Rencontres trouvées : ${rencontres.length}'),
+                  //Text de bienvenue
+                  Card(
+                    elevation: 3,
+                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                          'Bienvenue dans GestEquipe!',
+                          style: const TextStyle(fontSize: 40),
+                          textAlign: TextAlign.center,
+                      ),
+                    )
+                  ),
+
+                  //Prochaine rencontre
                   if(prochaineRencontre!=null)...[
-                    Text('Prochaine Rencontre : ${prochaineRencontre.getEquipeAdverse()}')
+                    Text('Prochaine Rencontre', style: const TextStyle(fontSize: 20)),
+                    _creerLigne(prochaineRencontre)
                   ],
+
+                  //Derniere rencontre
                   if(derniereRencontre!=null)...[
-                    Text('Derniere Rencontre : ${derniereRencontre.getEquipeAdverse()}')
+                    Text('Derniere Rencontre', style: const TextStyle(fontSize: 20)),
+                    _creerLigne(derniereRencontre)
                   ]
                 ],
               ),
@@ -79,6 +99,70 @@ class PagePrincipale extends StatelessWidget {
         }
         return Center(child: Text("Erreur chargement non prévue."));
       },
+    );
+  }
+
+  _creerLigne(Rencontre rencontre) {
+    return Card(
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            Text(
+              rencontre.getEquipeAdverse(),
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            Row(
+              children: [
+                const Icon(Icons.calendar_today, size: 16),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(rencontre.getDateEtHeure().toString()),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 6),
+
+            Row(
+              children: [
+                const Icon(Icons.location_city, size: 16),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(rencontre.getLieu().name),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 6),
+
+            Row(
+              children: [
+                const Icon(Icons.place, size: 16),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(rencontre.getAdresse()),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 12),
+          ],
+        ),
+      ),
     );
   }
 }
