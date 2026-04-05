@@ -1,12 +1,13 @@
 import 'package:GestEquipe/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-import '../Screens/Joueur/JoueurAdd.dart';
-import '../Screens/Joueur/JoueurList.dart';
-import '../Screens/Rencontre/RencontreAdd.dart';
-import '../Screens/Rencontre/RencontreList.dart';
-import '../Screens/PagePrincipale.dart';
 import '../Utils/Couleurs.dart';
+import 'Joueur/JoueurAdd.dart';
+import 'Joueur/JoueurList.dart';
+import 'PagePrincipale.dart';
+import 'Rencontre/RencontreAdd.dart';
+import 'Rencontre/RencontreList.dart';
+import 'Settings.dart';
 
 class MyDrawer extends Drawer {
   const MyDrawer({super.key});
@@ -72,6 +73,16 @@ class MyDrawer extends Drawer {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => RencontreAdd()),
+              );
+            },
+          ),
+          ListTile(
+            title: Text(AppLocalizations.of(context)!.parametres),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Settings()),
               );
             },
           ),

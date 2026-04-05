@@ -57,5 +57,7 @@
   "modifierresultat": "Modifier le résultat",
   "modifierrencontre": "Modifier",
   "failresultatrencontre": "Le résultat ne peut pas être vide",
-  "deleterencontre": "Supprimer"
+  "deleterencontre": "Supprimer",
+  "parametres": "Paramètres",
+  "optionstyle": "Menu moderne : "
 }

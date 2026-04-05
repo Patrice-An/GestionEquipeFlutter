@@ -185,4 +185,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get deleterencontre => 'Supprimer';
+
+  @override
+  String get parametres => 'Paramètres';
+
+  @override
+  String get optionstyle => 'Menu moderne : ';
 }

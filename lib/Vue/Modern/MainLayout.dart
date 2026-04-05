@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../Panels/MyDrawer.dart';
-import '../Utils/Couleurs.dart';
 import 'Joueur/JoueurList.dart';
 import 'PagePrincipale.dart';
-import 'Rencontre/RencontreAdd.dart';
 import 'Rencontre/RencontreList.dart';
+import 'Settings.dart';
 
 class MainLayout extends StatelessWidget {
 
@@ -15,7 +13,7 @@ class MainLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 1,
-      length: 3,
+      length: 4,
       child: Scaffold(
         bottomNavigationBar: BottomAppBar(
           child: const TabBar(
@@ -23,7 +21,7 @@ class MainLayout extends StatelessWidget {
               Tab(icon: Icon(Icons.person)),
               Tab(icon: Icon(Icons.home)),
               Tab(icon: Icon(Icons.play_arrow)),
-              //Tab(icon: Icon(Icons.settings))
+              Tab(icon: Icon(Icons.settings))
             ],
           ),
         ),
@@ -32,6 +30,7 @@ class MainLayout extends StatelessWidget {
             JoueurList(),
             PagePrincipale(),
             RencontreList(),
+            Settings()
           ],
         ),
       ),

@@ -445,6 +445,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete'**
   String get deleterencontre;
+
+  /// No description provided for @parametres.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get parametres;
+
+  /// No description provided for @optionstyle.
+  ///
+  /// In en, this message translates to:
+  /// **'Modern menu : '**
+  String get optionstyle;
 }
 
 class _AppLocalizationsDelegate

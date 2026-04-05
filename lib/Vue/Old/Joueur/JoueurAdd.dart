@@ -1,14 +1,13 @@
 import 'package:GestEquipe/Controleur/JoueurControleur.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+
 import '../../../Modele/Joueur/Joueur.dart';
 import '../../../Modele/Joueur/JoueurStatut.dart';
 import '../../../l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
-
-import 'JoueurProvider.dart';
+import '../MainLayout.dart';
+import 'JoueurList.dart';
 
 class JoueurAdd extends StatefulWidget {
   final Joueur? joueur;
@@ -38,7 +37,7 @@ class _JoueurAddState extends State<JoueurAdd> {
   void initState() {
     super.initState();
     bool estAjout = this._joueur == null;
-    if (!estAjout) {
+    if(!estAjout){
       this._dateNaissance = this._joueur.getDateDeNaissance();
       this._statutSelectionne = this._joueur.getStatut();
       this._licenceControleur.text = this._joueur.getNumeroDeLicence();
@@ -113,8 +112,7 @@ class _JoueurAddState extends State<JoueurAdd> {
 
     if (success) {
       _showSnackBar(localizations.successaddjoueur);
-      await context.read<JoueurProvider>().rafraichir();
-      Navigator.pop(context, true);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => JoueurList()));
     } else {
       _showSnackBar(localizations.failaddjoueur);
     }
@@ -148,10 +146,7 @@ class _JoueurAddState extends State<JoueurAdd> {
       num.parse(_poidsControleur.text),
       _statutSelectionne!,
     );
-    bool success = await _controleur.modifierJoueur(
-      _joueur!.getJoueurId().toInt(),
-      modifJoueur,
-    );
+    bool success = await _controleur.modifierJoueur(_joueur!.getJoueurId().toInt(),modifJoueur);
     if (!mounted) return;
 
     if (success) {
@@ -165,26 +160,12 @@ class _JoueurAddState extends State<JoueurAdd> {
   @override
   Widget build(BuildContext context) {
     bool estAjout = this._joueur == null;
-    return Scaffold(
-      floatingActionButton: ElevatedButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Icon(Icons.arrow_back),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        // Optionnel : ajoute un peu d'air
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight:
-                MediaQuery.of(context).size.height -
-                AppBar().preferredSize.height, // Force la hauteur minimale
-          ),
-          child: Column(
-            spacing: 30,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+    return MainLayout(
+      title: AppLocalizations.of(context)!.addjoueur,
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0), // Optionnel : ajoute un peu d'air
+        child: Column(
+          children: [
               TextField(
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 controller: _licenceControleur,
@@ -198,6 +179,8 @@ class _JoueurAddState extends State<JoueurAdd> {
                   border: const OutlineInputBorder(),
                 ),
               ),
+
+              const SizedBox(height: 6),
 
               TextField(
                 inputFormatters: [
@@ -217,6 +200,8 @@ class _JoueurAddState extends State<JoueurAdd> {
                 ),
               ),
 
+              const SizedBox(height: 6),
+
               TextField(
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
@@ -235,6 +220,8 @@ class _JoueurAddState extends State<JoueurAdd> {
                 ),
               ),
 
+              const SizedBox(height: 6),
+
               TextField(
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 controller: _poidsControleur,
@@ -249,6 +236,8 @@ class _JoueurAddState extends State<JoueurAdd> {
                 ),
               ),
 
+              const SizedBox(height: 6),
+
               TextField(
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 controller: _tailleControleur,
@@ -261,6 +250,8 @@ class _JoueurAddState extends State<JoueurAdd> {
                   border: const OutlineInputBorder(),
                 ),
               ),
+
+              const SizedBox(height: 6),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -277,6 +268,7 @@ class _JoueurAddState extends State<JoueurAdd> {
                   ),
                 ],
               ),
+              const SizedBox(height: 6),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -300,19 +292,18 @@ class _JoueurAddState extends State<JoueurAdd> {
               ),
 
               const SizedBox(height: 6),
-              if (estAjout) ...[
-                TextButton(
-                  onPressed: _ajouterJoueur,
-                  child: Text(AppLocalizations.of(context)!.addjoueur),
-                ),
-              ] else ...[
-                TextButton(
-                  onPressed: _modifierJoueur,
-                  child: Text(AppLocalizations.of(context)!.modifierjoueur),
-                ),
-              ],
+            if (estAjout) ...[
+              TextButton(
+                onPressed: _ajouterJoueur,
+                child: Text(AppLocalizations.of(context)!.addjoueur),
+              ),
+            ] else ...[
+              TextButton(
+                onPressed: _modifierJoueur,
+                child: Text(AppLocalizations.of(context)!.modifierjoueur),
+              ),
             ],
-          ),
+          ],
         ),
       ),
     );

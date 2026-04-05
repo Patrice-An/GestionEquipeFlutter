@@ -108,10 +108,7 @@ class JoueurListViewState extends State<JoueurListView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                  ),
+                TextButton(
                   onPressed: () {
                     _afficherEcranModifierRencontre(joueur);
                   },
@@ -125,10 +122,7 @@ class JoueurListViewState extends State<JoueurListView> {
                   onPressed: () {
                     _supprimerJoueur(joueur);
                   },
-                  child: Text(
-                      AppLocalizations.of(context)!.deleteplayer,
-                  style: const TextStyle(color: Colors.black)
-                  )
+                  child: Text(AppLocalizations.of(context)!.deleteplayer),
                 ),
               ],
             ),

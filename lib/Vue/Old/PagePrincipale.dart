@@ -1,10 +1,10 @@
-import 'package:GestEquipe/l10n/app_localizations_en.dart';
+import 'package:GestEquipe/Controleur/RencontreControleur.dart';
+import 'package:GestEquipe/Modele/Rencontre/Rencontre.dart';
+import 'package:GestEquipe/Modele/Rencontre/RencontreResultat.dart';
+import 'package:GestEquipe/Utils/Logs.dart';
+import 'package:GestEquipe/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import '../../Controleur/RencontreControleur.dart';
-import '../../Modele/Rencontre/Rencontre.dart';
-import '../../Modele/Rencontre/RencontreResultat.dart';
-import '../../Utils/Logs.dart';
-import '../../l10n/app_localizations.dart';
+
 import 'MainLayout.dart';
 
 class PagePrincipale extends StatelessWidget {
@@ -14,7 +14,6 @@ class PagePrincipale extends StatelessWidget {
     await RencontreControleur.RafraichirListe();
     RencontreControleur c = RencontreControleur.getInstance();
 
-    Set<Rencontre> toutes = await c.getAllRencontres();
     // On attend les deux autres appels asynchrones en parallèle
     final resultats = await Future.wait([
       c.getDerniereRencontre(), //Derniere rencontre
@@ -22,7 +21,6 @@ class PagePrincipale extends StatelessWidget {
     ]);
 
     return {
-    'toutes': toutes,
     'derniere': resultats[0],
     'prochaine': resultats[1],
     };
@@ -30,15 +28,16 @@ class PagePrincipale extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    RencontreControleur c = RencontreControleur.getInstance();
     return FutureBuilder(
       future: _chargerDonnees(),
       builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
         //Attente chargement
         if (snapshot.connectionState == ConnectionState.waiting) {
           Logs.addInfo("Attente chargement");
-          return Scaffold(
-            body: const Center(child:CircularProgressIndicator()),
+          return MainLayout(
+            title: AppLocalizations.of(context)!.accueil,
+            child: const Center(child:CircularProgressIndicator(),
+            ),
           );
         }
 
@@ -53,12 +52,11 @@ class PagePrincipale extends StatelessWidget {
         //Reussite chargement
         if (snapshot.hasData) {
           Logs.addFinest("Reussite du chargement des rencontres sur PagePrincipale!");
-          print(snapshot.data!.toString());
-          final Set<Rencontre> rencontres = snapshot.data!["toutes"];
           final Rencontre? derniereRencontre = snapshot.data!["derniere"];
           final Rencontre? prochaineRencontre = snapshot.data!["prochaine"];
-          return Scaffold(
-            body: Center(
+          return MainLayout(
+            title: AppLocalizations.of(context)!.accueil,
+            child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -157,14 +155,13 @@ class PagePrincipale extends StatelessWidget {
               ],
             ),
 
-            if(rencontre.getDateEtHeure().isBefore(DateTime.now()))...[
+            if(rencontre.getResultat() != null)...[
               Row(
                 children: [Text(AppLocalizations.of(context)!.labelresultat),
-                  switch(rencontre.getResultat()) {
+                  switch(rencontre.getResultat()!) {
                     RencontreResultat.VICTOIRE => Icon(Icons.check_box, color: Colors.green),
                     RencontreResultat.PERDU => Icon(Icons.close, color: Colors.red),
                     RencontreResultat.NUL => Icon(Icons.indeterminate_check_box, color: Colors.grey),
-                    _ => Icon(Icons.question_mark_outlined, color: Colors.yellow),
                   },],
               )
             ],

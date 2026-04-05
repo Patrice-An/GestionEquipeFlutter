@@ -56,5 +56,7 @@
   "failresultatrencontre": "The result can't be empty",
   "modifierrencontre": "Edit match",
   "modifierresultat": "Edit",
-  "deleterencontre": "Delete"
+  "deleterencontre": "Delete",
+  "parametres": "Settings",
+  "optionstyle": "Modern menu : "
 }

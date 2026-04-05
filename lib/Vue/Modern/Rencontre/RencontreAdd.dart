@@ -1,14 +1,13 @@
+import 'package:GestEquipe/Controleur/RencontreControleur.dart';
+import 'package:GestEquipe/Modele/Rencontre/Rencontre.dart';
 import 'package:GestEquipe/Modele/Rencontre/RencontreLieu.dart';
+import 'package:GestEquipe/Modele/Rencontre/RencontreResultat.dart';
+import 'package:GestEquipe/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../../../Controleur/RencontreControleur.dart';
-import '../../../Modele/Rencontre/Rencontre.dart';
-import '../../../Modele/Rencontre/RencontreResultat.dart';
-import '../../../l10n/app_localizations.dart';
-import '../MainLayout.dart';
-import 'RencontreList.dart';
-import 'RencontreProvider.dart';
+
+import '../../../Controleur/Providers/RencontreProvider.dart';
 
 class RencontreAdd extends StatefulWidget {
   final Rencontre? rencontre;

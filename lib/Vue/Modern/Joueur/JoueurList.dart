@@ -1,11 +1,9 @@
-import 'package:GestEquipe/Controleur/RencontreControleur.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../l10n/app_localizations.dart';
-import '../MainLayout.dart';
+
+import 'package:GestEquipe/Controleur/Providers/JoueurProvider.dart';
 import 'JoueurAdd.dart';
 import 'JoueurListView.dart';
-import 'JoueurProvider.dart';
 
 class JoueurList extends StatelessWidget {
   const JoueurList({super.key});

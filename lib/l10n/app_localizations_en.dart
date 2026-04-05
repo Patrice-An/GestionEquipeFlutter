@@ -183,4 +183,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleterencontre => 'Delete';
+
+  @override
+  String get parametres => 'Settings';
+
+  @override
+  String get optionstyle => 'Modern menu : ';
 }
