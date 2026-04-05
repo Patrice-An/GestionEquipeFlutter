@@ -11,16 +11,16 @@ import 'package:intl/intl.dart';
 import 'JoueurList.dart';
 
 class JoueurAdd extends StatefulWidget {
-  final num? id;
+  final Joueur? joueur;
 
-  const JoueurAdd({this.id, super.key});
+  const JoueurAdd({this.joueur, super.key});
 
   @override
-  State<JoueurAdd> createState() => _JoueurAddState(this.id);
+  State<JoueurAdd> createState() => _JoueurAddState(this.joueur);
 }
 
 class _JoueurAddState extends State<JoueurAdd> {
-  final num? _id;
+  final Joueur? _joueur;
   final JoueurControleur _controleur = JoueurControleur.getInstance();
 
   final TextEditingController _licenceControleur = TextEditingController();
@@ -32,7 +32,7 @@ class _JoueurAddState extends State<JoueurAdd> {
   JoueurStatut? _statutSelectionne;
   DateTime? _dateNaissance;
 
-  _JoueurAddState(this._id);
+  _JoueurAddState(this._joueur);
 
   Future<void> _selectDate() async {
     final DateTime? pickedDate = await showDatePicker(
@@ -104,9 +104,57 @@ class _JoueurAddState extends State<JoueurAdd> {
     }
   }
 
+  Future<void> _modifierJoueur() async {
+    final localizations = AppLocalizations.of(context)!;
+
+    if (_licenceControleur.text.isEmpty)
+      return _showSnackBar(localizations.failaddjoueurlicence);
+    if (_nomControleur.text.isEmpty)
+      return _showSnackBar(localizations.failaddjoueurnom);
+    if (_prenomControleur.text.isEmpty)
+      return _showSnackBar(localizations.failaddjoueurprenom);
+    if (_poidsControleur.text.isEmpty)
+      return _showSnackBar(localizations.failaddjoueurpoids);
+    if (_tailleControleur.text.isEmpty)
+      return _showSnackBar(localizations.failaddjoueurtaille);
+    if (_dateNaissance == null)
+      return _showSnackBar(localizations.failaddjoueurdate);
+    if (_statutSelectionne == null)
+      return _showSnackBar(localizations.failaddjoueurstatut);
+
+    Joueur modifJoueur = Joueur(
+      0,
+      _nomControleur.text,
+      _prenomControleur.text,
+      _licenceControleur.text,
+      _dateNaissance!,
+      num.parse(_tailleControleur.text),
+      num.parse(_poidsControleur.text),
+      _statutSelectionne!,
+    );
+    bool success = await _controleur.modifierJoueur(_joueur!.getJoueurId().toInt(),modifJoueur);
+    if (!mounted) return;
+
+    if (success) {
+      _showSnackBar(localizations.successmodifjoueur);
+      Navigator.pop(context, true);
+    } else {
+      _showSnackBar(localizations.failmodifjoueur);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    bool estAjout = _id == null;
+    bool estAjout = this._joueur == null;
+    if(!estAjout){
+      this._dateNaissance = this._joueur.getDateDeNaissance();
+      this._statutSelectionne = this._joueur.getStatut();
+      this._licenceControleur.text = this._joueur.getNumeroDeLicence();
+      this._nomControleur.text = this._joueur.getNom();
+      this._prenomControleur.text = this._joueur.getPrenom();
+      this._tailleControleur.text = this._joueur.getTailleEnCm().toString();
+      this._poidsControleur.text = this._joueur.getPoidsEnKg().toString();
+    }
     return MainLayout(
       title: AppLocalizations.of(context)!.addjoueur,
       child: SingleChildScrollView(
@@ -246,6 +294,7 @@ class _JoueurAddState extends State<JoueurAdd> {
                 child: Text(AppLocalizations.of(context)!.addjoueur),
               ),
             ] else ...[
+
               const SizedBox(height: 6),
 
               TextField(
@@ -350,7 +399,7 @@ class _JoueurAddState extends State<JoueurAdd> {
                 items: JoueurStatut.values.map((statut) {
                   return DropdownMenuItem(
                     value: statut,
-                    child: Text(statut.toString()),
+                    child: Text(statut.name),
                   );
                 }).toList(),
                 onChanged: (value) {
@@ -363,8 +412,8 @@ class _JoueurAddState extends State<JoueurAdd> {
               const SizedBox(height: 6),
 
               TextButton(
-                onPressed: _ajouterJoueur,
-                child: Text(AppLocalizations.of(context)!.addjoueur),
+                onPressed: _modifierJoueur,
+                child: Text(AppLocalizations.of(context)!.modifierjoueur),
               ),
             ],
           ],

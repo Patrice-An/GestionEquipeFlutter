@@ -43,7 +43,18 @@
   "modifiedplayer" : "Modifier",
   "deleteplayer" : "Supprimer",
   "labelstatut" : "Statut du Joueur",
+<<<<<<< Updated upstream
   "nextmatch": "Prochaine rencontre",
   "lastmatch": "Rencontre précédente",
   "welcome": "Bienvenue sur GestEquipe !"
+=======
+  "hintadresse": "Adresse",
+  "labeladresse": "Adresse",
+  "hintadversaire": "Licence de l'adversaire",
+  "labelresult": "Résultat",
+  "labeladversaire": "Adversaire",
+  "labellieu": "Lieu",
+  "labelresultat": "Résultat",
+  "modifierjoueur": "Modifier le joueur"
+>>>>>>> Stashed changes
 }

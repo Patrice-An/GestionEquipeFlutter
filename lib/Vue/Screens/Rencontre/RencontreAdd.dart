@@ -5,21 +5,20 @@ import '../../../Controleur/RencontreControleur.dart';
 import '../../../Modele/Rencontre/Rencontre.dart';
 import '../../../Modele/Rencontre/RencontreResultat.dart';
 import '../../../l10n/app_localizations.dart';
-import '../../Panels/MyDrawer.dart';
 import '../MainLayout.dart';
 import 'RencontreList.dart';
 
 class RencontreAdd extends StatefulWidget {
-  final num? id;
+  final Rencontre? rencontre;
 
-  const RencontreAdd({this.id, super.key});
+  const RencontreAdd({this.rencontre, super.key});
 
   @override
-  State<StatefulWidget> createState() => StateRencontreAdd(id);
+  State<StatefulWidget> createState() => StateRencontreAdd(this.rencontre);
 }
 
 class StateRencontreAdd extends State<RencontreAdd> {
-  num? _id;
+  Rencontre? _rencontre;
   RencontreControleur _controleur = RencontreControleur.getInstance();
   DateTime? _dateEtHeure = DateTime.now();
   TextEditingController _adversaireControleur = TextEditingController();
@@ -27,7 +26,7 @@ class StateRencontreAdd extends State<RencontreAdd> {
   RencontreLieu? _lieuSelectionne;
   RencontreResultat? _resultatSelectionne;
 
-  StateRencontreAdd(this._id);
+  StateRencontreAdd(this._rencontre);
 
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(
@@ -110,8 +109,18 @@ class StateRencontreAdd extends State<RencontreAdd> {
 
   @override
   Widget build(BuildContext context) {
-    final bool estAjout = this._id == null;
+    final bool estAjout = this._rencontre == null;
     final bool estPassee = !estAjout && _dateEtHeure!.isBefore(DateTime.now());
+    if(!estAjout){
+      if(!estPassee){
+        this._dateEtHeure = this._rencontre!.getDateEtHeure();
+        this._adversaireControleur.text = this._rencontre!.getEquipeAdverse();
+        this._adresseControleur.text = this._rencontre!.getAdresse();
+        this._lieuSelectionne = this._rencontre!.getLieu();
+      }else{
+        this._resultatSelectionne = this._rencontre!.getResultat();
+      }
+    }
     return MainLayout(
       title: AppLocalizations.of(context)!.addrencontre,
       child: SingleChildScrollView(
@@ -151,26 +160,26 @@ class StateRencontreAdd extends State<RencontreAdd> {
                 controller: _adversaireControleur,
                 keyboardType: TextInputType.name,
                 //Permet de définir le type de clavier à afficher
-                decoration: const InputDecoration(
-                  labelText: 'Equipe adverse',
-                  hintText: 'Jean Jaures',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.labeladversaire,
+                  hintText: AppLocalizations.of(context)!.hintadversaire,
+                  border: const OutlineInputBorder(),
                 ),
               ),
               TextField(
                 controller: _adresseControleur,
                 keyboardType: TextInputType.name,
                 //Permet de définir le type de clavier à afficher
-                decoration: const InputDecoration(
-                  labelText: 'Adresse',
-                  hintText: '8 Rue de Jean Jaures',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.labeladresse,
+                  hintText: AppLocalizations.of(context)!.hintadresse,
+                  border: const OutlineInputBorder(),
                 ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Lieu :"),
+                  Text(AppLocalizations.of(context)!.labellieu),
                   DropdownButton<RencontreLieu>(
                     value: _lieuSelectionne,
                     items: RencontreLieu.values.map((statut) {
@@ -222,10 +231,10 @@ class StateRencontreAdd extends State<RencontreAdd> {
                   controller: _adversaireControleur,
                   keyboardType: TextInputType.number,
                   //Permet de définir le type de clavier à afficher
-                  decoration: const InputDecoration(
-                    labelText: 'Equipe adverse',
-                    hintText: 'Jean Jaures',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.labeladversaire,
+                    hintText: AppLocalizations.of(context)!.hintadversaire,
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 6),
@@ -233,16 +242,16 @@ class StateRencontreAdd extends State<RencontreAdd> {
                   controller: _adresseControleur,
                   keyboardType: TextInputType.name,
                   //Permet de définir le type de clavier à afficher
-                  decoration: const InputDecoration(
-                    labelText: 'Adresse',
-                    hintText: '8 Rue de Jean Jaures',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.labeladresse,
+                    hintText: AppLocalizations.of(context)!.hintadresse,
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 const SizedBox(height: 6),
                 Row(
                   children: [
-                    Text("Lieu : "),
+                    Text(AppLocalizations.of(context)!.labellieu),
                     DropdownButton<RencontreLieu>(
                       value: _lieuSelectionne,
                       items: RencontreLieu.values.map((lieu) {
@@ -262,7 +271,7 @@ class StateRencontreAdd extends State<RencontreAdd> {
               ] else ...[
                 Row(
                   children: [
-                    Text("Lieu : "),
+                    Text(AppLocalizations.of(context)!.labelresultat),
                     DropdownButton<RencontreResultat>(
                       value: _resultatSelectionne,
                       items: RencontreResultat.values.map((resultat) {

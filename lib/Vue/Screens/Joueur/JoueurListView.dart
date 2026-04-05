@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../Controleur/JoueurControleur.dart';
 import '../../../Modele/Joueur/Joueur.dart';
 import '../../../l10n/app_localizations.dart';
+import 'JoueurAdd.dart';
 import 'JoueurProvider.dart';
 
 class JoueurListView extends StatefulWidget {
@@ -37,11 +38,12 @@ class JoueurListViewState extends State<JoueurListView> {
     _showSnackBar(AppLocalizations.of(context)!.successdeletejoueur);
   }
 
-  void _afficherEcranModifierRencontre(Joueur joueur) {
+  void _afficherEcranModifierRencontre(Joueur joueur) async{
     // PASSAGE DE PARAMETRE VERS l'ECRAN MODIF
-    /*if(false/*TODO OUVRIR ECRAN MODIF*/){
-      _showSnackBar(AppLocalizations.of(context)!.failmodifjoueur)
-    };*/
+    if(!(await Navigator.push(context, MaterialPageRoute(builder: (context) => JoueurAdd(joueur : joueur))))){
+      _showSnackBar(AppLocalizations.of(context)!.failmodifjoueur);
+      return;
+    };
     context.read<JoueurProvider>().rafraichir();
     _showSnackBar(AppLocalizations.of(context)!.successmodifjoueur);
   }
