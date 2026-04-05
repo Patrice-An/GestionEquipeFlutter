@@ -23,7 +23,18 @@ class JoueurProvider extends ChangeNotifier {
     notifyListeners();
     try {
       _joueurs = await _c.getAllJoueurs();
-      print(_joueurs.toString());
+      List<Joueur> listeJoueurTries = _joueurs.toList();
+
+      listeJoueurTries.sort((a, b) {
+        //Tri nom différent
+        int comparaisonNom = a.getNom().compareTo(b.getNom());
+        if (comparaisonNom != 0) {
+          return comparaisonNom;
+        }
+        // On compare prénom si nom pareil
+        return a.getPrenom().compareTo(b.getPrenom());
+      });
+      _joueurs = listeJoueurTries.toSet();
     } finally {
       _isLoading = false;
       notifyListeners();

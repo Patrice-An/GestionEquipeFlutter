@@ -1,5 +1,3 @@
-import 'package:GestEquipe/Modele/Requetes/JoueurRequetes.dart';
-
 import '../Modele/Joueur/Joueur.dart';
 import '../Modele/Requetes/JoueurRequetes.dart';
 import '../Utils/Type.dart';
@@ -30,6 +28,7 @@ class JoueurControleur {
         listeJoueur.add(Joueur.fromArray(joueurArray));
       }
     }
+
     return listeJoueur;
   }
 

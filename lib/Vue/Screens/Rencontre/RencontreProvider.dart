@@ -21,7 +21,12 @@ class RencontreProvider extends ChangeNotifier {
     notifyListeners();
     try {
       _rencontres = await _c.getAllRencontres();
-      print(_rencontres.toString());
+      List<Rencontre> listeRencontres = _rencontres.toList();
+
+      listeRencontres.sort((a, b) {
+        return b.getDateEtHeure().compareTo(a.getDateEtHeure());
+      });
+      _rencontres = listeRencontres.toSet();
     } finally {
       _isLoading = false;
       notifyListeners();

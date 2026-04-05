@@ -76,7 +76,7 @@ class JoueurListViewState extends State<JoueurListView> {
           children: [
 
             Text(
-              "${joueur.getPrenom()} ${joueur.getNom()}",
+              "${joueur.getNom()} ${joueur.getPrenom()}",
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
