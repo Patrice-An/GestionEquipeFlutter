@@ -64,7 +64,7 @@ class JoueurControleur {
     if (result.getCode() != 201) {
       return false;
     }
-    JoueurControleur.RafraichirListe();
+    await JoueurControleur.RafraichirListe();
     return true;
   }
 

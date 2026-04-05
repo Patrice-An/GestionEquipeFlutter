@@ -64,8 +64,8 @@ class RencontreControleur {
     HTTPContainer result = await RencontreRequetes.post(rencontre.toArray());
     if (result.getCode() != 201) {
       return false;
-    }
-    RencontreControleur.RafraichirListe();
+    };
+    await RencontreControleur.RafraichirListe();
     return true;
   }
 

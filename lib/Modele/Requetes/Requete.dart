@@ -73,12 +73,7 @@ class Requete {
         JsonUtils.save(typeObjet.getPath(), result['data']);
         return HTTPContainer.getInstance(response.statusCode);
       }
-
-      dynamic data;
-      if (result['data'] != null) {
-        data = (result['data'] is String) ? jsonDecode(result['data']) : result['data'];
-      }
-      return HTTPContainer.getInstance(response.statusCode, data);
+      return HTTPContainer.getInstance(response.statusCode);
 
     } catch (e) {
       print("Erreur réseau: $e");

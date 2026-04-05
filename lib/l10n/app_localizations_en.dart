@@ -134,8 +134,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'The match has been successfully modified';
 
   @override
-  String get modifiedPlayer => 'Edit';
+  String get modifiedplayer => 'Edit';
 
   @override
-  String get deletePlayer => 'Delete';
+  String get deleteplayer => 'Delete';
+
+  @override
+  String get labelstatut => 'player statut';
 }

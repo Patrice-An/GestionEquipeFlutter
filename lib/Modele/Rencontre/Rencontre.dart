@@ -1,5 +1,7 @@
 import 'dart:core';
 
+import 'package:intl/intl.dart';
+
 import 'RencontreLieu.dart';
 import 'RencontreResultat.dart';
 
@@ -73,12 +75,14 @@ class Rencontre {
   Map<String,dynamic> toArray() {
     Map<String,String> array_rencontre = <String,String>{};
     array_rencontre.addEntries({"id":this._rencontreId.toString()}.entries);
-    array_rencontre.addEntries({"nom":this._equipeAdverse}.entries);
-    array_rencontre.addEntries({"prenom":this._adresse}.entries);
-    array_rencontre.addEntries({"numeroDeLicence":this._dateEtHeure.toString()}.entries);
-    array_rencontre.addEntries({"lieu":this._lieu.toString()}.entries);
-    if(this._resultat.toString()!="null") {
-      array_rencontre.addEntries({"resultat": this._resultat.toString()}.entries);
+    array_rencontre.addEntries({"dateEtHeure":DateFormat('yyyy-MM-dd hh:mm').format(this._dateEtHeure)}.entries);
+    array_rencontre.addEntries({"equipeAdverse":this._equipeAdverse}.entries);
+    array_rencontre.addEntries({"adresse":this._adresse}.entries);
+    array_rencontre.addEntries({"lieu":this._lieu.name}.entries);
+    if(this._resultat!=null){
+      array_rencontre.addEntries({"resultat":this._resultat!.name}.entries);
+    }else{
+      array_rencontre.addEntries({"resultat":null.toString()}.entries);
     }
     return array_rencontre;
   }

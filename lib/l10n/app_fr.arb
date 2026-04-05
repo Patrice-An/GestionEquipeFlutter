@@ -40,6 +40,7 @@
   "failaddrencontredate": "La date de la rencontre ne peut pas être dans le passé",
   "failaddrencontreadresse": "La date de la rencontre ne peut pas être dans le passé",
   "failaddrencontreadv": "La licence de l'adversaire ne peut pas être vide",
-  "modifiedPlayer" : "Modifier",
-  "deletePlayer" : "Supprimer"
+  "modifiedplayer" : "Modifier",
+  "deleteplayer" : "Supprimer",
+  "labelstatut" : "Statut du Joueur"
 }

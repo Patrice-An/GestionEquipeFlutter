@@ -40,6 +40,7 @@
   "successdeleterencontre": "The match has been successfully deleted",
   "failmodifrencontre": "The match modification operation failed",
   "successmodifrencontre": "The match has been successfully modified",
-  "modifiedPlayer" : "Edit",
-  "deletePlayer" : "Delete"
+  "modifiedplayer" : "Edit",
+  "deleteplayer" : "Delete",
+  "labelstatut" : "player statut"
 }

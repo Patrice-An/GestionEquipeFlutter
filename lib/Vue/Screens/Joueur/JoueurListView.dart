@@ -109,7 +109,7 @@ class JoueurListViewState extends State<JoueurListView> {
                   onPressed: () {
                     _afficherEcranModifierRencontre(joueur);
                   },
-                  child: Text(AppLocalizations.of(context)!.modifiedPlayer),
+                  child: Text(AppLocalizations.of(context)!.modifiedplayer),
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton(
@@ -119,7 +119,7 @@ class JoueurListViewState extends State<JoueurListView> {
                   onPressed: () {
                     _supprimerJoueur(joueur);
                   },
-                  child: Text(AppLocalizations.of(context)!.deletePlayer),
+                  child: Text(AppLocalizations.of(context)!.deleteplayer),
                 ),
               ],
             ),

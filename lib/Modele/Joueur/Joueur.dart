@@ -1,5 +1,7 @@
 import 'dart:core';
 
+import 'package:intl/intl.dart';
+
 import 'JoueurStatut.dart';
 
 
@@ -93,10 +95,11 @@ class Joueur {
     arrayJoueur.addEntries({"id":this._joueurId.toString()}.entries);
     arrayJoueur.addEntries({"nom":this._nom}.entries);
     arrayJoueur.addEntries({"prenom":this._prenom}.entries);
-    arrayJoueur.addEntries({"numeroDeLicence":this._dateDeNaissance.toString()}.entries);
+    arrayJoueur.addEntries({"numeroDeLicence":this._numeroDeLicence.toString()}.entries);
+    arrayJoueur.addEntries({"dateDeNaissance":DateFormat("yyyy-MM-dd").format(this._dateDeNaissance)}.entries);
     arrayJoueur.addEntries({"tailleEnCm":this._tailleEnCm.toString()}.entries);
     arrayJoueur.addEntries({"poidsEnKg":this._poidsEnKg.toString()}.entries);
-    arrayJoueur.addEntries({"statut":this._statut.toString()}.entries);
+    arrayJoueur.addEntries({"statut":this._statut.name}.entries);
     return arrayJoueur;
   }
 
