@@ -10,7 +10,7 @@ import '../Utils/JsonUtils.dart';
 class RencontreControleur {
 
   static RencontreControleur? _instance;
-  static TypeObjet _type = TypeObjet.RENCONTRES;
+  static final TypeObjet _type = TypeObjet.RENCONTRES;
   RencontreControleur._internal();
 
   static RencontreControleur getInstance() {

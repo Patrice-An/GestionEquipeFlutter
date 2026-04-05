@@ -7,7 +7,7 @@ import '../Utils/JsonUtils.dart';
 class JoueurControleur {
 
   static JoueurControleur? _instance;
-  static TypeObjet _type = TypeObjet.JOUEURS;
+  static final TypeObjet _type = TypeObjet.JOUEURS;
   JoueurControleur._internal();
 
   static JoueurControleur getInstance() {

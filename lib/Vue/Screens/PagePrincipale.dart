@@ -37,10 +37,8 @@ class PagePrincipale extends StatelessWidget {
         //Attente chargement
         if (snapshot.connectionState == ConnectionState.waiting) {
           Logs.addInfo("Attente chargement");
-          return MainLayout(
-            title: AppLocalizations.of(context)!.accueil,
-            child: const Center(child:CircularProgressIndicator(),
-            ),
+          return Scaffold(
+            body: const Center(child:CircularProgressIndicator()),
           );
         }
 
@@ -59,9 +57,8 @@ class PagePrincipale extends StatelessWidget {
           final Set<Rencontre> rencontres = snapshot.data!["toutes"];
           final Rencontre? derniereRencontre = snapshot.data!["derniere"];
           final Rencontre? prochaineRencontre = snapshot.data!["prochaine"];
-          return MainLayout(
-            title: AppLocalizations.of(context)!.accueil,
-            child: Center(
+          return Scaffold(
+            body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -160,13 +157,14 @@ class PagePrincipale extends StatelessWidget {
               ],
             ),
 
-            if(rencontre.getResultat() != null)...[
+            if(rencontre.getDateEtHeure().isBefore(DateTime.now()))...[
               Row(
                 children: [Text(AppLocalizations.of(context)!.labelresultat),
-                  switch(rencontre.getResultat()!) {
+                  switch(rencontre.getResultat()) {
                     RencontreResultat.VICTOIRE => Icon(Icons.check_box, color: Colors.green),
                     RencontreResultat.PERDU => Icon(Icons.close, color: Colors.red),
                     RencontreResultat.NUL => Icon(Icons.indeterminate_check_box, color: Colors.grey),
+                    _ => Icon(Icons.question_mark_outlined, color: Colors.yellow),
                   },],
               )
             ],

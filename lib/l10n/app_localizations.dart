@@ -437,8 +437,14 @@ abstract class AppLocalizations {
   /// No description provided for @modifierresultat.
   ///
   /// In en, this message translates to:
-  /// **'Edit result'**
+  /// **'Edit'**
   String get modifierresultat;
+
+  /// No description provided for @deleterencontre.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleterencontre;
 }
 
 class _AppLocalizationsDelegate

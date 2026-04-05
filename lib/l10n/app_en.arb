@@ -55,5 +55,6 @@
   "labellieu": "Location",
   "failresultatrencontre": "The result can't be empty",
   "modifierrencontre": "Edit match",
-  "modifierresultat": "Edit result"
+  "modifierresultat": "Edit",
+  "deleterencontre": "Delete"
 }

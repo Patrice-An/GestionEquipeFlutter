@@ -178,8 +178,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get failresultatrencontre => 'Le résultat ne peut pas être vide';
 
   @override
-  String get modifierrencontre => 'Modifier la rencontre';
+  String get modifierrencontre => 'Modifier';
 
   @override
   String get modifierresultat => 'Modifier le résultat';
+
+  @override
+  String get deleterencontre => 'Supprimer';
 }

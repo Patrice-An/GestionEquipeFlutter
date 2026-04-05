@@ -38,7 +38,7 @@ class RencontreListViewState extends State<RencontreListView> {
     ).showSnackBar(SnackBar(content: Text(message)));
   }
 
-  void supprimerRencontre(Rencontre rencontre) async{
+  void _supprimerRencontre(Rencontre rencontre) async{
     if(!await _c.suppprimerRencontre(rencontre.getRencontreId().toInt())){
       _showSnackBar(AppLocalizations.of(context)!.faildeleterencontre);
       return;
@@ -47,14 +47,14 @@ class RencontreListViewState extends State<RencontreListView> {
     _showSnackBar(AppLocalizations.of(context)!.successdeleterencontre);
   }
 
-  void afficherEcranModifierRencontre(Rencontre rencontre) async{
+  void _afficherEcranModifierRencontre(Rencontre rencontre) async{
     // PASSAGE DE PARAMETRE VERS l'ECRAN MODIF
     if(!(await Navigator.push(context, MaterialPageRoute(builder: (context) => RencontreAdd(rencontre : rencontre))))){
-    _showSnackBar(AppLocalizations.of(context)!.failmodifjoueur);
+      _showSnackBar(AppLocalizations.of(context)!.failmodifrencontre);
     return;
     };
-    context.read<RencontreProvider>().rafraichir();
-    _showSnackBar(AppLocalizations.of(context)!.successmodifjoueur);
+    await context.read<RencontreProvider>().rafraichir();
+    _showSnackBar(AppLocalizations.of(context)!.successmodifrencontre);
   }
 
   List<Widget> generer(Set<Rencontre> rencontres) {
@@ -127,26 +127,34 @@ class RencontreListViewState extends State<RencontreListView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                if(rencontre.getResultat() != null)...[
                   Text(AppLocalizations.of(context)!.labelresultat),
-                  switch(rencontre.getResultat()!) {
+                  switch(rencontre.getResultat()) {
                     RencontreResultat.VICTOIRE => Icon(Icons.check_box, color: Colors.green),
-                      RencontreResultat.PERDU => Icon(Icons.close, color: Colors.red),
+                    RencontreResultat.PERDU => Icon(Icons.close, color: Colors.red),
                     RencontreResultat.NUL => Icon(Icons.indeterminate_check_box, color: Colors.grey),
+                    _ => Icon(Icons.question_mark_outlined, color: Colors.yellow),
                   },
-                ],
-                TextButton(
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                  ),
                   onPressed: () {
-                    afficherEcranModifierRencontre(rencontre);
+                    _afficherEcranModifierRencontre(rencontre);
                   },
-                  child: Text(AppLocalizations.of(context)!.modifiedplayer),
+                  child: Text(AppLocalizations.of(context)!.modifierrencontre),
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton(
-                  onPressed: () {
-                    supprimerRencontre(rencontre);
-                  },
-                  child: Text(AppLocalizations.of(context)!.deleteplayer),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                    ),
+                    onPressed: () {
+                      _supprimerRencontre(rencontre);
+                    },
+                    child: Text(
+                        AppLocalizations.of(context)!.deleterencontre,
+                        style: const TextStyle(color: Colors.black)
+                    )
                 ),
               ],
             ),

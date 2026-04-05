@@ -21,17 +21,17 @@ class RencontreAdd extends StatefulWidget {
 
 class StateRencontreAdd extends State<RencontreAdd> {
   Rencontre? _rencontre;
-  RencontreControleur _controleur = RencontreControleur.getInstance();
+  final RencontreControleur _controleur = RencontreControleur.getInstance();
   DateTime? _dateEtHeure = DateTime.now();
-  TextEditingController _adversaireControleur = TextEditingController();
-  TextEditingController _adresseControleur = TextEditingController();
+  final TextEditingController _adversaireControleur = TextEditingController();
+  final TextEditingController _adresseControleur = TextEditingController();
   RencontreLieu? _lieuSelectionne;
   RencontreResultat? _resultatSelectionne;
 
   StateRencontreAdd(this._rencontre);
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     final bool estAjout = this._rencontre == null;
     if (!estAjout) {
@@ -76,10 +76,8 @@ class StateRencontreAdd extends State<RencontreAdd> {
     context.read<RencontreProvider>().rafraichir();
     if (success) {
       _showSnackBar(localizations.successaddrencontre);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => RencontreList()),
-      );
+      await context.read<RencontreProvider>().rafraichir();
+      Navigator.pop(context);
     } else {
       _showSnackBar(localizations.failaddrencontre);
     }
@@ -94,7 +92,7 @@ class StateRencontreAdd extends State<RencontreAdd> {
     if (_adresseControleur.text.isEmpty)
       return _showSnackBar(localizations.failaddrencontreadresse);
 
-    Rencontre nouvelleRencontre = Rencontre(
+    Rencontre modifRencontre = Rencontre(
       0,
       _dateEtHeure!,
       _adversaireControleur.text,
@@ -103,14 +101,11 @@ class StateRencontreAdd extends State<RencontreAdd> {
       null,
     );
 
-    bool success = await _controleur.creerRencontre(nouvelleRencontre);
+    bool success = await _controleur.modifierRencontre(this._rencontre!.getRencontreId().toInt(), modifRencontre);
 
     if (success) {
       _showSnackBar(localizations.successaddrencontre);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => RencontreList()),
-      );
+      Navigator.pop(context, true);
     } else {
       _showSnackBar(localizations.failaddrencontre);
     }
@@ -182,121 +177,126 @@ class StateRencontreAdd extends State<RencontreAdd> {
   @override
   Widget build(BuildContext context) {
     final bool estAjout = this._rencontre == null;
-    print(_dateEtHeure.toString());
-    print(DateTime.now());
-    print(_dateEtHeure!.isBefore(DateTime.now()));
     final bool estPassee = !estAjout && _dateEtHeure!.isBefore(DateTime.now());
-    return MainLayout(
-      title: AppLocalizations.of(context)!.addrencontre,
-      child: SingleChildScrollView(
+    return Scaffold(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            // Ajout d'une rencontre
-            if (!estPassee) ...[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(AppLocalizations.of(context)!.labeldate),
-                  const SizedBox(width: 5),
-                  TextButton(
-                    onPressed: _selectDate,
-                    child: Text(
-                      _dateEtHeure != null
-                          ? DateFormat('dd/MM/yyyy').format(_dateEtHeure!)
-                          : "dd/MM/yyyy",
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height - AppBar().preferredSize.height, // Force la hauteur minimale
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 50,
+            children: [
+              // Ajout d'une rencontre
+              if (!estPassee) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(AppLocalizations.of(context)!.labeldate),
+                    const SizedBox(width: 5),
+                    TextButton(
+                      onPressed: _selectDate,
+                      child: Text(
+                        _dateEtHeure != null
+                            ? DateFormat('dd/MM/yyyy').format(_dateEtHeure!)
+                            : "dd/MM/yyyy",
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 5),
-                  TextButton(
-                    onPressed: _selectTime,
-                    child: Text(
-                      _dateEtHeure != null
-                          ? DateFormat('hh:mm').format(_dateEtHeure!)
-                          : "hh:mm",
+                    const SizedBox(width: 5),
+                    TextButton(
+                      onPressed: _selectTime,
+                      child: Text(
+                        _dateEtHeure != null
+                            ? DateFormat('hh:mm').format(_dateEtHeure!)
+                            : "hh:mm",
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
 
-              TextField(
-                controller: _adversaireControleur,
-                keyboardType: TextInputType.name,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labeladversaire,
-                  hintText: AppLocalizations.of(context)!.hintadversaire,
-                  border: const OutlineInputBorder(),
+                TextField(
+                  controller: _adversaireControleur,
+                  keyboardType: TextInputType.name,
+                  //Permet de définir le type de clavier à afficher
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.labeladversaire,
+                    hintText: AppLocalizations.of(context)!.hintadversaire,
+                    border: const OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              TextField(
-                controller: _adresseControleur,
-                keyboardType: TextInputType.name,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labeladresse,
-                  hintText: AppLocalizations.of(context)!.hintadresse,
-                  border: const OutlineInputBorder(),
+                TextField(
+                  controller: _adresseControleur,
+                  keyboardType: TextInputType.name,
+                  //Permet de définir le type de clavier à afficher
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.labeladresse,
+                    hintText: AppLocalizations.of(context)!.hintadresse,
+                    border: const OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(AppLocalizations.of(context)!.labellieu),
-                  DropdownButton<RencontreLieu>(
-                    value: _lieuSelectionne,
-                    items: RencontreLieu.values.map((statut) {
-                      return DropdownMenuItem(
-                        value: statut,
-                        child: Text(statut.name),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _lieuSelectionne = value;
-                      });
-                    },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(AppLocalizations.of(context)!.labellieu),
+                    DropdownButton<RencontreLieu>(
+                      value: _lieuSelectionne,
+                      items: RencontreLieu.values.map((statut) {
+                        return DropdownMenuItem(
+                          value: statut,
+                          child: Text(statut.name),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _lieuSelectionne = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                if (estAjout) ...[
+                  TextButton(
+                    onPressed: _ajouterRencontre,
+                    child: Text(AppLocalizations.of(context)!.addrencontre),
+                  ),
+                ] else ...[
+                  TextButton(
+                    onPressed: _modifierRencontre,
+                    child: Text(
+                      AppLocalizations.of(context)!.modifierrencontre,
+                    ),
                   ),
                 ],
-              ),
-              if (estAjout) ...[
-                TextButton(
-                  onPressed: _ajouterRencontre,
-                  child: Text(AppLocalizations.of(context)!.addrencontre),
-                ),
               ] else ...[
+                Row(
+                  children: [
+                    Text(AppLocalizations.of(context)!.labelresultat),
+                    DropdownButton<RencontreResultat>(
+                      value: _resultatSelectionne,
+                      items: RencontreResultat.values.map((resultat) {
+                        return DropdownMenuItem(
+                          value: resultat,
+                          child: Text(resultat.name),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _resultatSelectionne = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
                 TextButton(
-                  onPressed: _modifierRencontre,
-                  child: Text(AppLocalizations.of(context)!.modifierrencontre),
+                  onPressed: _modifierResultat,
+                  child: Text(AppLocalizations.of(context)!.modifierresultat),
                 ),
               ],
-            ] else ...[
-              Row(
-                children: [
-                  Text(AppLocalizations.of(context)!.labelresultat),
-                  DropdownButton<RencontreResultat>(
-                    value: _resultatSelectionne,
-                    items: RencontreResultat.values.map((resultat) {
-                      return DropdownMenuItem(
-                        value: resultat,
-                        child: Text(resultat.name),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _resultatSelectionne = value;
-                      });
-                    },
-                  ),
-                ],
-              ),
-              TextButton(
-                onPressed: _modifierResultat,
-                child: Text(AppLocalizations.of(context)!.modifierresultat),
-              ),
             ],
-          ],
+          ),
         ),
       ),
     );
