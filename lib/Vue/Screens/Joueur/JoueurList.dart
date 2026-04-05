@@ -13,7 +13,7 @@ class JoueurList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) =>
-      JoueurProvider()..chargerDonnees(),
+      JoueurProvider()..rafraichir(),
       builder: (context, child) {
         return MainLayout(
           title: AppLocalizations.of(context)!.listjoueur,

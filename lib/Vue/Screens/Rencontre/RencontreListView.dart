@@ -30,9 +30,24 @@ class RencontreListViewState extends State<RencontreListView> {
     }
   }
 
-  void supprimerRencontre(Rencontre rencontre) {}
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
 
-  void afficherEcranModifierRencontre(Rencontre rencontre) {}
+  void supprimerRencontre(Rencontre rencontre) async{
+    if(!await _c.suppprimerRencontre(rencontre.getRencontreId().toInt())){
+      _showSnackBar(AppLocalizations.of(context)!.faildeleterencontre);
+      return;
+    };
+    await context.read<RencontreProvider>().rafraichir();
+    _showSnackBar(AppLocalizations.of(context)!.successdeleterencontre);
+  }
+
+  void afficherEcranModifierRencontre(Rencontre rencontre) {
+    print("modifier ${rencontre.toString()}");
+  }
 
   List<Widget> generer(Set<Rencontre> rencontres) {
     List<Widget> lignes = [];

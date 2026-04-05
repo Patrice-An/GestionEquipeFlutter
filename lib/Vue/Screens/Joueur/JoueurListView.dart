@@ -31,6 +31,7 @@ class JoueurListViewState extends State<JoueurListView> {
   Future<void> _supprimerJoueur(Joueur joueur) async {
     if(!await _c.suppprimerJoueur(joueur.getJoueurId().toInt())){
       _showSnackBar(AppLocalizations.of(context)!.faildeletejoueur);
+      return;
     };
     context.read<JoueurProvider>().rafraichir();
     _showSnackBar(AppLocalizations.of(context)!.successdeletejoueur);

@@ -60,21 +60,20 @@ class Requete {
           break;
       }
 
-      // Traitement du retour
-      if (response.body.isEmpty) return HTTPContainer.getInstance(500);
-
-      final Map<String, dynamic> result = jsonDecode(response.body);
       // Vérification du code HTTP (200-299)
       if (response.statusCode < 200 || response.statusCode >= 300) {
         return HTTPContainer.getInstance(response.statusCode);
       }
-
-      if(typeRequete == TypeRequete.GET){
-        JsonUtils.save(typeObjet.getPath(), result['data']);
-        return HTTPContainer.getInstance(response.statusCode);
+      //Post et get reçoivent un json si reussite
+      if(response.statusCode!=204) {
+        if (response.body.isEmpty) return HTTPContainer.getInstance(500);
+        final Map<String, dynamic> result = jsonDecode(response.body);
+        if (typeRequete == TypeRequete.GET) {
+          JsonUtils.save(typeObjet.getPath(), result['data']);
+          return HTTPContainer.getInstance(response.statusCode);
+        }
       }
       return HTTPContainer.getInstance(response.statusCode);
-
     } catch (e) {
       print("Erreur réseau: $e");
       return HTTPContainer.getInstance(500);

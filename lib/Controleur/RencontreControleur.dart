@@ -65,7 +65,6 @@ class RencontreControleur {
     if (result.getCode() != 201) {
       return false;
     };
-    await RencontreControleur.RafraichirListe();
     return true;
   }
 
@@ -75,7 +74,6 @@ class RencontreControleur {
     if (result.getCode() != 204) {
       return false;
     }
-    RencontreControleur.RafraichirListe();
     return true;
   }
 
@@ -94,7 +92,6 @@ class RencontreControleur {
     if (result.getCode() != 204) {
       return false;
     }
-    RencontreControleur.RafraichirListe();
     return true;
   }
 
