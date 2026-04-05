@@ -1,8 +1,8 @@
 import '../Modele/Joueur/Joueur.dart';
 import '../Modele/Requetes/JoueurRequetes.dart';
-import '../Utils/Type.dart';
 import '../Utils/HTTPContainer.dart';
 import '../Utils/JsonUtils.dart';
+import '../Utils/Type.dart';
 
 class JoueurControleur {
 
