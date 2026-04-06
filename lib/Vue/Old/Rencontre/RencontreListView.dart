@@ -6,7 +6,7 @@ import '../../../Controleur/RencontreControleur.dart';
 import '../../../Modele/Rencontre/Rencontre.dart';
 import '../../../l10n/app_localizations.dart';
 import 'RencontreAdd.dart';
-import 'RencontreProvider.dart';
+import 'package:GestEquipe/Controleur/Providers/RencontreProvider.dart';
 
 class RencontreListView extends StatefulWidget {
   const RencontreListView({super.key});

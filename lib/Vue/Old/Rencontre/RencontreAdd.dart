@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../MainLayout.dart';
 import 'RencontreList.dart';
-import 'RencontreProvider.dart';
+import 'package:GestEquipe/Controleur/Providers/RencontreProvider.dart';
 
 class RencontreAdd extends StatefulWidget {
   final Rencontre? rencontre;

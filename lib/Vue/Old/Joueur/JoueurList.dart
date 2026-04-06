@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../l10n/app_localizations.dart';
 import '../MainLayout.dart';
 import 'JoueurListView.dart';
-import 'JoueurProvider.dart';
+import 'package:GestEquipe/Controleur/Providers/JoueurProvider.dart';
 
 class JoueurList extends StatelessWidget {
   JoueurList({super.key});
