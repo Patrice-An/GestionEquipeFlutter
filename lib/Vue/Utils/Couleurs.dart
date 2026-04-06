@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Couleurs {
-  static MaterialColor principale = Colors.blue;
+  //Fichier pour gerer la palette de l'app
+  static MaterialColor principale = Colors.red;
   static MaterialColor secondaire = Colors.red;
 }

@@ -19,7 +19,7 @@ class MyDrawer extends Drawer {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(color: Couleurs.principale),
+            decoration: BoxDecoration(color: Couleurs.secondaire),
             child: const Text("Menu"),
           ),
 

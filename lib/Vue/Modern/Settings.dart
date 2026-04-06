@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../Utils/Logs.dart';
+
 class Settings extends StatefulWidget {
 
   const Settings({super.key});
@@ -23,7 +25,8 @@ class _SettingsState extends State<Settings> {
 
   Future<void> _changerMenu() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('styleMenu', !(MainApp.getStyleMenu()));
+    await prefs.setBool('styleMenu', false);
+    Logs.addInfo("Changement d'ui vers new->old");
     Phoenix.rebirth(context);
   }
 

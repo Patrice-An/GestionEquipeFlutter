@@ -16,7 +16,7 @@ class MainLayout extends StatelessWidget {
       floatingActionButton: reloadButton,
       appBar: AppBar(
         title: Text(title),
-        backgroundColor: Couleurs.secondaire,
+        backgroundColor: Couleurs.principale,
       ),
       drawer: const MyDrawer(),
       body: child,
