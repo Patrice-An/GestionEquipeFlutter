@@ -63,7 +63,7 @@ class MainApp extends StatelessWidget {
           final bool styleModern = snapshot.data!['styleMenu'];
           return ChangeNotifierProvider(
               create: (_) =>
-              RencontreProvider()..chargerDonnees(),
+                RencontreProvider()..rafraichir(),
               builder: (context, child) {
                 if(styleModern) {
                   return MaterialApp(

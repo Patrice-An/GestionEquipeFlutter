@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../l10n/app_localizations.dart';
 import '../MainLayout.dart';
 import 'RencontreListView.dart';
-import 'RencontreProvider.dart';
+import 'package:GestEquipe/Controleur/Providers/RencontreProvider.dart';
 
 class RencontreList extends StatelessWidget {
   const RencontreList({super.key});

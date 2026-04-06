@@ -5,7 +5,7 @@ import '../../../Controleur/JoueurControleur.dart';
 import '../../../Modele/Joueur/Joueur.dart';
 import '../../../l10n/app_localizations.dart';
 import 'JoueurAdd.dart';
-import 'JoueurProvider.dart';
+import 'package:GestEquipe/Controleur/Providers/JoueurProvider.dart';
 
 class JoueurListView extends StatefulWidget {
   const JoueurListView({super.key});
