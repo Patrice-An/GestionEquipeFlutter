@@ -1,13 +1,13 @@
 import '../Modele/Joueur/Joueur.dart';
 import '../Modele/Requetes/JoueurRequetes.dart';
-import '../Utils/Type.dart';
 import '../Utils/HTTPContainer.dart';
 import '../Utils/JsonUtils.dart';
+import '../Utils/Type.dart';
 
 class JoueurControleur {
 
   static JoueurControleur? _instance;
-  static TypeObjet _type = TypeObjet.JOUEURS;
+  static final TypeObjet _type = TypeObjet.JOUEURS;
   JoueurControleur._internal();
 
   static JoueurControleur getInstance() {

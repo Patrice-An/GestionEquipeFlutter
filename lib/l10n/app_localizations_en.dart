@@ -179,5 +179,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get modifierrencontre => 'Edit match';
 
   @override
-  String get modifierresultat => 'Edit result';
+  String get modifierresultat => 'Edit';
+
+  @override
+  String get deleterencontre => 'Delete';
+
+  @override
+  String get parametres => 'Settings';
+
+  @override
+  String get optionstyle => 'Modern menu : ';
 }

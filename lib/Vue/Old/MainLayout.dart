@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../Panels/MyDrawer.dart';
 import '../Utils/Couleurs.dart';
+import 'MyDrawer.dart';
 
 class MainLayout extends StatelessWidget {
   final String title;

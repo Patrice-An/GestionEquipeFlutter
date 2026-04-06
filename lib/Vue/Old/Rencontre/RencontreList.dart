@@ -1,6 +1,6 @@
-import 'package:GestEquipe/Controleur/RencontreControleur.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../../l10n/app_localizations.dart';
 import '../MainLayout.dart';
 import 'RencontreListView.dart';

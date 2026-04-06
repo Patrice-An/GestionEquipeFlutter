@@ -1,6 +1,6 @@
+import 'package:GestEquipe/Controleur/RencontreControleur.dart';
+import 'package:GestEquipe/Modele/Rencontre/Rencontre.dart';
 import 'package:flutter/material.dart';
-import '../../../Controleur/RencontreControleur.dart';
-import '../../../Modele/Rencontre/Rencontre.dart';
 
 class RencontreProvider extends ChangeNotifier {
   final RencontreControleur _c = RencontreControleur.getInstance();

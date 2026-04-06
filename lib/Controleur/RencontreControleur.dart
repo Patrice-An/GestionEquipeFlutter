@@ -2,15 +2,14 @@ import 'package:GestEquipe/Modele/Requetes/RencontreRequetes.dart';
 
 import '../Modele/Rencontre/Rencontre.dart';
 import '../Modele/Rencontre/RencontreResultat.dart';
-import '../Modele/Requetes/RencontreRequetes.dart';
-import '../Utils/Type.dart';
 import '../Utils/HTTPContainer.dart';
 import '../Utils/JsonUtils.dart';
+import '../Utils/Type.dart';
 
 class RencontreControleur {
 
   static RencontreControleur? _instance;
-  static TypeObjet _type = TypeObjet.RENCONTRES;
+  static final TypeObjet _type = TypeObjet.RENCONTRES;
   RencontreControleur._internal();
 
   static RencontreControleur getInstance() {
