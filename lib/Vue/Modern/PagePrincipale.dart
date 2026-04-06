@@ -49,48 +49,126 @@ class PagePrincipale extends StatelessWidget {
         //Reussite chargement
         if (snapshot.hasData) {
           Logs.addFinest("Reussite du chargement des rencontres sur PagePrincipale!");
+
           final Rencontre? derniereRencontre = snapshot.data!["derniere"];
           final Rencontre? prochaineRencontre = snapshot.data!["prochaine"];
+
+          final orientation = MediaQuery.of(context).orientation;
+
           return Scaffold(
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  //Text de bienvenue
-                  Card(
-                    elevation: 3,
-                    margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(
-                        AppLocalizations.of(context)!.welcome,
-                          style: const TextStyle(fontSize: 40),
-                          textAlign: TextAlign.center,
-                      ),
-                    )
-                  ),
-
-                  //Prochaine rencontre
-                  if(prochaineRencontre!=null)...[
-                    Text(AppLocalizations.of(context)!.nextmatch, style: const TextStyle(fontSize: 20)),
-                    _creerLigne(prochaineRencontre,context)
-                  ],
-
-                  //Derniere rencontre
-                  if(derniereRencontre!=null)...[
-                    Text(AppLocalizations.of(context)!.lastmatch, style: const TextStyle(fontSize: 20)),
-                    _creerLigne(derniereRencontre,context)
-                  ]
-                ],
-              ),
-            ),
+            body: orientation == Orientation.landscape
+                ? _buildLandscape(context, prochaineRencontre, derniereRencontre)
+                : _buildPortrait(context, prochaineRencontre, derniereRencontre),
           );
         }
         return Center(child: Text("Erreur chargement non prévue."));
       },
+    );
+  }
+
+  Widget _buildPortrait(
+      BuildContext context,
+      Rencontre? prochaineRencontre,
+      Rencontre? derniereRencontre,
+      ) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+
+          // Welcome
+          Card(
+            elevation: 3,
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                AppLocalizations.of(context)!.welcome,
+                style: const TextStyle(fontSize: 40),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+
+          if (prochaineRencontre != null) ...[
+            Text(AppLocalizations.of(context)!.nextmatch,
+                style: const TextStyle(fontSize: 20)),
+            _creerLigne(prochaineRencontre, context),
+          ],
+
+          if (derniereRencontre != null) ...[
+            Text(AppLocalizations.of(context)!.lastmatch,
+                style: const TextStyle(fontSize: 20)),
+            _creerLigne(derniereRencontre, context),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLandscape(
+      BuildContext context,
+      Rencontre? prochaineRencontre,
+      Rencontre? derniereRencontre,
+      ) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+          // Gauche → Welcome
+          Expanded(
+            flex: 1,
+            child: Card(
+              elevation: 3,
+              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  AppLocalizations.of(context)!.welcome,
+                  style: const TextStyle(fontSize: 32),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 16),
+
+          // Droite → Recap avec scroll
+          Expanded(
+            flex: 2,
+            child: ListView(
+              padding: const EdgeInsets.all(8),
+              children: [
+
+                if (prochaineRencontre != null) ...[
+                  Text(
+                    AppLocalizations.of(context)!.nextmatch,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  _creerLigne(prochaineRencontre, context),
+                ],
+
+                if (derniereRencontre != null) ...[
+                  Text(
+                    AppLocalizations.of(context)!.lastmatch,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  _creerLigne(derniereRencontre, context),
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
