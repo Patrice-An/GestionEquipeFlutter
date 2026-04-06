@@ -58,5 +58,6 @@
   "modifierresultat": "Edit",
   "deleterencontre": "Delete",
   "parametres": "Settings",
-  "optionstyle": "Modern menu : "
+  "optionstyle": "Modern menu : ",
+  "labeldaterencontre" : "Match date"
 }

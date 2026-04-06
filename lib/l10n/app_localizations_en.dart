@@ -189,4 +189,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get optionstyle => 'Modern menu : ';
+
+  @override
+  String get labeldaterencontre => 'Match date';
 }

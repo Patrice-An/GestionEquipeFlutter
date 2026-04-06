@@ -457,6 +457,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Modern menu : '**
   String get optionstyle;
+
+  /// No description provided for @labeldaterencontre.
+  ///
+  /// In en, this message translates to:
+  /// **'Match date'**
+  String get labeldaterencontre;
 }
 
 class _AppLocalizationsDelegate

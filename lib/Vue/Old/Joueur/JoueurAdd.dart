@@ -37,7 +37,7 @@ class _JoueurAddState extends State<JoueurAdd> {
   void initState() {
     super.initState();
     bool estAjout = this._joueur == null;
-    if(!estAjout){
+    if (!estAjout) {
       this._dateNaissance = this._joueur.getDateDeNaissance();
       this._statutSelectionne = this._joueur.getStatut();
       this._licenceControleur.text = this._joueur.getNumeroDeLicence();
@@ -112,7 +112,10 @@ class _JoueurAddState extends State<JoueurAdd> {
 
     if (success) {
       _showSnackBar(localizations.successaddjoueur);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => JoueurList()));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => JoueurList()),
+      );
     } else {
       _showSnackBar(localizations.failaddjoueur);
     }
@@ -153,7 +156,10 @@ class _JoueurAddState extends State<JoueurAdd> {
       num.parse(_poidsControleur.text),
       _statutSelectionne!,
     );
-    bool success = await _controleur.modifierJoueur(_joueur!.getJoueurId().toInt(),modifJoueur);
+    bool success = await _controleur.modifierJoueur(
+      _joueur!.getJoueurId().toInt(),
+      modifJoueur,
+    );
     if (!mounted) return;
 
     if (success) {
@@ -172,95 +178,87 @@ class _JoueurAddState extends State<JoueurAdd> {
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0), // Optionnel : ajoute un peu d'air
         child: Column(
+          spacing: 25,
           children: [
-              TextField(
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: _licenceControleur,
-                keyboardType: TextInputType.number,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labellicence,
-                  //"N° Licence",
-                  hintText: AppLocalizations.of(context)!.hintlicence,
-                  //'1059969',
-                  border: const OutlineInputBorder(),
-                ),
+            TextField(
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              controller: _licenceControleur,
+              keyboardType: TextInputType.number,
+              //Permet de définir le type de clavier à afficher
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.labellicence,
+                //"N° Licence",
+                hintText: AppLocalizations.of(context)!.hintlicence,
+                //'1059969',
+                border: const OutlineInputBorder(),
               ),
+            ),
 
-              const SizedBox(height: 6),
-
-              TextField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(
-                    RegExp(r'[a-zA-ZàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ()-_ ]'),
-                  ),
-                ],
-                controller: _nomControleur,
-                keyboardType: TextInputType.name,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labelnom,
-                  //'Nom',
-                  hintText: AppLocalizations.of(context)!.labelnom,
-                  //'Ex: LABRIQUE',
-                  border: const OutlineInputBorder(),
+            TextField(
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(
+                  RegExp(r'[a-zA-ZàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ()-_ ]'),
                 ),
+              ],
+              controller: _nomControleur,
+              keyboardType: TextInputType.name,
+              //Permet de définir le type de clavier à afficher
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.labelnom,
+                //'Nom',
+                hintText: AppLocalizations.of(context)!.labelnom,
+                //'Ex: LABRIQUE',
+                border: const OutlineInputBorder(),
               ),
+            ),
 
-              const SizedBox(height: 6),
-
-              TextField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(
-                    RegExp(r'[a-zA-ZàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ()-_ ]'),
-                  ),
-                ],
-                controller: _prenomControleur,
-                keyboardType: TextInputType.name,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labelprenom,
-                  //'Prénom',
-                  hintText: AppLocalizations.of(context)!.hintprenom,
-                  //'Ex: Bob',
-                  border: const OutlineInputBorder(),
+            TextField(
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(
+                  RegExp(r'[a-zA-ZàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ()-_ ]'),
                 ),
+              ],
+              controller: _prenomControleur,
+              keyboardType: TextInputType.name,
+              //Permet de définir le type de clavier à afficher
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.labelprenom,
+                //'Prénom',
+                hintText: AppLocalizations.of(context)!.hintprenom,
+                //'Ex: Bob',
+                border: const OutlineInputBorder(),
               ),
+            ),
 
-              const SizedBox(height: 6),
-
-              TextField(
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: _poidsControleur,
-                keyboardType: TextInputType.number,
-                //Permet de définir le type de clavier à afficher
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labelpoids,
-                  //'Poids (kg)',
-                  hintText: AppLocalizations.of(context)!.hintpoids,
-                  //'Entre 30 et 300 kg',
-                  border: const OutlineInputBorder(),
-                ),
+            TextField(
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              controller: _poidsControleur,
+              keyboardType: TextInputType.number,
+              //Permet de définir le type de clavier à afficher
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.labelpoids,
+                //'Poids (kg)',
+                hintText: AppLocalizations.of(context)!.hintpoids,
+                //'Entre 30 et 300 kg',
+                border: const OutlineInputBorder(),
               ),
+            ),
 
-              const SizedBox(height: 6),
-
-              TextField(
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                controller: _tailleControleur,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.labeltaille,
-                  //'Taille (cm)'
-                  hintText: AppLocalizations.of(context)!.hinttaille,
-                  //'Entre 50 et 250 cm',
-                  border: const OutlineInputBorder(),
-                ),
+            TextField(
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              controller: _tailleControleur,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.labeltaille,
+                //'Taille (cm)'
+                hintText: AppLocalizations.of(context)!.hinttaille,
+                //'Entre 50 et 250 cm',
+                border: const OutlineInputBorder(),
               ),
+            ),
 
-              const SizedBox(height: 6),
-
-              Row(
+            Card(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(AppLocalizations.of(context)!.labeldate),
@@ -275,8 +273,9 @@ class _JoueurAddState extends State<JoueurAdd> {
                   ),
                 ],
               ),
-              const SizedBox(height: 6),
-              Row(
+            ),
+            Card(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(AppLocalizations.of(context)!.labelstatut),
@@ -297,8 +296,8 @@ class _JoueurAddState extends State<JoueurAdd> {
                   ),
                 ],
               ),
+            ),
 
-              const SizedBox(height: 6),
             if (estAjout) ...[
               TextButton(
                 onPressed: _ajouterJoueur,

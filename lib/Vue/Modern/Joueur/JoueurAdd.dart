@@ -181,7 +181,7 @@ class _JoueurAddState extends State<JoueurAdd> {
                 AppBar().preferredSize.height, // Force la hauteur minimale
           ),
           child: Column(
-            spacing: 30,
+            spacing: 25,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
@@ -261,41 +261,45 @@ class _JoueurAddState extends State<JoueurAdd> {
                 ),
               ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(AppLocalizations.of(context)!.labeldate),
-                  const SizedBox(width: 5),
-                  TextButton(
-                    onPressed: _selectDate,
-                    child: Text(
-                      _dateNaissance != null
-                          ? DateFormat('dd/MM/yyyy').format(_dateNaissance!)
-                          : "dd/MM/yyyy",
+              Card(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(AppLocalizations.of(context)!.labeldate),
+                    const SizedBox(width: 10),
+                    TextButton(
+                      onPressed: _selectDate,
+                      child: Text(
+                        _dateNaissance != null
+                            ? DateFormat('dd/MM/yyyy').format(_dateNaissance!)
+                            : "dd/MM/yyyy",
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(AppLocalizations.of(context)!.labelstatut),
-                  const SizedBox(width: 5),
-                  DropdownButton<JoueurStatut>(
-                    value: _statutSelectionne,
-                    items: JoueurStatut.values.map((statut) {
-                      return DropdownMenuItem(
-                        value: statut,
-                        child: Text(statut.name),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _statutSelectionne = value;
-                      });
-                    },
-                  ),
-                ],
+              Card(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(AppLocalizations.of(context)!.labelstatut),
+                    const SizedBox(width: 10),
+                    DropdownButton<JoueurStatut>(
+                      value: _statutSelectionne,
+                      items: JoueurStatut.values.map((statut) {
+                        return DropdownMenuItem(
+                          value: statut,
+                          child: Text(statut.name),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _statutSelectionne = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
 
               const SizedBox(height: 6),

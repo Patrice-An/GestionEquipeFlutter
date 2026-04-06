@@ -32,7 +32,7 @@ class StateRencontreAdd extends State<RencontreAdd> {
   StateRencontreAdd(this._rencontre);
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     final bool estAjout = this._rencontre == null;
     if (!estAjout) {
@@ -193,32 +193,35 @@ class StateRencontreAdd extends State<RencontreAdd> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          spacing: 30,
           children: [
             // Ajout d'une rencontre
             if (!estPassee) ...[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(AppLocalizations.of(context)!.labeldate),
-                  const SizedBox(width: 5),
-                  TextButton(
-                    onPressed: _selectDate,
-                    child: Text(
-                      _dateEtHeure != null
-                          ? DateFormat('dd/MM/yyyy').format(_dateEtHeure!)
-                          : "dd/MM/yyyy",
+              Card(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(AppLocalizations.of(context)!.labeldaterencontre),
+                    const SizedBox(width: 5),
+                    TextButton(
+                      onPressed: _selectDate,
+                      child: Text(
+                        _dateEtHeure != null
+                            ? DateFormat('dd/MM/yyyy').format(_dateEtHeure!)
+                            : "dd/MM/yyyy",
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 5),
-                  TextButton(
-                    onPressed: _selectTime,
-                    child: Text(
-                      _dateEtHeure != null
-                          ? DateFormat('hh:mm').format(_dateEtHeure!)
-                          : "hh:mm",
+                    const SizedBox(width: 5),
+                    TextButton(
+                      onPressed: _selectTime,
+                      child: Text(
+                        _dateEtHeure != null
+                            ? DateFormat('hh:mm').format(_dateEtHeure!)
+                            : "hh:mm",
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
 
               TextField(
@@ -241,25 +244,27 @@ class StateRencontreAdd extends State<RencontreAdd> {
                   border: const OutlineInputBorder(),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(AppLocalizations.of(context)!.labellieu),
-                  DropdownButton<RencontreLieu>(
-                    value: _lieuSelectionne,
-                    items: RencontreLieu.values.map((statut) {
-                      return DropdownMenuItem(
-                        value: statut,
-                        child: Text(statut.name),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _lieuSelectionne = value;
-                      });
-                    },
-                  ),
-                ],
+              Card(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(AppLocalizations.of(context)!.labellieu),
+                    DropdownButton<RencontreLieu>(
+                      value: _lieuSelectionne,
+                      items: RencontreLieu.values.map((statut) {
+                        return DropdownMenuItem(
+                          value: statut,
+                          child: Text(statut.name),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _lieuSelectionne = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
               if (estAjout) ...[
                 TextButton(
@@ -273,24 +278,26 @@ class StateRencontreAdd extends State<RencontreAdd> {
                 ),
               ],
             ] else ...[
-              Row(
-                children: [
-                  Text(AppLocalizations.of(context)!.labelresultat),
-                  DropdownButton<RencontreResultat>(
-                    value: _resultatSelectionne,
-                    items: RencontreResultat.values.map((resultat) {
-                      return DropdownMenuItem(
-                        value: resultat,
-                        child: Text(resultat.name),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _resultatSelectionne = value;
-                      });
-                    },
-                  ),
-                ],
+              Card(
+                child: Row(
+                  children: [
+                    Text(AppLocalizations.of(context)!.labelresultat),
+                    DropdownButton<RencontreResultat>(
+                      value: _resultatSelectionne,
+                      items: RencontreResultat.values.map((resultat) {
+                        return DropdownMenuItem(
+                          value: resultat,
+                          child: Text(resultat.name),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _resultatSelectionne = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
               TextButton(
                 onPressed: _modifierResultat,

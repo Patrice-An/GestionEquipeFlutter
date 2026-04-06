@@ -59,5 +59,6 @@
   "failresultatrencontre": "Le résultat ne peut pas être vide",
   "deleterencontre": "Supprimer",
   "parametres": "Paramètres",
-  "optionstyle": "Menu moderne : "
+  "optionstyle": "Menu moderne : ",
+  "labeldaterencontre": "Date de la rencontre"
 }
